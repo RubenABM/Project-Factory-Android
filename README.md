@@ -2,7 +2,7 @@
 
 Projeto 6º Semestre de Engenharia Informática
 
-Repositorio Geral do projeto: https://github.com/RubenABM/Project-Factory
+Repositório Geral do projeto: https://github.com/RubenABM/Project-Factory
 
 Alunos:
 - Ana Bernardino
