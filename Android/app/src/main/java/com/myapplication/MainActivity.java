@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String dir = getApplicationInfo().dataDir;
         Log.d("HTTP", dir);
-        TinyWebServer.startServer("localhost",9000, dir);
+        //TinyWebServer.startServer("localhost",9000, dir);
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         //stop webserver on destroy of service or process
-        TinyWebServer.stopServer();
+        //TinyWebServer.stopServer();
     }
 }
