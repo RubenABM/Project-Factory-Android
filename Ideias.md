@@ -4,20 +4,7 @@
 https://mauser.pt/catalog/product_info.php?cPath=1667_2669_2670&products_id=096-6710 
 
       - Consumo de energia: 0,9 mA no modo normal e 1,25 mA no modo combo de alto desempenho até 1,6 kHz
-      - Dimensões: 2 x 2cm
-
-- modulo bluetooth
-https://mauser.pt/catalog/product_info.php?cPath=1667_2604_2607_3359&products_id=096-6478	 		
-
-- dados atmosféricos
-https://www.amazon.es/Fasizi-digital-atmosf%C3%A9rica-temperatura-precisi%C3%B3n/dp/B0BBTMYPN1		
-
-       - Voltaje de alimentación: DC 2V-5.5V.
-       - Corriente de suministro: 23uA.
-       - Corriente de espera: 0.25uA.
-       - Consumo de energía en espera: 0,9uW.
-       - Consumo de potencia de medición: 0,07 mW. 
-       - Dimensões: 16 x 16 x 6 mm
+      - Dimensões: 2 x 2cm	 		
 
 - sensor bpm
 https://www.amazon.es/TECNOIOT-Pulsesensor-Heart-Sensor-Module/dp/B07RD2LLK6	
@@ -70,7 +57,7 @@ https://www.ptrobotics.com/baterias-lipo/3231-polymer-lithium-ion-battery-37v-85
 
          - Dimensões:55 x 27 x 48mm (aproximadamente)
 
-- breadboard (protótipo será desenvolvido sobre breadboard)
+- breadboard (protótipo será desenvolvido sobre breadboard) (versão sem breadboard a combinar com os grupos de design)
 
          - Dimensões: 54 x 82 x 9mm
 
