@@ -11,8 +11,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectFactorySmartHelmet"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".HelmetsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SubscriptionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChallengesActivity"
+            android:exported="true" />
         <activity
             android:name=".CreateAccountActivity"
             android:exported="true" />
