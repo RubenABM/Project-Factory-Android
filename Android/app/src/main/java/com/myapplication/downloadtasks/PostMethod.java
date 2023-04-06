@@ -58,6 +58,9 @@ public class PostMethod extends AsyncTask<String, Void, JSONArray>{
                 Log.i("RESULT", response);
 
                 // Falta converter para JSON ARRAY ou JSONOBJECT
+                JSONArray arr = new JSONArray(response);
+                Log.i("ARRAY", arr.toString());
+                return arr;
 
                 } else {
                 // Quando o código não devolve o 200

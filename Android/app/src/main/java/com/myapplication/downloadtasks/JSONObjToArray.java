@@ -1,23 +1,26 @@
 package com.myapplication.downloadtasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetMethod extends AsyncTask<String, Void, JSONArray> {
+public class JSONObjToArray extends AsyncTask<String, Void, JSONObject> {
 
     @Override
-    protected JSONArray doInBackground(String... urls) {
+    protected JSONObject doInBackground(String... urls) {
 
         String result = "";
         URL url;
         HttpURLConnection urlConnection = null;
-
+        JSONArray jarr = null;
+        JSONObject jobj;
         try{
 
             url = new URL(urls[0]);
@@ -34,9 +37,11 @@ public class GetMethod extends AsyncTask<String, Void, JSONArray> {
                 data = reader.read();
             }
 
-            JSONArray arr = new JSONArray(result);
+            jarr = new JSONArray(result);
+            jobj = jarr.getJSONObject(0);
+            Log.i("", urls[0]);
 
-            return arr;
+            return jobj;
 
         }catch (Exception e){
             e.printStackTrace();
