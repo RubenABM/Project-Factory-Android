@@ -7,6 +7,21 @@
     android:background="#99026E75"
     tools:context=".CreateAccountActivity">
 
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="212dp"
+        android:layout_height="46dp"
+        android:background="#BFFFFFFF"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.529" />
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="233dp"
@@ -31,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.618" />
+        app:layout_constraintVertical_bias="0.614" />
 
     <EditText
         android:id="@+id/editTextTextPassword"

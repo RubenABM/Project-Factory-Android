@@ -28,7 +28,7 @@
             android:name=".CreateAccountActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".StartActivity"
@@ -37,7 +37,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBEBktWgSWoD0nFz-lhNxeaLx4uEg8kQ1M"></meta-data>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.myapplication.models.CreateAccountRequest;
-import com.myapplication.models.CreateAccountModel;
 
+import com.myapplication.downloadtasks.PostMethod;
+
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     EditText emailBox;
 
     EditText passwordBox;
+    EditText usernameBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +34,51 @@ public class CreateAccountActivity extends AppCompatActivity {
         CreateButton = findViewById(R.id.CreateButton);
         emailBox = findViewById(R.id.editTextTextEmailAddress2);
         passwordBox = findViewById(R.id.editTextTextPassword);
+        usernameBox = findViewById(R.id.editTextUsername);
     }
 
     public void createAccount(View view) {
 
+        // Inputs
         String email = emailBox.getText().toString();
         String pass = passwordBox.getText().toString();
-
-        Toast.makeText(this,"Olá " + email + " a tua conta foi criada com sucesso!", Toast.LENGTH_SHORT).show();
-
-
-        CreateAccountRequest request = new CreateAccountRequest();
-        request.email = email;
-        request.password = pass;
+        String username = usernameBox.getText().toString();
 
 
+        // Validar inputs
+        if (email.isEmpty()) {
+            // Mensagem de erro
+            Toast.makeText(this, "Por favor insere um email!", Toast.LENGTH_SHORT).show();
+        } else if (pass.isEmpty()) {
+            // Mensagem de erro
+            Toast.makeText(this, "Por favor insere uma password!", Toast.LENGTH_SHORT).show();
+        } else if (username.isEmpty()) {
+            // Mensagem de erro
+            Toast.makeText(this, "Por favor insere um username!", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
 
+                // Dados do post
+                Map<String, String> postData = new HashMap<>();
+                postData.put("user_name", username);
+                postData.put("user_email", email);
+                postData.put("user_password", pass);
 
+                // Post call
+                PostMethod task = new PostMethod(postData);
+                task.execute("http://13.40.214.190:5000/users/insertnewuser");
 
+                Toast.makeText(this,"Conta foi criada com sucesso!", Toast.LENGTH_SHORT).show();
 
+                // Trocar de activity
+                Intent myIntent = new Intent(this, LoginActivity.class);
+                this.startActivity(myIntent);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this,"Erro ao criar conta!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
 
     }
