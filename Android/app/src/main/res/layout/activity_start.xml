@@ -15,22 +15,28 @@
 
         <include layout="@layout/main_toolbar"/>
 
-        <FrameLayout
-            android:id="@+id/frame_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#acbdb9">
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#acbdb9">
+            </FrameLayout>
 
             <Button
                 android:id="@+id/start_btn"
                 android:layout_width="123dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="650dp"
-                android:text="Start"
-                android:layout_weight="1"
-                android:onClick="OpenTripDetailsDrawer"/>
-        </FrameLayout>
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:onClick="OpenTripDetailsDrawer"
+                android:text="Start" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

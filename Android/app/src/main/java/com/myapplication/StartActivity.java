@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,9 +16,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 public class StartActivity extends AppCompatActivity {
 
     Button startbtn;
+    BottomSheetDialog dialog;
     DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +32,42 @@ public class StartActivity extends AppCompatActivity {
 
         drawer = findViewById(R.id.drawer_layout);
         startbtn = findViewById(R.id.start_btn);
+        dialog = new BottomSheetDialog(this);
+        createDialod();
 
+        startbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    }
+
+    private void createDialod() {
+        View view = getLayoutInflater().inflate(R.layout.fragment_trip_details, null, false);
+
+        Button starttrip = view.findViewById(R.id.startTrip_btn);
+        //EDITTEXT ORIGIN (EditText origin = view.findViewById(R.id.**);
+        //EDITTEXT DESTINATION (EditText destination = view.findViewById(R.id.**);
+
+        starttrip.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(StartActivity.this, "Will start trip with origin and destination", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.setContentView(view);
     }
 
     //menus
     public void OpenLeftSideMenu(View view){openDrawer(drawer);}
     public void OpenRightSideMenu(View view){openDrawer2(drawer);}
+
+    public void CloseLeftMenu(View view){closeDrawer(drawer);}
+    public void CloseRightMenu(View view){closeDrawer2(drawer);}
     public void OpenTripDetailsDrawer(View view){openDrawer3(drawer);}
     public static void openDrawer(DrawerLayout drawer) {
         drawer.openDrawer(GravityCompat.START);
@@ -49,6 +84,13 @@ public class StartActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         }
     }
+    public static void closeDrawer2(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        }
+    }
+
+
     public void ClickHelmets(View view){goToActivity(this, HelmetsActivity.class);}
     public void ClickActivity(View view){
         //goToActivity(this,**);

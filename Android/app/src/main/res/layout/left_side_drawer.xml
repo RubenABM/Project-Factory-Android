@@ -18,6 +18,7 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:onClick="CloseLeftMenu"
             android:src="@drawable/baseline_menu_24"/>
     </LinearLayout>
     <LinearLayout
