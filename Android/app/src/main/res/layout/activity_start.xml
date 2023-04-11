@@ -1,41 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#D9D9D9"
     tools:context=".StartActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"/>
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="645dp"
-        android:background="#acbdb9"/>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="123dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="618dp" />
+        <include layout="@layout/main_toolbar"/>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#acbdb9">
+
+            <Button
+                android:id="@+id/start_btn"
+                android:layout_width="123dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="650dp"
+                android:text="Start"
+                android:layout_weight="1"
+                android:onClick="OpenTripDetailsDrawer"/>
+        </FrameLayout>
+
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
 
+        <include layout="@layout/left_side_drawer"/>
 
+    </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/right_side_drawer_layout"
+        android:layout_gravity="end">
+
+        <include layout="@layout/right_side_drawer"/>
+
+    </RelativeLayout>
+    <!--
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/bottom_drawer_layout"
+        android:layout_gravity="bottom">
+
+        <include layout="@layout/fragment_trip_details"/>
+
+    </RelativeLayout>
+    -->
+
+</androidx.drawerlayout.widget.DrawerLayout>
