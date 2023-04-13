@@ -1,17 +1,19 @@
 ## Ideias
 
-- Acelerometro/Giroscopio (obrigatório colocar no capacete da maneira discutida com os grupos, outro posicionamento não será possivel)
+- Acelerometro/Giroscopio 
 https://mauser.pt/catalog/product_info.php?cPath=1667_2669_2670&products_id=096-6710 
 
       - Consumo de energia: 0,9 mA no modo normal e 1,25 mA no modo combo de alto desempenho até 1,6 kHz
-      - Dimensões: 2 x 2cm	 		
+      - Dimensões: 2 x 2cm	 
+      - (obrigatório colocar no capacete da maneira discutida com os grupos, outro posicionamento não será possivel)
 
-- sensor bpm (posicionamento no capacete decidido com os grupos) | contacto com pele obrigatório
+- sensor bpm
 https://www.amazon.es/TECNOIOT-Pulsesensor-Heart-Sensor-Module/dp/B07RD2LLK6	
 
        - Operating Voltage: +5V or +3.3V
        - Current Consumption: 4mA
        - Diametro: 16MM
+       -  (posicionamento no capacete decidido com os grupos) | contacto com pele obrigatório)
        
 - GPS	
 https://www.amazon.es/ICQUANZX-GY-NEO6MV2-NEO-6M-cer%C3%A1mica-superpotente/dp/B088LR3488
