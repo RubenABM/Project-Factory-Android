@@ -1,12 +1,12 @@
 ## Ideias
 
-- Acelerometro/Giroscopio
+- Acelerometro/Giroscopio (obrigatório colocar no capacete da maneira discutida com os grupos, outro posicionamento não será possivel)
 https://mauser.pt/catalog/product_info.php?cPath=1667_2669_2670&products_id=096-6710 
 
       - Consumo de energia: 0,9 mA no modo normal e 1,25 mA no modo combo de alto desempenho até 1,6 kHz
       - Dimensões: 2 x 2cm	 		
 
-- sensor bpm
+- sensor bpm (posicionamento no capacete decidido com os grupos) | contacto com pele obrigatório
 https://www.amazon.es/TECNOIOT-Pulsesensor-Heart-Sensor-Module/dp/B07RD2LLK6	
 
        - Operating Voltage: +5V or +3.3V
@@ -45,6 +45,8 @@ https://www.ptrobotics.com/baterias-lipo/3231-polymer-lithium-ion-battery-37v-85
 
 - Módulo de conversor de impulso automático DC-DC (X2)https://pt.aliexpress.com/item/1005002849970161.html?algo_exp_id=c0f3ad17-9407-4700-9637-410c1c530cdd-27&pdp_ext_f=%7B%22sku_id%22%3A%2212000022459998327%22%7D&pdp_npi=3%40dis%21EUR%210.61%210.54%21%21%21%21%21%40211bf55216790429174211337d06c7%2112000022459998327%21sea%21PT%212445244118&curPageLogUid=ilFDCSWB2MDd
 
+- botão de ligar led frontal (mostrado aos grupos presencialmente)
+
 - buzzer
 
          - current <25MA
@@ -61,6 +63,13 @@ https://www.ptrobotics.com/baterias-lipo/3231-polymer-lithium-ion-battery-37v-85
 - (Já combinado com os grupos de design. A versão a implementar no capacete apenas utilizará o esp32(controlador) apoiado com material proprio do capacete desenvolvido pelos grupos, não será utilizada a breadboard).
 
          - Dimensões: 54 x 82 x 9mm
+
+-NOTAS
+      As dimensões finais dos modulos/sensores será ligeiramente mais pequena por possibilidade de soldar os cabos diretamente aos sensore, evitando a utilização dos pins, como foi discutido com os grupos.
+      Ter em consideração as informações passadas sobre limitações de distância dos sensores ao controlador (esp32).
+      As alterações discutidas em especifico com cada grupo não estarão aqui indicadas mas refletem-se no respetivo grupo.
+      
+
 
 -------
 
