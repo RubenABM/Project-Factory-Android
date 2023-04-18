@@ -1,4 +1,5 @@
 
+--Atualizar insert--
 insert into user (user_name, user_email, user_password, user_points) values ('Artur Teste','artur@iade.pt', 'arturiade', '0000'); 
 
 ---------TEST INSERT-------------------------
