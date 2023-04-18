@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         File filesDir = getFilesDir();
         String dir = filesDir.getAbsolutePath();
-        Log.d(TAG, dir);
+        Log.d(TAG,"CAMINHO:" + dir);
 
         Context context = getApplicationContext();
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         TextView txt = (TextView) findViewById(R.id.texto);
         txt.setText("IP: " + ip);
 
+        Log.d(TAG, "FilesDIR: " + filesDir);
         criaIndex(filesDir, ip);
+        //criaIndex2("", ip);
 
         //TinyWebServer.startServer("localhost",8080, dir);
         TinyWebServer.startServer(ip,8080, dir);
@@ -81,6 +83,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void criaIndex(File filesDir, String ip) {
+        try {
+            File f = new File(filesDir + "/index.html");
+
+            if (f.exists()) {
+                Log.d(TAG, "Ficheiro index.html existe");
+                f.delete();
+                Log.d(TAG, "Vou abrir ficheiro para escrita");
+                FileWriter out = new FileWriter(f, true);
+                Log.d(TAG, "Abri ficheiro para escrita");
+                out.append("<html><head><meta charset='utf-8'></head><body><h2>Android</h2><p>O meu IP é: " + ip + "</p></body></html>");
+                Log.d(TAG, "Escrevi no ficheiro");
+                out.flush();
+                out.close();
+            }
+
+        } catch(Exception e){
+            e.printStackTrace();
+            Log.d(TAG, "Erro a criar o ficheiro: " + e.toString());
+        }
+    }
+
+    public void criaIndex2(String filesDir, String ip) {
         try {
             File f = new File(filesDir + "/index.html");
 
