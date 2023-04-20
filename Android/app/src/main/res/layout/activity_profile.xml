@@ -28,20 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/CreateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#003B3F"
-        android:onClick="createAccount"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -57,44 +43,81 @@
         app:layout_constraintVertical_bias="0.037" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/EditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name:"
+        android:text="Edit Profile"
         android:textColor="#000000"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="402dp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.421" />
 
-    <TextView
-        android:id="@+id/textView12"
+    <EditText
+        android:id="@+id/Editname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email:"
+        android:backgroundTint="#00000000"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
         android:textColor="#000000"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="449dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.509" />
 
-    <TextView
-        android:id="@+id/textView11"
+    <EditText
+        android:id="@+id/EditPoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Health:"
+        android:backgroundTint="#00000000"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Points"
         android:textColor="#000000"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="492dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.8" />
 
-    <TextView
-        android:id="@+id/textView13"
+    <EditText
+        android:id="@+id/Editmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Points:"
+        android:backgroundTint="#00000000"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Email"
         android:textColor="#000000"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="537dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.615" />
+
+    <EditText
+        android:id="@+id/EditHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00000000"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Health"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.705" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
