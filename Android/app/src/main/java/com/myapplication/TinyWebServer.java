@@ -158,7 +158,7 @@ public class TinyWebServer extends Thread {
     public static String SERVER_IP="localhost";
     public static int SERVER_PORT=9000;
     public static boolean isStart=true;
-    public static String INDEX_FILE_NAME="index.html";
+    public static String INDEX_FILE_NAME="index";
 
 
     public TinyWebServer(final String ip, final int port) throws IOException {
