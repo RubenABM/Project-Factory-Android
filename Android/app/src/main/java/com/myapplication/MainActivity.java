@@ -14,8 +14,12 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.myapplication.downloadtasks.PostMethod;
+
 import java.io.File;
 import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "HTTPDIR";
@@ -55,14 +59,22 @@ public class MainActivity extends AppCompatActivity {
 
         //TinyWebServer.startServer("localhost",8080, dir);
         TinyWebServer.startServer(ip,8080, dir);
+
+        // Dados do post
+        Map<String, String> postData = new HashMap<>();
+        postData.put("newText", ip);
+        PostMethod task = new PostMethod(postData);
+        task.execute("http://13.40.214.190:5000/updateip");
+
     }
 
+    /*
     @Override
     public void onDestroy(){
         super.onDestroy();
         //stop webserver on destroy of service or process
         TinyWebServer.stopServer();
-    }
+    }*/
 
     private boolean checkPermissions() {
         Log.d(TAG, "checkPermissions");
