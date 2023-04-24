@@ -20,11 +20,10 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        drawerLayout = findViewById(R.id.imageView3);
+
         nameBox=findViewById(R.id.Editname);
         mailBox=findViewById(R.id.Editmail);
-        healthBox=findViewById(R.id.EditHealth);
-        pointBox=findViewById(R.id.EditPoint);
+
     }
         public void updateProfile(View view)
         {
