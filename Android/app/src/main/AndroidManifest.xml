@@ -16,14 +16,8 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HealthActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PointsActivity"
-            android:exported="false" />
+            android:name=".ProfileActivity"
+            android:exported="true" />
         <activity
             android:name=".HelmetsActivity"
             android:exported="true" />
