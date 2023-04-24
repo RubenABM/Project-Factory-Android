@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewTitleSubscriptions"
+        android:id="@+id/textViewTitleSettings"
         android:layout_width="130dp"
         android:layout_height="43dp"
         android:text="Helmets"
