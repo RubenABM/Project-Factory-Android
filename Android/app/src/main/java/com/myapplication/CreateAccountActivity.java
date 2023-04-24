@@ -3,7 +3,6 @@ package com.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import com.myapplication.downloadtasks.PostMethod;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -31,7 +29,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        CreateButton = findViewById(R.id.CreateButton);
+        CreateButton = findViewById(R.id.BackButton);
         emailBox = findViewById(R.id.editTextTextEmailAddress2);
         passwordBox = findViewById(R.id.editTextTextPassword);
         usernameBox = findViewById(R.id.editTextUsername);
