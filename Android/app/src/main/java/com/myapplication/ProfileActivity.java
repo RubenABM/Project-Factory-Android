@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.myapplication.downloadtasks.JSONObj;
+
+import org.json.JSONObject;
+
 public class ProfileActivity extends AppCompatActivity {
 
     EditText nameBox, mailBox, healthBox, pointBox, passBox, pass2Box;
     DrawerLayout drawerLayout;
+    JSONObject loginjson = null;
 
 
     @Override
@@ -46,6 +51,13 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(this,"Data changed! ", Toast.LENGTH_LONG).show();
 
             // Dados do get
+
+            iduser = getIntent().getStringExtra("key");
+            JSONObj task = new JSONObj();
+            try {
+                loginjson = task.execute("https://myiade.herokuapp.com/api/students/"+iduser).get();
+                username.setText(loginjson.getString("name"));
+                useremail.setText(loginjson.getString("email"));
 
 
 
