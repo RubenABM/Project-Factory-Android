@@ -45,6 +45,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
             Toast.makeText(this,"Data changed! ", Toast.LENGTH_LONG).show();
 
+            // Dados do get
+
+
+
 
 
 
