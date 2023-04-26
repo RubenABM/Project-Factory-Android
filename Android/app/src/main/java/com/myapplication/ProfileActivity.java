@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class ProfileActivity extends AppCompatActivity {
 
     EditText nameBox, mailBox, healthBox, pointBox, passBox, pass2Box;
-    TextView points;
+    TextView points, username, useremail, userpass;
     DrawerLayout drawerLayout;
     static String iduser;
 
@@ -39,13 +39,16 @@ public class ProfileActivity extends AppCompatActivity {
         nameBox = findViewById(R.id.Editname);
         mailBox = findViewById(R.id.Editmail);
         passBox = findViewById(R.id.EditPass);
-        pass2Box = findViewById(R.id.EditPass2);
         points = findViewById(R.id.pointBox2);
+        username = findViewById(R.id.userName);
+        useremail = findViewById(R.id.userEmail);
+        userpass = findViewById(R.id.userPass);
 
         String name = nameBox.getText().toString();
         String email = mailBox.getText().toString();
         String pass = passBox.getText().toString();
         String pass2 = pass2Box.getText().toString();
+
 
 
         if (email.isEmpty() || name.isEmpty() || pass.isEmpty()) {
@@ -58,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        // Dados do get dos pontos
+        // Metodo Get para ir buscar os pontos do utilizador
 
         iduser = getIntent().getStringExtra("key");
         //JSONObj task = new JSONObj();
@@ -83,16 +86,16 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    //Dados do post do nome, mail e pass
+    //Metodo Post para ir buscar os dados do utilizador, username, useremail, userpass
 
-    //Map<String, String> postData = new HashMap<>();
-    //postData.put("user_name", name);
-    //postData.put("user_email", email);
-    //postData.put("user_password", pass);
+    Map<String, String> postData = new HashMap<>();
+    postData.put("user_name", username);
+    postData.put("user_email", useremail);
+    postData.put("user_password", userpass);
 
-    // Post call
-    //PostMethod task = new PostMethod(postData);
-    //task.execute("http://13.40.214.190:5000/users/insertnewuser");
+     //Post call
+    PostMethod task = new PostMethod(postData);
+    task.execute("http://13.40.214.190:5000/users/updateuser/");
 
-    //Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 }
