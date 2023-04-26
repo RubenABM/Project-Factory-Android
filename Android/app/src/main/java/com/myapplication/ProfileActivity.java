@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText nameBox, mailBox, healthBox, pointBox, passBox, pass2Box;
     TextView points;
     DrawerLayout drawerLayout;
+    static String iduser;
 
 
 
@@ -46,23 +47,26 @@ public class ProfileActivity extends AppCompatActivity {
         String pass = passBox.getText().toString();
         String pass2 = pass2Box.getText().toString();
 
-        /*
+
         if (email.isEmpty() || name.isEmpty() || pass.isEmpty()) {
             Toast.makeText(getBaseContext(), "Preencher todos os campos!", Toast.LENGTH_LONG).show();
+
         }
         if (!pass.equals(pass2)) {
             Toast.makeText(getBaseContext(), "As palavras passes não coincidem!", Toast.LENGTH_LONG).show();
-        }*/
+
+        }
 
 
         // Dados do get dos pontos
 
-        //iduser = getIntent().getStringExtra("key");
+        iduser = getIntent().getStringExtra("key");
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://13.40.214.190:5000/users/1").get();
+            loginjson = task.execute("http://13.40.214.190:5000/users/" + iduser).get();
             points.setText(loginjson.getString("user_points"));
+            Log.d("AQUIIII::::", loginjson.toString());
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -76,6 +80,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
+
 
     //Dados do post do nome, mail e pass
 

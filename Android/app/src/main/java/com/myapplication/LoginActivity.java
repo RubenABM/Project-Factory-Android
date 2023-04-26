@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (loginjson != null) {
                 Toast.makeText(this, "Bem vindo " + loginjson.getString("user_name") + " !!!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(this, MainActivity.class);
+                Intent myIntent = new Intent(this, ProfileActivity.class);
                 myIntent.putExtra("key", loginjson.getString("user_id"));
                 this.startActivity(myIntent);
             } else {
