@@ -4,6 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D9D9D9"
     tools:context=".PointsActivity">
+
+    <ImageView
+        android:id="@+id/imageViewCircle"
+        android:layout_width="249dp"
+        android:layout_height="220dp"
+        android:src="@tools:sample/avatars"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.408"
+        app:srcCompat="@drawable/circulo" />
+
+    <View
+        android:id="@+id/viewBlack"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitlePoints"
+        android:layout_width="172dp"
+        android:layout_height="42dp"
+        android:text="Points"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewBlack" />
+
+    <TextView
+        android:id="@+id/textViewPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 pts"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewCircle"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewCircle"
+        app:layout_constraintStart_toStartOf="@+id/imageViewCircle"
+        app:layout_constraintTop_toTopOf="@+id/imageViewCircle" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
