@@ -6,11 +6,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myapplication.downloadtasks.JSONObj;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
 
@@ -24,7 +24,8 @@ import java.util.concurrent.ExecutionException;
 public class ProfileActivity extends AppCompatActivity {
 
     EditText nameBox, mailBox, healthBox, pointBox, passBox, pass2Box;
-    TextView points, username, useremail, userpass;
+    Button update;
+    TextView points, username, useremail, userpass, editprofile, UserName, UserEmail, UserPass, Points;
     DrawerLayout drawerLayout;
     static String iduser;
 
@@ -43,22 +44,28 @@ public class ProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.userName);
         useremail = findViewById(R.id.userEmail);
         userpass = findViewById(R.id.userPass);
+        editprofile = findViewById(R.id.textView10);
+        update = findViewById(R.id.button);
+        UserName = findViewById(R.id.userName3);
+        UserEmail = findViewById(R.id.userEmail3);
+        UserPass = findViewById(R.id.userPass3);
+        Points = findViewById(R.id.pointBox);
 
         String name = nameBox.getText().toString();
         String email = mailBox.getText().toString();
         String pass = passBox.getText().toString();
-        String pass2 = pass2Box.getText().toString();
 
 
 
-        if (email.isEmpty() || name.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(getBaseContext(), "Preencher todos os campos!", Toast.LENGTH_LONG).show();
 
-        }
-        if (!pass.equals(pass2)) {
-            Toast.makeText(getBaseContext(), "As palavras passes não coincidem!", Toast.LENGTH_LONG).show();
+        //if (email.isEmpty() || name.isEmpty() || pass.isEmpty()) {
+           // Toast.makeText(getBaseContext(), "Preencher todos os campos!", Toast.LENGTH_LONG).show();
 
-        }
+        //}
+       // if (!pass.equals(pass2)) {
+          //  Toast.makeText(getBaseContext(), "As palavras passes não coincidem!", Toast.LENGTH_LONG).show();
+
+        //}
 
 
         // Metodo Get para ir buscar os pontos do utilizador
@@ -67,11 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://13.40.214.190:5000/users/" + iduser).get();
+            loginjson = task.execute("http://13.40.214.190:5000/users/1").get();
             points.setText(loginjson.getString("user_points"));
             username.setText(loginjson.getString("user_name"));
-            useremail.setText(loginjson.getString("user_mail"));
-            userpass.setText(loginjson.getString("user_pass"));
+            useremail.setText(loginjson.getString("user_email"));
+            userpass.setText(loginjson.getString("user_password"));
             Log.d("AQUIIII::::", loginjson.toString());
 
         } catch (ExecutionException e) {
@@ -85,19 +92,58 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
+
+    }
+    public void EditProfile(View view){
+
+        editprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameBox.setVisibility(View.VISIBLE);
+                mailBox.setVisibility(View.VISIBLE);
+                passBox.setVisibility(View.VISIBLE);
+                update.setVisibility(View.VISIBLE);
+
+                username.setVisibility(View.INVISIBLE);
+                useremail.setVisibility(View.INVISIBLE);
+                userpass.setVisibility(View.INVISIBLE);
+                points.setVisibility(View.INVISIBLE);
+                UserName.setVisibility(View.INVISIBLE);
+                UserEmail.setVisibility(View.INVISIBLE);
+                UserPass.setVisibility(View.INVISIBLE);
+                Points.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+    }
+
+
+    public void UpdateProfile(View v){
+
         //Metodo Post para ir buscar os dados do utilizador, username, useremail, userpass
+        String name = nameBox.getText().toString();
+        String email = mailBox.getText().toString();
+        String pass = passBox.getText().toString();
 
         Map<String, String> postData = new HashMap<>();
         postData.put("user_name", name);
         postData.put("user_email", email);
         postData.put("user_password", pass);
 
-        //Post call
         PostMethod task1 = new PostMethod(postData);
-        task1.execute("http://13.40.214.190:5000/users/updateuser/");
+
+        //Post call
+        try {
+
+        task1.execute("http://13.40.214.190:5000/users/updateuse");
+        Log.d("AQUIII", task1.execute("http://13.40.214.190:5000/users/updateuser/1" + iduser).toString());
 
         Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
+        } catch (Exception e){
+            Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
