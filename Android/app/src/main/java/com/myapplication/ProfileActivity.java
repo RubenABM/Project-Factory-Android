@@ -69,6 +69,9 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             loginjson = task.execute("http://13.40.214.190:5000/users/" + iduser).get();
             points.setText(loginjson.getString("user_points"));
+            username.setText(loginjson.getString("user_name"));
+            useremail.setText(loginjson.getString("user_mail"));
+            userpass.setText(loginjson.getString("user_pass"));
             Log.d("AQUIIII::::", loginjson.toString());
 
         } catch (ExecutionException e) {
@@ -82,20 +85,20 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
+        //Metodo Post para ir buscar os dados do utilizador, username, useremail, userpass
+
+        Map<String, String> postData = new HashMap<>();
+        postData.put("user_name", name);
+        postData.put("user_email", email);
+        postData.put("user_password", pass);
+
+        //Post call
+        PostMethod task = new PostMethod(postData);
+        task.execute("http://13.40.214.190:5000/users/updateuser/");
+
+        Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
+
+
     }
 
-
-
-    //Metodo Post para ir buscar os dados do utilizador, username, useremail, userpass
-
-    Map<String, String> postData = new HashMap<>();
-    postData.put("user_name", username);
-    postData.put("user_email", useremail);
-    postData.put("user_password", userpass);
-
-     //Post call
-    PostMethod task = new PostMethod(postData);
-    task.execute("http://13.40.214.190:5000/users/updateuser/");
-
-    Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 }
