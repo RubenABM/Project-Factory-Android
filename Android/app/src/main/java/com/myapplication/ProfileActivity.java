@@ -93,8 +93,8 @@ public class ProfileActivity extends AppCompatActivity {
         postData.put("user_password", pass);
 
         //Post call
-        PostMethod task = new PostMethod(postData);
-        task.execute("http://13.40.214.190:5000/users/updateuser/");
+        PostMethod task1 = new PostMethod(postData);
+        task1.execute("http://13.40.214.190:5000/users/updateuser/");
 
         Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
