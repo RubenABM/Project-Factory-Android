@@ -136,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Post call
         try {
 
-        task1.execute("http://13.40.214.190:5000/users/updateuse");
+        task1.execute("http://13.40.214.190:5000/users/updateuser");
         Log.d("AQUIII", task1.execute("http://13.40.214.190:5000/users/updateuser/1" + iduser).toString());
 
         Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();

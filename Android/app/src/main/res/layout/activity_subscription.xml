@@ -12,50 +12,60 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="120dp"
+        android:onClick="Gratis2"
         android:text="Subscrição grátis"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="152dp"
+        android:layout_marginEnd="44dp"
+        android:onClick="Paga2"
         android:text="Subscrição paga"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonChange"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.63" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="119dp"
         android:layout_height="87dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView7"
-        app:layout_constraintEnd_toStartOf="@+id/textView7"
-        app:layout_constraintHorizontal_bias="0.857"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="216dp"
+        android:onClick="Gratis2"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.969"
         app:srcCompat="@drawable/star" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="119dp"
         android:layout_height="87dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="120dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonChange"
+        android:layout_marginStart="40dp"
+        android:onClick="Paga2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.644"
         app:srcCompat="@drawable/star" />
 
     <View
@@ -88,38 +98,58 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#003B3F"
+        android:onClick="Alterar"
         android:text="Alterar"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonChange2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="#003B3F"
+        android:onClick="Alterar1"
+        android:text="Alterar"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="119dp"
         android:layout_height="87dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.605"
+        app:layout_constraintVertical_bias="0.139"
         app:srcCompat="@drawable/star" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginEnd="48dp"
         android:text="Subscrição atual"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
+        app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintVertical_bias="0.174" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
