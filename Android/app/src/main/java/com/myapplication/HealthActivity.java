@@ -20,7 +20,7 @@ public class HealthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
-        JSONObject loginjson = null;
+        JSONObject healthjson = null;
 
         bpmRes = findViewById(R.id.textViewBPMResults);
         tempRes = findViewById(R.id.textViewTemperatureResults);
@@ -31,8 +31,10 @@ public class HealthActivity extends AppCompatActivity {
         JSONObjToArray task = new JSONObjToArray();
 
         try{
-            //loginjson = task.execute("http://13.40.214.190:5000/users/" + iduser + idrota).get();
-            //bpmRes.setText(loginjson.getString("user_"));
+            //healthjson = task.execute("http://13.40.214.190:5000/users/" + iduser + idrota).get();
+            //bpmRes.setText(healthjson.getString("user_"));
+            //tempRes.setText(healthjson.getString(""));
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

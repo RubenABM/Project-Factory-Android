@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@+id/viewBlack" />
 
     <ImageView
-        android:id="@+id/imageViewSettings"
+        android:id="@+id/imageViewPoints"
         android:layout_width="90dp"
         android:layout_height="90dp"
         app:layout_constraintBottom_toBottomOf="parent"

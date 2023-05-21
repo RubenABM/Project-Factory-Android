@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D9D9D9"
+    tools:context=".PointsActivity">
+
+    <View
+        android:id="@+id/viewBlack"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitlePoints"
+        android:layout_width="172dp"
+        android:layout_height="42dp"
+        android:text="Points"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewBlack" />
+
+    <ImageView
+        android:id="@+id/imageViewPoints"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.15"
+        app:srcCompat="@drawable/circulo" />
+
+    <TextView
+        android:id="@+id/textViewPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POINTS"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPoints"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPoints"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPoints"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPoints" />
+
+    <ImageView
+        android:id="@+id/imageViewOferta"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
+        app:layout_constraintVertical_bias="0.583"
+        app:srcCompat="@drawable/circulo" />
+
+    <TextView
+        android:id="@+id/textViewPointsOferta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POINTS"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewOferta"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewOferta"
+        app:layout_constraintStart_toStartOf="@+id/imageViewOferta"
+        app:layout_constraintTop_toTopOf="@+id/imageViewOferta" />
+
+    <TextView
+        android:id="@+id/textViewPointsOfertaDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewOferta"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <Button
+        android:id="@+id/buttonRevertPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REVERT POINTS"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="643dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
