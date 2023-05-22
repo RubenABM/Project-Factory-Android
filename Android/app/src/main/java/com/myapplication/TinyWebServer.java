@@ -2,6 +2,7 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.BufferedWriter;
@@ -134,6 +135,8 @@ public class TinyWebServer extends Thread {
     public static boolean isStart=true;
     public static String INDEX_FILE_NAME="index.html";
 
+    public static HashMap<String, String> qparms = new HashMap<>();;
+    private DatabaseHelper dbHandler;
 
     public TinyWebServer(final String ip, final int port) throws IOException {
 
@@ -275,47 +278,26 @@ public class TinyWebServer extends Thread {
                 URL geturl = getDecodedUrl("http://localhost" + location);
                 String[] dirPath = geturl.getPath().split("/");
                 String fullFilePath=geturl.getPath();
-                Log.d(TAG, "fullFilePath: ");
-                Log.d(TAG, fullFilePath);
+                //Log.d(TAG, "fullFilePath: ");
+                //Log.d(TAG, fullFilePath);
                 if (dirPath.length > 1) {
                     String fileName = dirPath[dirPath.length - 1];
-                    Log.d(TAG, "location: ");
-                    HashMap qparms = (HashMap) splitQuery(postData);
+                    //Log.d(TAG, "location: ");
                     if(REQUEST_TYPE.equals("POST")){
                         if (qparms==null){ qparms=new HashMap<String,String>();}
-                        qparms.put("_POST", postData);
-                        Log.d(TAG, "postData: ");
-                        Log.d(TAG, postData);
-
+                        //qparms.put("_POST", postData);
+                        HashMap qparms = (HashMap) splitQuery(postData);
+                        DataHolder.getInstance().setDataMap(qparms);
+                        System.out.print("qparms gpslat: ");
+                        System.out.println(qparms.get("gpslat"));
+                        System.out.print("qparms gpslong: ");
+                        System.out.println(qparms.get("gpslong"));
                     }
                     //System.out.println("File name " + fileName);
                     //System.out.println("url parms " + qparms);
                     CONTENT_TYPE = getContentType(fileName);
-                    if(!CONTENT_TYPE.equals("text/plain")){
-                        // System.out.println("Full file path - >"+fullFilePath +" "+CONTENT_TYPE);
-
-                        if(CONTENT_TYPE.equals("image/jpeg") || CONTENT_TYPE.equals("image/png") || CONTENT_TYPE.equals("video/mp4")){
-                            byte[] bytdata=readImageFiles(WEB_DIR_PATH+fullFilePath,CONTENT_TYPE);
-                            //System.out.println(bytdata.length);
-                            if(bytdata!=null){
-                                constructHeaderImage(out, bytdata.length+"", bytdata);
-                            }else{
-                                pageNotFound();
-                            }
-                        }else{
-                            data=readFile(WEB_DIR_PATH+fullFilePath);
-                            if(!data.equals("")){
-                                constructHeader(out, data.length() + "", data);
-                            }else{
-                                pageNotFound();
-                            }
-                        }
-                    }else{
-                        data = getResultByName(fileName, qparms);
-                        constructHeader(out, data.length() + "", data);
-                    }
-
-
+                    data = getResultByName(fileName, qparms);
+                    constructHeader(out, data.length() + "", data);
                 }
 
         }
@@ -336,24 +318,27 @@ public class TinyWebServer extends Thread {
 
         try {
             final HashMap<String, String> query_pairs = new HashMap<>();
-            final String[] pairs = parms.split("&");
-            for (String pair : pairs) {
-                final int idx = pair.indexOf("=");
-                final String key = idx > 0 ? URLDecoder.decode(pair.substring(0, idx), "UTF-8") : pair;
+            final String[] pairs = parms.split("&");//pega apenas na string com os parametros
+            final String[] coords = pairs[0].split(",");//divide a string pela , e mete num array String[]
+
+            for (String coord : coords) {
+                final int idx = coord.indexOf("=");
+                final String key = idx > 0 ? URLDecoder.decode(coord.substring(0, idx), "UTF-8") : coord;
                 if (!query_pairs.containsKey(key)) {
                     query_pairs.put(key, "");
                 }
-                final String value = idx > 0 && pair.length() > idx + 1 ? URLDecoder.decode(pair.substring(idx + 1), "UTF-8") : null;
+                final String value = idx > 0 && coord.length() > idx + 1 ? URLDecoder.decode(coord.substring(idx + 1), "UTF-8") : null;
                 query_pairs.put(key, value);
-                Log.d(TAG, "Key: ");
-                Log.d(TAG, key);
-                Log.d(TAG, "Value: ");
-                Log.d(TAG, value);
+                //Log.d(TAG, "Key: ");
+                //Log.d(TAG, key);
+                //Log.d(TAG, "Value: ");
+                //Log.d(TAG, value);
+
             }
             return query_pairs;
         } catch (Exception er) {
         }
-        Log.d(TAG, "NULL RETURN");
+        //Log.d(TAG, "NULL RETURN");
         return null;
     }
 

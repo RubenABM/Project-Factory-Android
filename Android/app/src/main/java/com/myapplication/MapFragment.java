@@ -29,6 +29,7 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
                         MarkerOptions markerOptions = new MarkerOptions();

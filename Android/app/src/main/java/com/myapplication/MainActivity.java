@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myapplication.downloadtasks.PostMethod;
 
@@ -23,22 +24,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "HTTPDIR";
+    private DatabaseHelper dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //String dir = getApplicationInfo().dataDir;
-
-        if (!checkPermissions()) {
-            requestPermissions();
-        }
-
-        if (!checkPermissions()) {
-            Log.d(TAG, "Não foram dadas permissões");
-            finish();
-        } else {
-            Log.d(TAG, "Já há permissões de escrita");
-        }
 
         File filesDir = getFilesDir();
         String dir = filesDir.getAbsolutePath();
@@ -59,6 +49,39 @@ public class MainActivity extends AppCompatActivity {
 
         //TinyWebServer.startServer("localhost",8080, dir);
         TinyWebServer.startServer(ip,8080, dir);
+
+        //String dir = getApplicationInfo().dataDir;
+
+        // creating a new dbhandler class and passing new coordinates
+        dbHandler = new DatabaseHelper(MainActivity.this);
+        HashMap<String, String> receivedDataMap;
+        receivedDataMap = DataHolder.getInstance().getDataMap();
+
+        if (receivedDataMap != null) {
+
+            String esp32lat = receivedDataMap.get("gpslat");
+            String esp32long = receivedDataMap.get("gpslong");
+            String userfall = receivedDataMap.get("fall");
+            dbHandler.addNewCoords(esp32lat, esp32long);
+
+            /*if(userfall == "true"){
+                //Toast.makeText(MainActivity.this, "User fell!", Toast.LENGTH_SHORT);
+            }else{
+                dbHandler.addNewCoords(esp32lat, esp32long);
+            }
+             */
+        }else Toast.makeText(MainActivity.this, "receivedDataMap is NULL!", Toast.LENGTH_SHORT).show();
+
+        if (!checkPermissions()) {
+            requestPermissions();
+        }
+
+        if (!checkPermissions()) {
+            Log.d(TAG, "Não foram dadas permissões");
+            finish();
+        } else {
+            Log.d(TAG, "Já há permissões de escrita");
+        }
 
         // Dados do post
         Map<String, String> postData = new HashMap<>();
