@@ -38,7 +38,10 @@ create table helmet (
 create table challenge (
 					chall_id SERIAL not null,
 					chall_coord Geometry not null,		
-					chall_points INT not null,					
+					chall_points INT not null,	
+					chall_award VARCHAR(50) not null,
+					chall_totalKM VARCHAR(30) not null,
+					chall_provider VARCHAR(30) not null,
 					primary key (chall_id)	
 );
 
