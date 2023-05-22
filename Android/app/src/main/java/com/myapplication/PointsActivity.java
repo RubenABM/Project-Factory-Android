@@ -33,9 +33,7 @@ public class PointsActivity extends AppCompatActivity {
 
         //Método GET para reverter os pontos em ofertas
         JSONObjToArray task1 = new JSONObjToArray();
-        try {
 
-        }
 
     }
 }

@@ -1,5 +1,9 @@
 package com.myapplication;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -256,13 +260,16 @@ public class TinyWebServer extends Thread {
 
         String data = "";
         switch (location) {
+
             case "/":
                 //root location, server index file
                 CONTENT_TYPE = "text/html";
                 data=readFile(WEB_DIR_PATH+"/"+INDEX_FILE_NAME);
                 constructHeader(out, data.length() + "", data);
                 break;
-            default:
+
+
+            case "/test":
 
                 System.out.println("url location -> " + location);
                 URL geturl = getDecodedUrl("http://localhost" + location);
@@ -274,6 +281,9 @@ public class TinyWebServer extends Thread {
                     if(REQUEST_TYPE.equals("POST")){
                         if (qparms==null){ qparms=new HashMap<String,String>();}
                         qparms.put("_POST", postData);
+                        Log.d(TAG, "postData: ");
+                        Log.d(TAG, postData);
+
                     }
                     //System.out.println("File name " + fileName);
                     //System.out.println("url parms " + qparms);
@@ -331,6 +341,11 @@ public class TinyWebServer extends Thread {
                 }
                 final String value = idx > 0 && pair.length() > idx + 1 ? URLDecoder.decode(pair.substring(idx + 1), "UTF-8") : null;
                 query_pairs.put(key, value);
+
+                Log.d(TAG, "Key: ");
+                Log.d(TAG, key);
+                Log.d(TAG, "Value: ");
+                Log.d(TAG, value);
             }
             return query_pairs;
         } catch (Exception er) {
