@@ -1,9 +1,5 @@
 package com.myapplication;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -335,11 +331,6 @@ public class TinyWebServer extends Thread {
                 }
                 final String value = idx > 0 && pair.length() > idx + 1 ? URLDecoder.decode(pair.substring(idx + 1), "UTF-8") : null;
                 query_pairs.put(key, value);
-
-                Log.d(TAG, "Key: ");
-                Log.d(TAG, key);
-                Log.d(TAG, "Value: ");
-                Log.d(TAG, value);
             }
             return query_pairs;
         } catch (Exception er) {

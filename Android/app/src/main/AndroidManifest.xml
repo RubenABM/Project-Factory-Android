@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".PointsActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ProfileActivity"
             android:exported="true" />
