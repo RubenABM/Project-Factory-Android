@@ -2,7 +2,9 @@ package com.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.myapplication.downloadtasks.JSONObjToArray;
@@ -33,9 +35,9 @@ public class PointsActivity extends AppCompatActivity {
 
         //Método GET para reverter os pontos em ofertas
         JSONObjToArray task1 = new JSONObjToArray();
-        try {
+        //try {
 
-        }
+        //}
 
     }
 }
