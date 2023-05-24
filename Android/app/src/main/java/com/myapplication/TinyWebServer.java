@@ -288,10 +288,12 @@ public class TinyWebServer extends Thread {
                         //qparms.put("_POST", postData);
                         HashMap qparms = (HashMap) splitQuery(postData);
                         DataHolder.getInstance().setDataMap(qparms);
-                        System.out.print("qparms gpslat: ");
-                        System.out.println(qparms.get("gpslat"));
-                        System.out.print("qparms gpslong: ");
-                        System.out.println(qparms.get("gpslong"));
+
+                        System.out.print("Dataholder gpslat: ");
+                        System.out.println(DataHolder.getInstance().getDataMap().get("gpslat"));
+                        System.out.print("Dataholder gpslong: ");
+                        System.out.println(DataHolder.getInstance().getDataMap().get("gpslong"));
+
                     }
                     //System.out.println("File name " + fileName);
                     //System.out.println("url parms " + qparms);

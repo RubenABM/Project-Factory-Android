@@ -39,8 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int timeSinceEpoch = (int) (currentTimeMillis / 1000);
 
         ContentValues values = new ContentValues();
-        values.put(gpslat, gpslat);
-        values.put(gpslong, gpslong);
+        values.put(GPSLAT, gpslat);
+        values.put(GPSLONG, gpslong);
         values.put(DATETIME, timeSinceEpoch);
 
         db.insert(TRIP_TABLE_NAME, null, values);
@@ -52,6 +52,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TRIP_TABLE_NAME);
         onCreate(db);
     }
-
 
 }

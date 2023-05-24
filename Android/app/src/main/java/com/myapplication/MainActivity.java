@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "HTTPDIR";
-    private DatabaseHelper dbHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,25 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         //String dir = getApplicationInfo().dataDir;
 
-        // creating a new dbhandler class and passing new coordinates
-        dbHandler = new DatabaseHelper(MainActivity.this);
-        HashMap<String, String> receivedDataMap;
-        receivedDataMap = DataHolder.getInstance().getDataMap();
-
-        if (receivedDataMap != null) {
-
-            String esp32lat = receivedDataMap.get("gpslat");
-            String esp32long = receivedDataMap.get("gpslong");
-            String userfall = receivedDataMap.get("fall");
-            dbHandler.addNewCoords(esp32lat, esp32long);
-
-            /*if(userfall == "true"){
-                //Toast.makeText(MainActivity.this, "User fell!", Toast.LENGTH_SHORT);
-            }else{
-                dbHandler.addNewCoords(esp32lat, esp32long);
-            }
-             */
-        }else Toast.makeText(MainActivity.this, "receivedDataMap is NULL!", Toast.LENGTH_SHORT).show();
 
         if (!checkPermissions()) {
             requestPermissions();
@@ -87,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> postData = new HashMap<>();
         postData.put("newText", ip);
         PostMethod task = new PostMethod(postData);
-        task.execute("http://13.40.214.190:5000/updateip");
+        task.execute("http://35.176.222.11:5000/updateip");
 
     }
 

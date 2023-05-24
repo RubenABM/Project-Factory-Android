@@ -1,25 +1,51 @@
 package com.myapplication;
 
+import static android.content.ContentValues.TAG;
+
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.myapplication.downloadtasks.PostMethod;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StartActivity extends AppCompatActivity {
 
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable databaseUpdateRunnable;
+
+    private DatabaseHelper dbHandler;
     Button startbtn;
     BottomSheetDialog dialog;
     DrawerLayout drawer;
@@ -27,6 +53,24 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        dbHandler = new DatabaseHelper(StartActivity.this);
+        databaseUpdateRunnable = new Runnable() {
+            @Override
+            public void run() {
+
+                if (!DataHolder.getInstance().getDataMap().isEmpty()) {
+                    String latitude = DataHolder.getInstance().getDataMap().get("gpslat");
+                    String longitude = DataHolder.getInstance().getDataMap().get("gpslong");
+                    //String userfall = receivedDataMap.get("fall");
+                    dbHandler.addNewCoords(latitude, longitude);
+                    Log.d(TAG, "Database was updated!");
+                }
+                handler.postDelayed(this, 5000); // Update every 5 seconds
+            }
+        };
+        handler.post(databaseUpdateRunnable);
+
+
         Fragment fragment = new MapFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
 
@@ -44,7 +88,6 @@ public class StartActivity extends AppCompatActivity {
 
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
-
     private void createDialod() {
         View view = getLayoutInflater().inflate(R.layout.fragment_trip_details, null, false);
 
@@ -133,5 +176,27 @@ public class StartActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawer);
+    }
+
+    public void criaIndex(File filesDir, String ip) {
+        try {
+            File f = new File(filesDir + "/index.html");
+
+            if (f.exists()) {
+                Log.d(TAG, "Ficheiro index.html existe");
+                f.delete();
+                Log.d(TAG, "Vou abrir ficheiro para escrita");
+                FileWriter out = new FileWriter(f, true);
+                Log.d(TAG, "Abri ficheiro para escrita");
+                out.append("<html><head><meta charset='utf-8'></head><body><h2>Android</h2><p>O meu IP é: " + ip + "</p></body></html>");
+                Log.d(TAG, "Escrevi no ficheiro");
+                out.flush();
+                out.close();
+            }
+
+        } catch(Exception e){
+            e.printStackTrace();
+            Log.d(TAG, "Erro a criar o ficheiro: " + e.toString());
+        }
     }
 }

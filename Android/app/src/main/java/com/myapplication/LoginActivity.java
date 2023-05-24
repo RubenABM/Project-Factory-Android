@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, String> postData = new HashMap<>();
         postData.put("newText", ip);
         PostMethod task = new PostMethod(postData);
-        task.execute("http://13.40.214.190:5000/updateip");
+        task.execute("http://35.176.222.11:5000/updateip");
 
     }
 
@@ -136,11 +136,11 @@ public class LoginActivity extends AppCompatActivity {
         try {
 
             //Metodo get com 2 parametros
-            loginjson = task.execute("http://13.40.214.190:5000/users/login2/" + editTextTextEmailAddress.getText().toString() + "/" + editTextTextPassword2.getText().toString()).get();
+            loginjson = task.execute("http://35.176.222.11:5000/users/login2/" + editTextTextEmailAddress.getText().toString() + "/" + editTextTextPassword2.getText().toString()).get();
 
             if (loginjson != null) {
                 Toast.makeText(this, "Bem vindo " + loginjson.getString("user_name") + " !!!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(this, MainActivity.class);
+                Intent myIntent = new Intent(this, StartActivity.class);
                 myIntent.putExtra("key", loginjson.getString("user_id"));
                 this.startActivity(myIntent);
             } else {
