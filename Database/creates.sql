@@ -22,7 +22,9 @@ create table data (
 					data_id SERIAL not null,
 					data_bpm VARCHAR(30) not null,		
 					data_temp VARCHAR(30) not null,	
-					data_hum VARCHAR(30) not null,	
+					data_hum VARCHAR(30) not null,
+					data_startTime VARCHAR(30) not null,
+					data_endTime VARCHAR(30) not null,	
 					data_user_id INT not null,	
 					data_route_id INT not null,						
 					primary key (data_id)	
