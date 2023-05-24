@@ -134,9 +134,9 @@ public class TinyWebServer extends Thread {
     public static int SERVER_PORT=9000;
     public static boolean isStart=true;
     public static String INDEX_FILE_NAME="index.html";
+    public static HashMap<String, String> qparms = new HashMap<>();
 
-    public static HashMap<String, String> qparms = new HashMap<>();;
-    private DatabaseHelper dbHandler;
+    public static boolean startTripFlag = false;
 
     public TinyWebServer(final String ip, final int port) throws IOException {
 
@@ -278,14 +278,13 @@ public class TinyWebServer extends Thread {
                 URL geturl = getDecodedUrl("http://localhost" + location);
                 String[] dirPath = geturl.getPath().split("/");
                 String fullFilePath=geturl.getPath();
-                //Log.d(TAG, "fullFilePath: ");
-                //Log.d(TAG, fullFilePath);
                 if (dirPath.length > 1) {
                     String fileName = dirPath[dirPath.length - 1];
-                    //Log.d(TAG, "location: ");
-                    if(REQUEST_TYPE.equals("POST")){
+                    System.out.println(startTripFlag);
+                    if(REQUEST_TYPE.equals("POST") && startTripFlag){
+                        System.out.println("startTripFlag");
+                        System.out.println(startTripFlag);
                         if (qparms==null){ qparms=new HashMap<String,String>();}
-                        //qparms.put("_POST", postData);
                         HashMap qparms = (HashMap) splitQuery(postData);
                         DataHolder.getInstance().setDataMap(qparms);
 

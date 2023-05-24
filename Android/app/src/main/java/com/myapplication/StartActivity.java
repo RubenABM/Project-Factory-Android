@@ -2,6 +2,8 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.myapplication.TinyWebServer.startTripFlag;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +16,7 @@ import android.os.Looper;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -47,39 +50,30 @@ public class StartActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHandler;
     Button startbtn;
+    Button endbtn;
     BottomSheetDialog dialog;
     DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        dbHandler = new DatabaseHelper(StartActivity.this);
-        databaseUpdateRunnable = new Runnable() {
-            @Override
-            public void run() {
-
-                if (!DataHolder.getInstance().getDataMap().isEmpty()) {
-                    String latitude = DataHolder.getInstance().getDataMap().get("gpslat");
-                    String longitude = DataHolder.getInstance().getDataMap().get("gpslong");
-                    //String userfall = receivedDataMap.get("fall");
-                    dbHandler.addNewCoords(latitude, longitude);
-                    Log.d(TAG, "Database was updated!");
-                }
-                handler.postDelayed(this, 5000); // Update every 5 seconds
-            }
-        };
-        handler.post(databaseUpdateRunnable);
-
 
         Fragment fragment = new MapFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
 
         drawer = findViewById(R.id.drawer_layout);
         startbtn = findViewById(R.id.start_btn);
+        endbtn = findViewById(R.id.end_btn);
         dialog = new BottomSheetDialog(this);
         createDialod();
 
         startbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+        endbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.show();
@@ -98,7 +92,29 @@ public class StartActivity extends AppCompatActivity {
         starttrip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //initiate mysqlite
+                dbHandler = new DatabaseHelper(StartActivity.this);
+                //start writing the coordenates from esp32 to dataholder
+                startTripFlag = true;
+                databaseUpdateRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (!DataHolder.getInstance().getDataMap().isEmpty()) {
+                            String latitude = DataHolder.getInstance().getDataMap().get("gpslat");
+                            String longitude = DataHolder.getInstance().getDataMap().get("gpslong");
+                            //String userfall = receivedDataMap.get("fall");
+                            dbHandler.addNewCoords(latitude, longitude);
+                            Log.d(TAG, "Database was updated!");
+                        }
+                        handler.postDelayed(this, 5000); // Update every 5 seconds
+                    }
+                };
+                handler.post(databaseUpdateRunnable);
                 Toast.makeText(StartActivity.this, "Will start trip with origin and destination", Toast.LENGTH_SHORT).show();
+                startbtn.setVisibility(View.INVISIBLE);
+                ViewGroup parentContainer = (ViewGroup) view.getParent();
+                parentContainer.removeView(view);
             }
         });
 
@@ -198,5 +214,9 @@ public class StartActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.d(TAG, "Erro a criar o ficheiro: " + e.toString());
         }
+    }
+
+    public void StopTripFunction(View view) {
+
     }
 }

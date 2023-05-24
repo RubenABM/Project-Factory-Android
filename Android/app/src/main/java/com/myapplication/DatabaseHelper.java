@@ -53,4 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void resetDatabase(SQLiteDatabase db)
+    {
+        db.execSQL("DROP TABLE IF EXISTS " + TRIP_TABLE_NAME);
+    }
 }
