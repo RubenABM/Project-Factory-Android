@@ -10,9 +10,11 @@ create table users (
 
 create table route (
 					route_id SERIAL not null,
+					route_name VARCHAR(30) not null,
 					--Geometry ?
 					route_coord Geometry not null,		
-					route_fav boolean not null,					
+					route_fav boolean not null,	
+					route_user_id INT not null,				
 					primary key (route_id)	
 );
 
