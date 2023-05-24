@@ -30,62 +30,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewBlack" />
 
-    <ImageView
-        android:id="@+id/imageViewPoints"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.15"
-        app:srcCompat="@drawable/circulo" />
-
-    <TextView
-        android:id="@+id/textViewPoints"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="POINTS"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewPoints"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewPoints"
-        app:layout_constraintStart_toStartOf="@+id/imageViewPoints"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPoints" />
-
-    <ImageView
-        android:id="@+id/imageViewOferta"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.583"
-        app:srcCompat="@drawable/circulo" />
+        app:layout_constraintTop_toBottomOf="@+id/viewBlack">
 
-    <TextView
-        android:id="@+id/textViewPointsOferta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="POINTS"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewOferta"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewOferta"
-        app:layout_constraintStart_toStartOf="@+id/imageViewOferta"
-        app:layout_constraintTop_toTopOf="@+id/imageViewOferta" />
+        <ImageView
+            android:id="@+id/imageViewPoints"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.568"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/circulo" />
 
-    <TextView
-        android:id="@+id/textViewPointsOfertaDescricao"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textViewPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POINTS"
+            android:layout_centerInParent="true"
+            app:layout_constraintVertical_bias="0.0" />
+    </RelativeLayout>
+
+    <GridLayout
+        android:id="@+id/pointsGridLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#000000"
+        android:orientation="horizontal"
+        android:columnCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewOferta"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewOferta"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                app:srcCompat="@drawable/circulo" />
+
+
+            <TextView
+                android:id="@+id/textViewPointsOferta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="POINTS" />
+
+            <TextView
+                android:id="@+id/textViewPointsOfertaDescricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="125dp"
+                android:text="TextView"
+                android:textColor="#000000" />
+        </RelativeLayout>
+    </GridLayout>
 
     <Button
         android:id="@+id/buttonRevertPoints"
@@ -93,7 +102,8 @@
         android:layout_height="wrap_content"
         android:text="REVERT POINTS"
         tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="643dp" />
+        tools:layout_editor_absoluteY="643dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

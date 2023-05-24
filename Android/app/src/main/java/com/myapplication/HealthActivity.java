@@ -30,13 +30,13 @@ public class HealthActivity extends AppCompatActivity {
         iduser = getIntent().getStringExtra("key");
         JSONObjToArray task = new JSONObjToArray();
 
-        try{
+        /*try{
             //healthjson = task.execute("http://13.40.214.190:5000/users/" + iduser + idrota).get();
             //bpmRes.setText(healthjson.getString("user_"));
             //tempRes.setText(healthjson.getString(""));
 
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 }
