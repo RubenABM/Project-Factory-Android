@@ -269,13 +269,7 @@ public class StartActivity extends AppCompatActivity {
                     idroute = getjson.getString("route_id");
             Log.d("Teste:", getjson.toString());
 
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            getjson = null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            getjson = null;
-        } catch (JSONException e) {
+        } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
         String bpm = "";

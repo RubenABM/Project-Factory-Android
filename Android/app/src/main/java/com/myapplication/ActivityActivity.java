@@ -1,9 +1,14 @@
 package com.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-//import static com.myapplication.MapFragment.firstMap;
+import static com.myapplication.MapFragment.firstMap;
+import static com.myapplication.MapFragment.latLngList;
+import static com.myapplication.MapFragment.startDateNtime;
+import static com.myapplication.TinyWebServer.endTripFlag;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,14 +17,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.locationtech.jts.awt.PointShapeFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +40,8 @@ public class ActivityActivity extends AppCompatActivity {
     TextView data, km;
     DrawerLayout drawer;
     Button editar, atualizar;
+
+    ImageView iconTrip;
     static String iduser;
     public static String linestr;
 
@@ -47,30 +57,13 @@ public class ActivityActivity extends AppCompatActivity {
         editar = findViewById(R.id.button);
         km = findViewById(R.id.editTextKm);
         atualizar = findViewById(R.id.button2);
-
-
-
-        // Metodo GET para ir buscar os dados do percurso do utilizador
-        linestr = getIntent().getStringExtra("key");
-        JSONObjToArray task = new JSONObjToArray();
-        try {
-            loginjson = task.execute("http://35.176.222.11:5000/users/data/2/3").get();
-            data.setText(loginjson.getString("user_route"));
-            Log.d("AQUIIII:::::", loginjson.toString());
-
-        }catch (ExecutionException e){
-            e.printStackTrace();
-            loginjson = null;
-        } catch (InterruptedException e){
-            e.printStackTrace();
-            loginjson = null;
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-
-
-
-
+        iconTrip = findViewById(R.id.imageView10);
+        iconTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoToTrip(v);
+            }
+        });
     }
 
     public void EditarTexto(View view){
@@ -94,21 +87,14 @@ public class ActivityActivity extends AppCompatActivity {
 
     public void UpdateText(View v){
 
-        //Metodo Post para ir buscar as rotas do utilizador
-        String percursos = percurso.getText().toString();
-
-
-        Map<String, String> postData = new HashMap<>();
-        postData.put("user_route", percursos);
-
-
-        PostMethod task1 = new PostMethod(postData);
-
-        //Post call
         try {
-
-            task1.execute("http://35.176.222.11:5000/routes/updateroutename/1/1");
-            Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/routes/updateroutename/" + iduser).toString());
+            String routeId = "";
+            String iduser = getIntent().getStringExtra("key");
+            Map<String, String> postData = new HashMap<>();
+            postData.put("route_name", percurso.getText().toString());
+            PostMethod task = new PostMethod(postData);
+            String url = "http://35.176.222.11:5000/routes/updateroutename/" + iduser + "/" + routeId;
+            task.execute(url);
 
             Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -117,14 +103,6 @@ public class ActivityActivity extends AppCompatActivity {
         }
 
     }
-
-    public static void goToActivity(Activity activity, Class aClass) {
-        Intent intent = new Intent(activity, aClass);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
-
 
     //menus
     public void OpenLeftSideMenu(View view){openDrawer(drawer);}
@@ -180,7 +158,22 @@ public class ActivityActivity extends AppCompatActivity {
     }
 
 
+    public void GoToTrip(View view) {
+        firstMap = false;
+        String routeId = ""; //this needs to a correct value!!!
+        //GET method
+        JSONObject getjson = null;
+        String iduser = getIntent().getStringExtra("key");
+        JSONObjToArray taskget = new JSONObjToArray();
+        String url = "http://35.176.222.11:5000/routes/user/" + iduser + "/" + routeId;
+        try {
+            getjson = taskget.execute(url).get();
+            linestr = getjson.getString("route_coord"); //asign linestring to public variable
+            Log.d("Teste:", getjson.toString());
 
-
-
+        } catch (ExecutionException | InterruptedException | JSONException e) {
+        e.printStackTrace();
+        }
+        StartActivity.goToActivity(this, StartActivity.class);
+    }
 }
