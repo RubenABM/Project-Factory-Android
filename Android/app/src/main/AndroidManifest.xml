@@ -25,6 +25,9 @@
             android:name=".HelmetsActivity"
             android:exported="true" />
         <activity
+            android:name=".ActivityActivity"
+            android:exported="true" />
+        <activity
             android:name=".SubscriptionActivity"
             android:exported="true" />
         <activity

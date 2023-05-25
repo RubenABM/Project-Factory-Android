@@ -1,5 +1,7 @@
 package com.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -45,7 +47,8 @@ public class ActivityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity);
         iduser = getIntent().getStringExtra("key");
-        String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
+        //String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
+        String firstURL = "http://35.176.222.11:5000/routes/user/2";
         percurso = findViewById(R.id.editTextPercurso);
         data = findViewById(R.id.editTextPercurso1);
         drawer = findViewById(R.id.drawer_layout);
@@ -64,6 +67,7 @@ public class ActivityActivity extends AppCompatActivity {
         JSONObjToArray taskget = new JSONObjToArray();
         try {
             getjson = taskget.execute(firstURL).get();
+            Log.d(TAG, getjson.toString());
             for (int i = 0; i < getjson.length(); i++){
                 idroute = getjson.getString("route_id");
                 routeCoords = getjson.getString("route_coord");

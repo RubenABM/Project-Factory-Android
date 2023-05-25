@@ -9,44 +9,27 @@ import static com.myapplication.MapFragment.startDateNtime;
 import static com.myapplication.MapFragment.latLngList;
 import static com.myapplication.MapFragment.firstMap;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
@@ -57,7 +40,6 @@ public class StartActivity extends AppCompatActivity {
 
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable databaseUpdateRunnable;
-
     private DatabaseHelper dbHandler;
     Button startbtn;
     Button endbtn;
@@ -165,10 +147,7 @@ public class StartActivity extends AppCompatActivity {
 
 
     public void ClickHelmets(View view){goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Activities' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickActivity(View view){goToActivity2(this, ActivityActivity.class, getIntent().getStringExtra("key"));}
     public void ClickChallenges(View view){goToActivity(this, ChallengesActivity.class);}
     public void ClickHealth(View view){
         //goToActivity(this,**);
@@ -196,10 +175,10 @@ public class StartActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
     }
-    public static void goToActivity2(Activity activity, Class aClass, String liststring) {
+    public static void goToActivity2(Activity activity, Class aClass, String iduser) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("coordList", liststring);
+        intent.putExtra("key", iduser);
         activity.startActivity(intent);
     }
 
