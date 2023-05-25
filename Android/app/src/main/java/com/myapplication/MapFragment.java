@@ -3,8 +3,7 @@ package com.myapplication;
 import static android.content.ContentValues.TAG;
 
 import static com.myapplication.TinyWebServer.endTripFlag;
-import static com.myapplication.TinyWebServer.startTripFlag;
-
+//import static com.myapplication.ActivityActivity.linestr;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
@@ -50,7 +49,7 @@ public class MapFragment extends Fragment {
     public static int startDateNtime;
 
     public static int endDateNtime;
-    public static boolean firstMap;
+    public static boolean firstMap = true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,37 +154,34 @@ public class MapFragment extends Fragment {
                     };
                     handler.post(cameraUpdateRunnable);
                 } else if (!firstMap) {
-                    //will display the trip from activity activity
-                    //Bundle extras = getIntent().getExtras();
-                    //String hexString = extras.getString("coordList");
+                    Log.d(TAG, "Going for linestring!");
+                    //String hexString = linestr;
                     String hexString = "01020000000600000057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C015562AA8A85C4340514CDE00334F22C015562AA8A85C4340514CDE00334F22C00E65A88AA95C4340C9B08A37324F22C0";
-
                     // Create a WKBReader to parse the hex string
                     WKBReader reader = new WKBReader();
-
                     try {
                         // Parse the hex string into a Geometry object
                         byte[] wkb = WKBReader.hexToBytes(hexString);
                         Geometry geometry = reader.read(wkb);
-
                         // Check if the geometry is a LineString
                         if (geometry instanceof LineString) {
                             LineString lineString = (LineString) geometry;
-
-                            // Convert LineString to Polyline (Polygon with no area)
-                            GeometryFactory factory = new GeometryFactory();
-                            LinearRing shell = factory.createLinearRing(lineString.getCoordinateSequence());
-                            Polygon polyline = new Polygon(shell, null, factory);
-
-                            // Print the Polyline coordinates
-                            Coordinate[] polylineCoordinates = polyline.getCoordinates();
-                            for (Coordinate coordinate : polylineCoordinates) {
-                                System.out.println(coordinate.toString());
+                            Coordinate[] coordinates = lineString.getCoordinates();
+                            for (Coordinate coordinate : coordinates) {
+                                LatLng latLng = new LatLng(coordinate.y, coordinate.x);
+                                latLngList.add(latLng);
                             }
+                            PolylineOptions polylineOptions = new PolylineOptions()
+                                    .addAll(latLngList)
+                                    .width(5) // Set the line width
+                                    .color(Color.RED); // Set the line color
+                            polyline = googleMap.addPolyline(polylineOptions);
+
                         } else {
                             System.out.println("The input geometry is not a LineString.");
                         }
                     } catch (ParseException e) {
+                        Log.d(TAG, "went for catch!");
                         e.printStackTrace();
                     }
                 }
