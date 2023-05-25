@@ -285,10 +285,8 @@ public class StartActivity extends AppCompatActivity {
         postData.put("data_endTime", endDnT);
         postData.put("data_user_id", iduser);
         postData.put("data_route_id", idroute);
-        PostMethod task2 = new PostMethod(postData);
+        PostMethod task2 = new PostMethod(postData2);
         task2.execute("http://35.176.222.11:5000/users/insertnewdata");
-
-        //drop the mysqlite database
-        
+        Toast.makeText(this, "Trip was saved!", Toast.LENGTH_SHORT).show();
     }
 }

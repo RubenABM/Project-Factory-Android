@@ -1,17 +1,9 @@
 package com.myapplication;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import static com.myapplication.MapFragment.firstMap;
-import static com.myapplication.MapFragment.latLngList;
-import static com.myapplication.MapFragment.startDateNtime;
-import static com.myapplication.TinyWebServer.endTripFlag;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,13 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.locationtech.jts.awt.PointShapeFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,12 +35,18 @@ public class ActivityActivity extends AppCompatActivity {
     static String iduser;
     public static String linestr;
 
+    String idroute = "";
+    String routeCoords = "";
+
+    public static HashMap<String, String> routes = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity);
         JSONObject loginjson = null;
-
+        iduser = getIntent().getStringExtra("key");
+        String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
         percurso = findViewById(R.id.editTextPercurso);
         data = findViewById(R.id.editTextPercurso1);
         drawer = findViewById(R.id.drawer_layout);
@@ -64,6 +60,19 @@ public class ActivityActivity extends AppCompatActivity {
                 GoToTrip(v);
             }
         });
+        JSONObject getjson = null;
+        JSONObjToArray taskget = new JSONObjToArray();
+        try {
+            getjson = taskget.execute(firstURL).get();
+            for (int i = 0; i < getjson.length(); i++){
+                idroute = getjson.getString("route_id");
+                routeCoords = getjson.getString("route_coord");
+                routes.put(idroute, routeCoords);
+            }
+
+        } catch (ExecutionException | InterruptedException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void EditarTexto(View view){
@@ -76,8 +85,6 @@ public class ActivityActivity extends AppCompatActivity {
                 percurso.setVisibility(View.VISIBLE);
                 atualizar.setVisibility(View.VISIBLE);
                 editar.setVisibility(View.INVISIBLE);
-
-
 
             }
         });
@@ -163,17 +170,17 @@ public class ActivityActivity extends AppCompatActivity {
         String routeId = ""; //this needs to a correct value!!!
         //GET method
         JSONObject getjson = null;
-        String iduser = getIntent().getStringExtra("key");
+        iduser = getIntent().getStringExtra("key");
         JSONObjToArray taskget = new JSONObjToArray();
         String url = "http://35.176.222.11:5000/routes/user/" + iduser + "/" + routeId;
         try {
             getjson = taskget.execute(url).get();
             linestr = getjson.getString("route_coord"); //asign linestring to public variable
-            Log.d("Teste:", getjson.toString());
 
         } catch (ExecutionException | InterruptedException | JSONException e) {
         e.printStackTrace();
         }
         StartActivity.goToActivity(this, StartActivity.class);
     }
+
 }

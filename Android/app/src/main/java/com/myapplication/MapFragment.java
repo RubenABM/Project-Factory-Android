@@ -3,12 +3,9 @@ package com.myapplication;
 import static android.content.ContentValues.TAG;
 
 import static com.myapplication.TinyWebServer.endTripFlag;
-//import static com.myapplication.ActivityActivity.linestr;
+import static com.myapplication.ActivityActivity.linestr;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -168,14 +165,20 @@ public class MapFragment extends Fragment {
                             LineString lineString = (LineString) geometry;
                             Coordinate[] coordinates = lineString.getCoordinates();
                             for (Coordinate coordinate : coordinates) {
-                                LatLng latLng = new LatLng(coordinate.y, coordinate.x);
+                                LatLng latLng = new LatLng(coordinate.x, coordinate.y);
                                 latLngList.add(latLng);
+                                System.out.println(latLngList);
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(latLng);
+                                markerOptions.title("Destination!");
+                                googleMap.addMarker(markerOptions);
                             }
                             PolylineOptions polylineOptions = new PolylineOptions()
                                     .addAll(latLngList)
                                     .width(5) // Set the line width
                                     .color(Color.RED); // Set the line color
                             polyline = googleMap.addPolyline(polylineOptions);
+                            polyline.setPoints(latLngList);
 
                         } else {
                             System.out.println("The input geometry is not a LineString.");
