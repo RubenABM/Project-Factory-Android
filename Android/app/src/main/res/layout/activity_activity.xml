@@ -26,6 +26,7 @@
                 android:background="#ffff">
 
 
+
             </FrameLayout>
 
             <TextView
@@ -45,7 +46,19 @@
                 android:layout_height="110dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="80dp"
+                android:onClick="VerDados"
                 app:srcCompat="@drawable/edit_road" />
+
+            <TextView
+                android:id="@+id/editTextPercurso1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="200dp"
+                android:text="Data"
+                android:onClick="VerDados"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextPercurso"
@@ -57,11 +70,12 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Percurso 1"
+                android:visibility="invisible"
                 android:textColor="#000" />
 
 
             <TextView
-                android:id="@+id/editTextPercurso1"
+                android:id="@+id/editTextKm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="140dp"
@@ -69,6 +83,28 @@
                 android:text="km"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="550dp"
+                android:layout_marginLeft="140dp"
+                android:backgroundTint="#003B3F"
+                android:onClick="EditarTexto"
+                android:text="Edit Activity" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="550dp"
+                android:layout_marginLeft="140dp"
+                android:backgroundTint="#003B3F"
+                android:onClick="UpdateText"
+                android:text="Atualizar"
+                android:visibility="invisible"/>
+
 
         </RelativeLayout>
 

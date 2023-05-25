@@ -3,55 +3,127 @@ package com.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+//import static com.myapplication.MapFragment.firstMap;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityActivity extends AppCompatActivity {
 
-    EditText percurso1;
+    EditText percurso;
+    TextView data, km;
     DrawerLayout drawer;
+    Button editar, atualizar;
+    static String iduser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity);
+        JSONObject loginjson = null;
 
-        percurso1 = findViewById(R.id.editTextPercurso);
+        percurso = findViewById(R.id.editTextPercurso);
+        data = findViewById(R.id.editTextPercurso1);
         drawer = findViewById(R.id.drawer_layout);
+        editar = findViewById(R.id.button);
+        km = findViewById(R.id.editTextKm);
+        atualizar = findViewById(R.id.button2);
+
+
+
+        // Metodo GET para ir buscar os dados do percurso do utilizador
+        iduser = getIntent().getStringExtra("key");
+        JSONObjToArray task = new JSONObjToArray();
+        try {
+            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
+            data.setText(loginjson.getString("user_route"));
+            Log.d("AQUIIII:::::", loginjson.toString());
+
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            loginjson = null;
+        } catch (InterruptedException e){
+            e.printStackTrace();
+            loginjson = null;
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+
 
 
     }
 
     public void EditarTexto(View view){
 
-        String percurso = percurso1.getText().toString();
-
-        // Dados do post
-        Map<String, String> postData = new HashMap<>();
-        postData.put("route_name", percurso);
-
-
-        // Post call
-        PostMethod task = new PostMethod(postData);
-        task.execute("http://35.176.222.11:5000/routes/user/2");
-
-        Toast.makeText(this,"O nome do percurso foi alterado com sucesso!", Toast.LENGTH_SHORT).show();
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.setVisibility(View.INVISIBLE);
+                km.setVisibility(View.INVISIBLE);
+                percurso.setVisibility(View.VISIBLE);
+                atualizar.setVisibility(View.VISIBLE);
+                editar.setVisibility(View.INVISIBLE);
 
 
+
+            }
+        });
 
     }
+
+
+    public void UpdateText(View v){
+
+        //Metodo Post para ir buscar as rotas do utilizador
+        String percursos = percurso.getText().toString();
+
+
+        Map<String, String> postData = new HashMap<>();
+        postData.put("user_route", percursos);
+
+
+        PostMethod task1 = new PostMethod(postData);
+
+        //Post call
+        try {
+
+            task1.execute("http://35.176.222.11:5000/routes/updateroutename/1/1");
+            Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/routes/updateroutename/" + iduser).toString());
+
+            Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e){
+            Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    //public void VerDados (View view){
+        //firstMap = false;
+
+
+    //}
+
+
 
     //menus
     public void OpenLeftSideMenu(View view){openDrawer(drawer);}
@@ -83,10 +155,7 @@ public class ActivityActivity extends AppCompatActivity {
 
 
     public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Activities' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
     public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
     public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
     public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
