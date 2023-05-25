@@ -27,6 +27,15 @@
             </FrameLayout>
 
             <Button
+                android:id="@+id/end_btn"
+                android:layout_width="123dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:onClick="StopTripFunction"
+                android:text="End" />
+            <Button
                 android:id="@+id/start_btn"
                 android:layout_width="123dp"
                 android:layout_height="wrap_content"
