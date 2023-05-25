@@ -2,7 +2,11 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.myapplication.MapFragment.endDateNtime;
+import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
+import static com.myapplication.MapFragment.startDateNtime;
+import static com.myapplication.MapFragment.latLngList;
 
 import android.Manifest;
 import android.app.Activity;
@@ -36,12 +40,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -76,7 +85,7 @@ public class StartActivity extends AppCompatActivity {
         endbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                StopTripFunction(v);
             }
         });
 
@@ -96,6 +105,8 @@ public class StartActivity extends AppCompatActivity {
                 dbHandler = new DatabaseHelper(StartActivity.this);
                 //start writing the coordenates from esp32 to dataholder
                 startTripFlag = true;
+                endTripFlag = false;
+                /*
                 databaseUpdateRunnable = new Runnable() {
                     @Override
                     public void run() {
@@ -111,7 +122,8 @@ public class StartActivity extends AppCompatActivity {
                     }
                 };
                 handler.post(databaseUpdateRunnable);
-                Toast.makeText(StartActivity.this, "Will start trip with origin and destination", Toast.LENGTH_SHORT).show();
+                */
+                Toast.makeText(StartActivity.this, "Safe travels!", Toast.LENGTH_LONG).show();
                 startbtn.setVisibility(View.INVISIBLE);
                 ViewGroup parentContainer = (ViewGroup) view.getParent();
                 parentContainer.removeView(view);
@@ -217,6 +229,64 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void StopTripFunction(View view) {
+        JSONObject getjson = null;
+        String iduser = getIntent().getStringExtra("key");
+        String lineString = "LINESTRING (";
+        endTripFlag = true; //stops the tinywebserver from accepting POST requests on /test url
+        //take the polyline and send it to the aws database
+        String rname = String.valueOf(startDateNtime);
+        Map<String, String> postData = new HashMap<>();
+        for (LatLng latLng : latLngList) {
+            // Access each LatLng object
+            int index = latLngList.indexOf(latLng);
+            LatLng object = latLngList.get(index);
+            String latstr = String.valueOf(object.latitude);
+            String longstr = String.valueOf(object.longitude);
+            lineString += latstr + " " + longstr + ",";
+        }
+        lineString = lineString.substring(0, lineString.length()-1) + ")";
+        Log.d(TAG, lineString);
+        postData.put("route_name", rname);
+        postData.put("route_coord", lineString);
+        postData.put("route_user_id", iduser);
+        PostMethod task = new PostMethod(postData);
+        task.execute("http://35.176.222.11:5000/routes/insertnewroute");
 
+        //get route id
+        JSONObjToArray taskget = new JSONObjToArray();
+        String idroute = "";
+        String url = "http://35.176.222.11:5000/routes/user/" + iduser + "/" + rname;
+        try {
+            getjson = taskget.execute(url).get();
+                    idroute = getjson.getString("route_id");
+            Log.d("Teste:", getjson.toString());
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            getjson = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            getjson = null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String bpm = "";
+        String temp = "";
+        String hum = "";
+        String endDnT = String.valueOf(endDateNtime);
+
+        Map<String, String> postData2 = new HashMap<>();
+        postData.put("data_bpm", bpm);
+        postData.put("data_temp", temp);
+        postData.put("data_hum", hum);
+        postData.put("data_startTime", rname);
+        postData.put("data_endTime", endDnT);
+        postData.put("data_user_id", iduser);
+        postData.put("data_route_id", idroute);
+        PostMethod task2 = new PostMethod(postData);
+        task2.execute("http://35.176.222.11:5000/users/insertnewdata");
+
+        //drop the mysqlite database
+        
     }
 }

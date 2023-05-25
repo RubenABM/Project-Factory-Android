@@ -137,6 +137,7 @@ public class TinyWebServer extends Thread {
     public static HashMap<String, String> qparms = new HashMap<>();
 
     public static boolean startTripFlag = false;
+    public static boolean endTripFlag = false;
 
     public TinyWebServer(final String ip, final int port) throws IOException {
 
@@ -280,22 +281,16 @@ public class TinyWebServer extends Thread {
                 String fullFilePath=geturl.getPath();
                 if (dirPath.length > 1) {
                     String fileName = dirPath[dirPath.length - 1];
-                    System.out.println(startTripFlag);
-                    if(REQUEST_TYPE.equals("POST") && startTripFlag){
-                        System.out.println("startTripFlag");
-                        System.out.println(startTripFlag);
+                    if(REQUEST_TYPE.equals("POST") && startTripFlag && !endTripFlag){
+                        System.out.println("startTripFlag is true!");
                         if (qparms==null){ qparms=new HashMap<String,String>();}
                         HashMap qparms = (HashMap) splitQuery(postData);
                         DataHolder.getInstance().setDataMap(qparms);
 
-                        System.out.print("Dataholder gpslat: ");
-                        System.out.println(DataHolder.getInstance().getDataMap().get("gpslat"));
-                        System.out.print("Dataholder gpslong: ");
-                        System.out.println(DataHolder.getInstance().getDataMap().get("gpslong"));
+                        System.out.println("Dataholder gpslat: "+ DataHolder.getInstance().getDataMap().get("gpslat"));
+                        System.out.println("Dataholder gpslong: "+ DataHolder.getInstance().getDataMap().get("gpslong"));
 
                     }
-                    //System.out.println("File name " + fileName);
-                    //System.out.println("url parms " + qparms);
                     CONTENT_TYPE = getContentType(fileName);
                     data = getResultByName(fileName, qparms);
                     constructHeader(out, data.length() + "", data);

@@ -2,6 +2,7 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
 
 import android.graphics.Color;
@@ -36,10 +37,14 @@ public class MapFragment extends Fragment {
     private boolean coordflag = false;
     private  float zoomLevel = 25.0f;
 
-    private List<LatLng> latLngList = new ArrayList<>();
+    public static List<LatLng> latLngList = new ArrayList<>();
     private Polyline polyline;
 
     private boolean firstPoint;
+
+    public static int startDateNtime;
+
+    public static int endDateNtime;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,6 +109,8 @@ public class MapFragment extends Fragment {
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                         }else{
                             checkCoordinates(finalPreviouslatstr, finalPreviouslongstr,currentlatitudestr,currentlongitudestr);
+                            long currentTimeMillis = System.currentTimeMillis();
+                            int dateNtime = (int) (currentTimeMillis / 1000);
                             if(coordflag) {
                                 Log.d(TAG, "Position was different!");
                                 assert currentlatitudestr != null;
@@ -111,20 +118,27 @@ public class MapFragment extends Fragment {
                                 assert currentlongitudestr != null;
                                 double currentlongitude = Double.parseDouble(currentlongitudestr);
                                 LatLng latLng = new LatLng(currentlatitude, currentlongitude);
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(latLng);
-                                markerOptions.title(latLng.latitude + "KG" + latLng.longitude);
-                                googleMap.addMarker(markerOptions);
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                                 addPointToLine(latLng);
                                 if (firstPoint){
+                                    startDateNtime = dateNtime;
+                                    MarkerOptions markerOptions = new MarkerOptions();
+                                    markerOptions.position(latLng);
+                                    markerOptions.title("Origin!");
+                                    googleMap.addMarker(markerOptions);
                                     latLngList.add(latLng);
                                     PolylineOptions polylineOptions = new PolylineOptions()
                                             .addAll(latLngList)
                                             .width(5) // Set the line width
                                             .color(Color.RED); // Set the line color
                                     polyline = googleMap.addPolyline(polylineOptions);
+                                } else if (endTripFlag) {
+                                    endDateNtime = dateNtime;
+                                    MarkerOptions markerOptions = new MarkerOptions();
+                                    markerOptions.position(latLng);
+                                    markerOptions.title("Destination!");
+                                    googleMap.addMarker(markerOptions);
                                 }
+                                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                             }
                         }
                         handler.postDelayed(this, 5000); // Update every 5 seconds
