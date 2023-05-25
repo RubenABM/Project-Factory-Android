@@ -1,6 +1,7 @@
 package com.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView points, username, useremail, userpass, editprofile, UserName, UserEmail, UserPass, Points;
     DrawerLayout drawerLayout;
     static String iduser;
+    DrawerLayout drawer;
 
 
 
@@ -50,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         UserEmail = findViewById(R.id.userEmail3);
         UserPass = findViewById(R.id.userPass3);
         Points = findViewById(R.id.pointBox);
+        drawer = findViewById(R.id.drawer_layout);
 
         String name = nameBox.getText().toString();
         String email = mailBox.getText().toString();
@@ -74,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://13.40.214.190:5000/users/1").get();
+            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
             points.setText(loginjson.getString("user_points"));
             username.setText(loginjson.getString("user_name"));
             useremail.setText(loginjson.getString("user_email"));
@@ -136,8 +139,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Post call
         try {
 
-        task1.execute("http://13.40.214.190:5000/users/updateuser");
-        Log.d("AQUIII", task1.execute("http://13.40.214.190:5000/users/updateuser/1" + iduser).toString());
+        task1.execute("http://35.176.222.11:5000/users/updateuser");
+        Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/users/updateuser/1" + iduser).toString());
 
         Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -145,6 +148,59 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    //menus
+    public void OpenLeftSideMenu(View view){openDrawer(drawer);}
+    public void OpenRightSideMenu(View view){openDrawer2(drawer);}
+
+    public void CloseLeftMenu(View view){closeDrawer(drawer);}
+    public void CloseRightMenu(View view){closeDrawer2(drawer);}
+    public void OpenTripDetailsDrawer(View view){openDrawer3(drawer);}
+    public static void openDrawer(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    public static void openDrawer2(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void openDrawer3(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void closeDrawer(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+    public static void closeDrawer2(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        }
+    }
+
+
+    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
+    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
+    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
+    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
+    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
+    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
+    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
+    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
+    public void ClickLogout(View view){
+        //goToActivity(this,**);
+        Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        closeDrawer(drawer);
     }
 
 }

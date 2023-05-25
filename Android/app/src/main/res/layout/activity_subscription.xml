@@ -1,155 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d9d9d9"
+    android:background="#D9D9D9"
     tools:context=".SubscriptionActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="120dp"
-        android:onClick="Gratis2"
-        android:text="Subscrição grátis"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:onClick="Paga2"
-        android:text="Subscrição paga"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.63" />
+        <include layout="@layout/main_toolbar"/>
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="119dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="216dp"
-        android:onClick="Gratis2"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:srcCompat="@drawable/star" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="119dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="40dp"
-        android:onClick="Paga2"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintHorizontal_bias="0.037"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.644"
-        app:srcCompat="@drawable/star" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/viewBlack"
-        android:layout_width="0dp"
-        android:layout_height="78dp"
-        android:background="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewTitleSubscriptions"
-        android:layout_width="230dp"
-        android:layout_height="45dp"
-        android:text="Subscriptions"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/viewBlack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.4" />
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffff">
 
-    <Button
-        android:id="@+id/buttonChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#003B3F"
-        android:onClick="Alterar"
-        android:text="Alterar"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/buttonChange2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="#003B3F"
-        android:onClick="Alterar1"
-        android:text="Alterar"
-        android:textColor="#FFFFFF"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="1.0" />
+            </FrameLayout>
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="119dp"
-        android:layout_height="87dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.139"
-        app:srcCompat="@drawable/star" />
+            <TextView
+                android:id="@+id/textViewTitleSubscriptions"
+                android:layout_width="230dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="10dp"
+                android:text="Subscriptions"
+                android:textColor="#000"
+                android:textSize="34sp"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:text="Subscrição atual"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/viewBlack"
-        app:layout_constraintVertical_bias="0.174" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewGratis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="235dp"
+                android:text="Subscrição grátis"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/imageViewGratis"
+                android:layout_width="119dp"
+                android:layout_height="87dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="200dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/star" />
+
+
+            <TextView
+                android:id="@+id/textViewPaga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="335dp"
+                android:text="Subscrição paga"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/imageViewPaga"
+                android:layout_width="119dp"
+                android:layout_height="87dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="300dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/star" />
+
+            <ImageView
+                android:id="@+id/imageViewAtual"
+                android:layout_width="119dp"
+                android:layout_height="87dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="100dp"
+                app:srcCompat="@drawable/star" />
+
+            <TextView
+                android:id="@+id/textViewAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="135dp"
+                android:text="Subscrição atual"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/buttonChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="500dp"
+                android:backgroundTint="#003B3F"
+                android:onClick="Alterar"
+                android:text="Alterar"
+                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/buttonChange2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="500dp"
+                android:backgroundTint="#003B3F"
+                android:text="Alterar"
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

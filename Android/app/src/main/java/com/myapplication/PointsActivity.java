@@ -26,8 +26,8 @@ public class PointsActivity extends AppCompatActivity {
     TextView textPoints, textOferta, textDescricao;
     static String iduser;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    /*@Override
+    /*protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_points);
 
@@ -36,7 +36,7 @@ public class PointsActivity extends AppCompatActivity {
         textDescricao = findViewById(R.id.textViewPointsOfertaDescricao);
 
         //Método GET para ir buscar os pontos do user
-        iduser = getIntent().getStringExtra("key");
+       /* iduser = getIntent().getStringExtra("key");
         JSONObjToArray task = new JSONObjToArray();
 
         try{
@@ -100,5 +100,5 @@ public class PointsActivity extends AppCompatActivity {
     }
     public static int convertDpToPixel(int dp, Context context){
         return dp * ((int) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
+    }*/
 }

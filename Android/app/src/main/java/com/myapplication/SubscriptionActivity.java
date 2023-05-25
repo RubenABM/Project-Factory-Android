@@ -1,6 +1,8 @@
 package com.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ public class SubscriptionActivity extends AppCompatActivity {
     Button Alteracao, Confirmar;
     ImageView Atual, Paga, Gratis;
     static String iduser;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,15 @@ public class SubscriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subscription);
         JSONObject loginjson = null;
 
-        Subscricao = findViewById(R.id.textView6);
+        Subscricao = findViewById(R.id.textViewAtual);
         Alteracao = findViewById(R.id.buttonChange);
-        Atual  = findViewById(R.id.imageView5);
-        Paga = findViewById(R.id.imageView6);
-        Gratis = findViewById(R.id.imageView7);
-        Paga1 = findViewById(R.id.textView7);
-        Gratis1 = findViewById(R.id.textView9);
+        Atual  = findViewById(R.id.imageViewAtual);
+        Paga = findViewById(R.id.imageViewGratis);
+        Gratis = findViewById(R.id.imageViewPaga);
+        Paga1 = findViewById(R.id.textViewGratis);
+        Gratis1 = findViewById(R.id.textViewPaga);
         Confirmar = findViewById(R.id.buttonChange2);
+        drawer = findViewById(R.id.drawer_layout);
 
         // Metodo Get para ir buscar a subscrição do utilizador
 
@@ -50,7 +54,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://13.40.214.190:5000/users/1").get();
+            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
             Subscricao.setText(loginjson.getString("user_subscription"));
             Log.d("AQUIIII::::", loginjson.toString());
 
@@ -81,31 +85,14 @@ public class SubscriptionActivity extends AppCompatActivity {
 
             }
 
-        });
 
-
-    }
-
-    public void Paga2(View view){
-        Paga.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Alteracao.setVisibility(View.VISIBLE);
-                Atual.setVisibility(View.INVISIBLE);
-                Subscricao.setVisibility(View.INVISIBLE);
-
-                Paga.setVisibility(View.VISIBLE);
-                Paga1.setVisibility(View.VISIBLE);
-
-
-
-            }
         });
 
     }
 
-    public void Gratis2(View view){
+
+
+    /*public void Gratis2(View view){
 
         Gratis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,36 +109,100 @@ public class SubscriptionActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
-    //public void UpdateProfile(View v){
+    /*public void Pagar2(View view){
+        Paga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Alteracao.setVisibility(View.VISIBLE);
+                Atual.setVisibility(View.INVISIBLE);
+                Subscricao.setVisibility(View.INVISIBLE);
+
+                Paga.setVisibility(View.VISIBLE);
+                Paga.setVisibility(View.VISIBLE);
+            }
+        });
+    }*/
+
+    public void UpdateProfile(View v){
 
         //Metodo Post para mostrar a nova subscrição
-        //String subscricao = Paga.toString();
-        //String subscricao2 = Gratis.toString();
+        String subscricao = Paga.toString();
+        String subscricao2 = Gratis.toString();
 
 
-       // Map<String, String> postData = new HashMap<>();
-        // postData.put("user_subscricao", subscricao);
-        // postData.put("user_subscricao", subscricao2);
+        Map<String, String> postData = new HashMap<>();
+        postData.put("user_subscricao", subscricao);
+        postData.put("user_subscricao", subscricao2);
 
-
-
-
-        // PostMethod task1 = new PostMethod(postData);
+        PostMethod task1 = new PostMethod(postData);
 
         //Post call
-        // try {
+        try {
 
-           // task1.execute("http://13.40.214.190:5000/users/updateuser");
-            // Log.d("AQUIII", task1.execute("http://13.40.214.190:5000/users/updateuser/1" + iduser).toString());
+           task1.execute("http://35.176.222.11:5000/users/updateuser");
+           Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/users/updateuser/1" + iduser).toString());
 
-            // Toast.makeText(this,"Selecione uma subscrição", Toast.LENGTH_SHORT).show();
+           Toast.makeText(this,"Selecione uma subscrição", Toast.LENGTH_SHORT).show();
 
-        // } catch (Exception e){
-           // Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
-        //}
+        } catch (Exception e){
+           Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
+        }
 
-    //}
+     }
+
+    //menus
+    public void OpenLeftSideMenu(View view){openDrawer(drawer);}
+    public void OpenRightSideMenu(View view){openDrawer2(drawer);}
+
+    public void CloseLeftMenu(View view){closeDrawer(drawer);}
+    public void CloseRightMenu(View view){closeDrawer2(drawer);}
+    public void OpenTripDetailsDrawer(View view){openDrawer3(drawer);}
+    public static void openDrawer(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    public static void openDrawer2(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void openDrawer3(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void closeDrawer(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+    public static void closeDrawer2(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        }
+    }
+
+
+    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
+    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
+    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
+    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
+    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
+    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
+    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
+    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
+    public void ClickLogout(View view){
+        //goToActivity(this,**);
+        Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        closeDrawer(drawer);
+    }
 
 }
