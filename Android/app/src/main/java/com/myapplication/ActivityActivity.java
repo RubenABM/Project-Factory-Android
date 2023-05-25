@@ -33,6 +33,7 @@ public class ActivityActivity extends AppCompatActivity {
     DrawerLayout drawer;
     Button editar, atualizar;
     static String iduser;
+    public static String linestr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,10 @@ public class ActivityActivity extends AppCompatActivity {
 
 
         // Metodo GET para ir buscar os dados do percurso do utilizador
-        iduser = getIntent().getStringExtra("key");
+        linestr = getIntent().getStringExtra("key");
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
+            loginjson = task.execute("http://35.176.222.11:5000/users/data/2/3").get();
             data.setText(loginjson.getString("user_route"));
             Log.d("AQUIIII:::::", loginjson.toString());
 
@@ -117,11 +118,11 @@ public class ActivityActivity extends AppCompatActivity {
 
     }
 
-    //public void VerDados (View view){
-        //firstMap = false;
-
-
-    //}
+    public static void goToActivity(Activity activity, Class aClass) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
 
 
