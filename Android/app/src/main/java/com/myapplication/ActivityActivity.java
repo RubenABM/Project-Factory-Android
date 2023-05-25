@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 public class ActivityActivity extends AppCompatActivity {
 
     EditText percurso;
-    TextView data, km;
+    TextView data, km, idrout;
     DrawerLayout drawer;
     Button editar, atualizar;
 
@@ -44,7 +44,6 @@ public class ActivityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity);
-        JSONObject loginjson = null;
         iduser = getIntent().getStringExtra("key");
         String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
         percurso = findViewById(R.id.editTextPercurso);
@@ -52,6 +51,7 @@ public class ActivityActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         editar = findViewById(R.id.button);
         km = findViewById(R.id.editTextKm);
+        idrout = findViewById(R.id.routeid);
         atualizar = findViewById(R.id.button2);
         iconTrip = findViewById(R.id.imageView10);
         iconTrip.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +68,8 @@ public class ActivityActivity extends AppCompatActivity {
                 idroute = getjson.getString("route_id");
                 routeCoords = getjson.getString("route_coord");
                 routes.put(idroute, routeCoords);
+                idrout.setText(idroute);//cada cartao fica com o id dessa viagem
+                //aqui fica o codigo para gerar os cartoes com as viagens (perguntar à ana)
             }
 
         } catch (ExecutionException | InterruptedException | JSONException e) {
@@ -167,19 +169,7 @@ public class ActivityActivity extends AppCompatActivity {
 
     public void GoToTrip(View view) {
         firstMap = false;
-        String routeId = ""; //this needs to a correct value!!!
-        //GET method
-        JSONObject getjson = null;
-        iduser = getIntent().getStringExtra("key");
-        JSONObjToArray taskget = new JSONObjToArray();
-        String url = "http://35.176.222.11:5000/routes/user/" + iduser + "/" + routeId;
-        try {
-            getjson = taskget.execute(url).get();
-            linestr = getjson.getString("route_coord"); //asign linestring to public variable
-
-        } catch (ExecutionException | InterruptedException | JSONException e) {
-        e.printStackTrace();
-        }
+        linestr = routes.get(idrout);
         StartActivity.goToActivity(this, StartActivity.class);
     }
 
