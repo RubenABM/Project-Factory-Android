@@ -7,6 +7,7 @@ import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
 import static com.myapplication.MapFragment.startDateNtime;
 import static com.myapplication.MapFragment.latLngList;
+import static com.myapplication.MapFragment.firstMap;
 
 import android.Manifest;
 import android.app.Activity;
@@ -106,6 +107,7 @@ public class StartActivity extends AppCompatActivity {
                 //start writing the coordenates from esp32 to dataholder
                 startTripFlag = true;
                 endTripFlag = false;
+                firstMap = true;
                 /*
                 databaseUpdateRunnable = new Runnable() {
                     @Override
@@ -192,6 +194,12 @@ public class StartActivity extends AppCompatActivity {
     public static void goToActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
+    public static void goToActivity2(Activity activity, Class aClass, String liststring) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("coordList", liststring);
         activity.startActivity(intent);
     }
 

@@ -7,7 +7,9 @@ import static com.myapplication.TinyWebServer.startTripFlag;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
+import android.app.Activity;
+import android.content.Intent;
+import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +31,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.io.*;
+
 
 public class MapFragment extends Fragment {
 
@@ -45,6 +50,7 @@ public class MapFragment extends Fragment {
     public static int startDateNtime;
 
     public static int endDateNtime;
+    public static boolean firstMap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,97 +60,135 @@ public class MapFragment extends Fragment {
 
         assert supportMapFragment != null;
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-                String previouslatstr = DataHolder.getInstance().getDataMap().get("gpslat");
-                String previouslongstr = DataHolder.getInstance().getDataMap().get("gpslong");
-                if(!DataHolder.getInstance().getDataMap().isEmpty()){
-                    Log.d(TAG,"Dataholder was not empty!");
-                    double previouslat = Double.parseDouble(previouslatstr);
-                    double previouslong = Double.parseDouble(previouslongstr);
-                    LatLng latLng = new LatLng(previouslat, previouslong);
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-                    markerOptions.title(latLng.latitude +"KG"+ latLng.longitude);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
-                    latLngList.add(new LatLng(previouslat, previouslong));
-                    PolylineOptions polylineOptions = new PolylineOptions()
-                            .addAll(latLngList)
-                            .width(5) // Set the line width
-                            .color(Color.RED); // Set the line color
-                    polyline = googleMap.addPolyline(polylineOptions);
 
-                }else {
-                    Log.d(TAG, "FALLBACK POSITION");
-                    double latitude = 38.7073618;
-                    previouslatstr = "38.7073618";
-                    double longitude = -9.152648;
-                    previouslongstr = "-9.152648";
-                    LatLng latLng = new LatLng(latitude, longitude);
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-                    markerOptions.title("fallback position");
-                    googleMap.addMarker(markerOptions);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
-                }
-                String finalPreviouslatstr = previouslatstr;
-                String finalPreviouslongstr = previouslongstr;
+                if (firstMap){
+                    String previouslatstr = DataHolder.getInstance().getDataMap().get("gpslat");
+                    String previouslongstr = DataHolder.getInstance().getDataMap().get("gpslong");
+                    if(!DataHolder.getInstance().getDataMap().isEmpty()){
+                        Log.d(TAG,"Dataholder was not empty!");
+                        double previouslat = Double.parseDouble(previouslatstr);
+                        double previouslong = Double.parseDouble(previouslongstr);
+                        LatLng latLng = new LatLng(previouslat, previouslong);
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title(latLng.latitude +"KG"+ latLng.longitude);
+                        googleMap.addMarker(markerOptions);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
+                        latLngList.add(new LatLng(previouslat, previouslong));
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .addAll(latLngList)
+                                .width(5) // Set the line width
+                                .color(Color.RED); // Set the line color
+                        polyline = googleMap.addPolyline(polylineOptions);
 
-                cameraUpdateRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG,"position was updated!");
-                        String currentlatitudestr = DataHolder.getInstance().getDataMap().get("gpslat");
-                        String currentlongitudestr = DataHolder.getInstance().getDataMap().get("gpslong");
-                        if(currentlatitudestr == null && currentlongitudestr == null){
-                            //Log.d(TAG, "FALLBACK POSITION");
-                            double latfallback = 38.7073618;
-                            double longfallback = -9.152648;
-                            LatLng latLng = new LatLng(latfallback, longfallback);
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position(latLng);
-                            markerOptions.title("fallback position");
-                            googleMap.addMarker(markerOptions);
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                        }else{
-                            checkCoordinates(finalPreviouslatstr, finalPreviouslongstr,currentlatitudestr,currentlongitudestr);
-                            long currentTimeMillis = System.currentTimeMillis();
-                            int dateNtime = (int) (currentTimeMillis / 1000);
-                            if(coordflag) {
-                                Log.d(TAG, "Position was different!");
-                                assert currentlatitudestr != null;
-                                double currentlatitude = Double.parseDouble(currentlatitudestr);
-                                assert currentlongitudestr != null;
-                                double currentlongitude = Double.parseDouble(currentlongitudestr);
-                                LatLng latLng = new LatLng(currentlatitude, currentlongitude);
-                                addPointToLine(latLng);
-                                if (firstPoint){
-                                    startDateNtime = dateNtime;
-                                    MarkerOptions markerOptions = new MarkerOptions();
-                                    markerOptions.position(latLng);
-                                    markerOptions.title("Origin!");
-                                    googleMap.addMarker(markerOptions);
-                                    latLngList.add(latLng);
-                                    PolylineOptions polylineOptions = new PolylineOptions()
-                                            .addAll(latLngList)
-                                            .width(5) // Set the line width
-                                            .color(Color.RED); // Set the line color
-                                    polyline = googleMap.addPolyline(polylineOptions);
-                                } else if (endTripFlag) {
-                                    endDateNtime = dateNtime;
-                                    MarkerOptions markerOptions = new MarkerOptions();
-                                    markerOptions.position(latLng);
-                                    markerOptions.title("Destination!");
-                                    googleMap.addMarker(markerOptions);
-                                }
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                            }
-                        }
-                        handler.postDelayed(this, 5000); // Update every 5 seconds
+                    }else {
+                        Log.d(TAG, "FALLBACK POSITION");
+                        double latitude = 38.7073618;
+                        previouslatstr = "38.7073618";
+                        double longitude = -9.152648;
+                        previouslongstr = "-9.152648";
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title("fallback position");
+                        googleMap.addMarker(markerOptions);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
                     }
-                };
-                handler.post(cameraUpdateRunnable);
+                    String finalPreviouslatstr = previouslatstr;
+                    String finalPreviouslongstr = previouslongstr;
+
+                    cameraUpdateRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"position was updated!");
+                            String currentlatitudestr = DataHolder.getInstance().getDataMap().get("gpslat");
+                            String currentlongitudestr = DataHolder.getInstance().getDataMap().get("gpslong");
+                            if(currentlatitudestr == null && currentlongitudestr == null){
+                                //Log.d(TAG, "FALLBACK POSITION");
+                                double latfallback = 38.7073618;
+                                double longfallback = -9.152648;
+                                LatLng latLng = new LatLng(latfallback, longfallback);
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(latLng);
+                                markerOptions.title("fallback position");
+                                googleMap.addMarker(markerOptions);
+                                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                            }else{
+                                checkCoordinates(finalPreviouslatstr, finalPreviouslongstr,currentlatitudestr,currentlongitudestr);
+                                long currentTimeMillis = System.currentTimeMillis();
+                                int dateNtime = (int) (currentTimeMillis / 1000);
+                                if(coordflag) {
+                                    Log.d(TAG, "Position was different!");
+                                    assert currentlatitudestr != null;
+                                    double currentlatitude = Double.parseDouble(currentlatitudestr);
+                                    assert currentlongitudestr != null;
+                                    double currentlongitude = Double.parseDouble(currentlongitudestr);
+                                    LatLng latLng = new LatLng(currentlatitude, currentlongitude);
+                                    addPointToLine(latLng);
+                                    if (firstPoint){
+                                        startDateNtime = dateNtime;
+                                        MarkerOptions markerOptions = new MarkerOptions();
+                                        markerOptions.position(latLng);
+                                        markerOptions.title("Origin!");
+                                        googleMap.addMarker(markerOptions);
+                                        latLngList.add(latLng);
+                                        PolylineOptions polylineOptions = new PolylineOptions()
+                                                .addAll(latLngList)
+                                                .width(5) // Set the line width
+                                                .color(Color.RED); // Set the line color
+                                        polyline = googleMap.addPolyline(polylineOptions);
+                                    } else if (endTripFlag) {
+                                        endDateNtime = dateNtime;
+                                        MarkerOptions markerOptions = new MarkerOptions();
+                                        markerOptions.position(latLng);
+                                        markerOptions.title("Destination!");
+                                        googleMap.addMarker(markerOptions);
+                                    }
+                                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                }
+                            }
+                            handler.postDelayed(this, 5000); // Update every 5 seconds
+                        }
+                    };
+                    handler.post(cameraUpdateRunnable);
+                } else if (!firstMap) {
+                    //will display the trip from activity activity
+                    //Bundle extras = getIntent().getExtras();
+                    //String hexString = extras.getString("coordList");
+                    String hexString = "01020000000600000057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C015562AA8A85C4340514CDE00334F22C015562AA8A85C4340514CDE00334F22C00E65A88AA95C4340C9B08A37324F22C0";
+
+                    // Create a WKBReader to parse the hex string
+                    WKBReader reader = new WKBReader();
+
+                    try {
+                        // Parse the hex string into a Geometry object
+                        byte[] wkb = WKBReader.hexToBytes(hexString);
+                        Geometry geometry = reader.read(wkb);
+
+                        // Check if the geometry is a LineString
+                        if (geometry instanceof LineString) {
+                            LineString lineString = (LineString) geometry;
+
+                            // Convert LineString to Polyline (Polygon with no area)
+                            GeometryFactory factory = new GeometryFactory();
+                            LinearRing shell = factory.createLinearRing(lineString.getCoordinateSequence());
+                            Polygon polyline = new Polygon(shell, null, factory);
+
+                            // Print the Polyline coordinates
+                            Coordinate[] polylineCoordinates = polyline.getCoordinates();
+                            for (Coordinate coordinate : polylineCoordinates) {
+                                System.out.println(coordinate.toString());
+                            }
+                        } else {
+                            System.out.println("The input geometry is not a LineString.");
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -155,7 +199,7 @@ public class MapFragment extends Fragment {
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
-                        markerOptions.title(latLng.latitude +"KG"+ latLng.longitude);
+                        markerOptions.title(latLng.latitude +", "+ latLng.longitude);
                         googleMap.clear();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                         googleMap.addMarker(markerOptions);
