@@ -11,28 +11,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="">
 
         <include layout="@layout/main_toolbar"/>
 
         <RelativeLayout
+            android:id="@+id/routeCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:id="@+id/frame_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffff">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/iconBox">
 
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="77dp"
+                    android:layout_height="58dp"
+                    app:srcCompat="@drawable/edit_road"/>
 
-                <TextView
-                    android:id="@+id/editTextKm"
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="75dp"
+                    android:layout_height="38dp"
+                    android:backgroundTint="#003B3F"
+                    android:layout_below="@id/imageView10"
+                    android:text="Edit" />
+            </RelativeLayout>
+            <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="205dp"
-                    android:layout_marginTop="140dp"
-                    android:text="km"
+                    android:layout_toEndOf="@+id/iconBox"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/routeidText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="routeId: "
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -40,82 +61,49 @@
                     android:id="@+id/routeid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="205dp"
-                    android:layout_marginTop="165dp"
-                    android:text="routeId"
+                    android:text="placeholder"
+                    android:layout_toEndOf="@+id/routeidText"
                     android:textColor="#000000"
                     android:textSize="20sp" />
-            </FrameLayout>
 
-            <TextView
-                android:id="@+id/textViewTitleActivity"
-                android:layout_width="120dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="10dp"
-                android:text="Activity"
-                android:textColor="#000"
-                android:textSize="34sp"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="80dp"
-                android:onClick="GoToTrip"
-                app:srcCompat="@drawable/edit_road" />
-
-            <TextView
-                android:id="@+id/editTextPercurso1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:layout_marginLeft="200dp"
-                android:text="Data"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editTextPercurso"
-                android:layout_width="171dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="100dp"
-                android:backgroundTint="#00000000"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Percurso 1"
-                android:visibility="invisible"
-                android:textColor="#000" />
-
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="550dp"
-                android:layout_marginLeft="140dp"
-                android:backgroundTint="#003B3F"
-                android:onClick="EditarTexto"
-                android:text="Edit Activity" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="550dp"
-                android:layout_marginLeft="140dp"
-                android:backgroundTint="#003B3F"
-                android:onClick="UpdateText"
-                android:text="Atualizar"
-                android:visibility="invisible"/>
-
-
+                <TextView
+                    android:id="@+id/PercursoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/routeidText"
+                    android:layout_marginTop="10dp"
+                    android:text="Name: "
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/editTextPercurso1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="65dp"
+                    android:text="placeholder"
+                    android:layout_below="@+id/routeid"
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/startDnT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/PercursoText"
+                    android:layout_marginTop="10dp"
+                    android:text="Date: "
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/dateNTimeStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextPercurso1"
+                    android:layout_marginLeft="70dp"
+                    android:text="placeholder"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </RelativeLayout>
         </RelativeLayout>
-
-
     </LinearLayout>
 
     <RelativeLayout
@@ -136,7 +124,6 @@
         <include layout="@layout/right_side_drawer"/>
 
     </RelativeLayout>
-
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

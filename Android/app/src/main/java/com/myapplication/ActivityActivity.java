@@ -13,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myapplication.downloadtasks.JSONArr;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,8 +32,8 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityActivity extends AppCompatActivity {
 
-    EditText percurso;
-    TextView data, km, idrout;
+    EditText routeName;
+    TextView startDnTime, idrout;
     DrawerLayout drawer;
     Button editar, atualizar;
 
@@ -40,6 +43,7 @@ public class ActivityActivity extends AppCompatActivity {
 
     String idroute = "";
     String routeCoords = "";
+    RelativeLayout routeCards;
 
     public static HashMap<String, String> routes = new HashMap<>();
 
@@ -49,62 +53,57 @@ public class ActivityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_activity);
         iduser = getIntent().getStringExtra("key");
         String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
-        //String firstURL = "http://35.176.222.11:5000/routes/user/2";
-        percurso = findViewById(R.id.editTextPercurso);
-        data = findViewById(R.id.editTextPercurso1);
         drawer = findViewById(R.id.drawer_layout);
-        editar = findViewById(R.id.button);
-        km = findViewById(R.id.editTextKm);
-        idrout = findViewById(R.id.routeid);
-        atualizar = findViewById(R.id.button2);
-        iconTrip = findViewById(R.id.imageView10);
-        iconTrip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GoToTrip(v);
-            }
-        });
-        JSONObject getjson = null;
-        JSONObjToArray taskget = new JSONObjToArray();
+        atualizar = findViewById(R.id.editButton);
+
+        JSONArray getjson = null;
+        JSONArr taskget = new JSONArr();
+        JSONObject test = null;
         try {
             getjson = taskget.execute(firstURL).get();
             Log.d(TAG, getjson.toString());
             for (int i = 0; i < getjson.length(); i++){
-                idroute = getjson.getString("route_id");
-                routeCoords = getjson.getString("route_coord");
+                test = getjson.getJSONObject(i);
+                routeCards = findViewById(R.id.routeCard);
+                idroute = test.getString("route_id");
+                routeCoords = test.getString("route_coord");
+                Log.d(TAG, routeCoords);
                 routes.put(idroute, routeCoords);
-                idrout.setText(idroute);//cada cartao fica com o id dessa viagem
-                //aqui fica o codigo para gerar os cartoes com as viagens (perguntar à ana)
+                startDnTime = findViewById(R.id.dateNTimeStart);
+                //String tripTime = getjson.getString("data_startTime") + " - " + getjson.getString("data_endTime");
+                String tripTime = "GET fix!";
+                startDnTime.setText(tripTime);
+                idrout = findViewById(R.id.routeid);
+                idrout.setText(idroute);
+                routeName = findViewById(R.id.editTextPercurso1);
+                routeName.setText(test.getString("route_name"));
+                iconTrip = findViewById(R.id.imageView10);
             }
 
         } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
-    }
 
-    public void EditarTexto(View view){
-
-        editar.setOnClickListener(new View.OnClickListener() {
+        iconTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data.setVisibility(View.INVISIBLE);
-                km.setVisibility(View.INVISIBLE);
-                percurso.setVisibility(View.VISIBLE);
-                atualizar.setVisibility(View.VISIBLE);
-                editar.setVisibility(View.INVISIBLE);
-
+                GoToTrip(v, idroute);
             }
         });
 
+        atualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateText(v,idrout.toString());
+            }
+        });
     }
 
-
-    public void UpdateText(View v){
+    public void UpdateText(View v, String routeId){
 
         try {
-            String routeId = "";
             Map<String, String> postData = new HashMap<>();
-            postData.put("route_name", percurso.getText().toString());
+            postData.put("route_name", routeName.getText().toString());
             PostMethod task = new PostMethod(postData);
             String url = "http://35.176.222.11:5000/routes/updateroutename/" + iduser + "/" + routeId;
             task.execute(url);
@@ -171,7 +170,7 @@ public class ActivityActivity extends AppCompatActivity {
     }
 
 
-    public void GoToTrip(View view) {
+    public void GoToTrip(View view, String idroute) {
         firstMap = false;
         startingflag = false;
         linestr = routes.get(idroute);
