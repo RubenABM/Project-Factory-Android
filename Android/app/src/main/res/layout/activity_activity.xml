@@ -16,94 +16,15 @@
 
         <include layout="@layout/main_toolbar"/>
 
-        <RelativeLayout
-            android:id="@+id/routeCard"
+        <LinearLayout
+            android:id="@+id/linearActivityActivity"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/iconBox">
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="77dp"
-                    android:layout_height="58dp"
-                    app:srcCompat="@drawable/edit_road"/>
 
-                <Button
-                    android:id="@+id/editButton"
-                    android:layout_width="75dp"
-                    android:layout_height="48dp"
-                    android:layout_below="@id/imageView10"
-                    android:backgroundTint="#003B3F"
-                    android:text="Edit" />
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/iconBox"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/routeidText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="routeId: "
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/routeid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="placeholder"
-                    android:layout_toEndOf="@+id/routeidText"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/PercursoText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/routeidText"
-                    android:layout_marginTop="10dp"
-                    android:text="Name: "
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-                <EditText
-                    android:id="@+id/editTextPercurso1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="65dp"
-                    android:text="placeholder"
-                    android:layout_below="@+id/routeid"
-                    android:textColor="#000000"
-                    android:textSize="20sp"/>
-                <TextView
-                    android:id="@+id/startDnT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/PercursoText"
-                    android:layout_marginTop="10dp"
-                    android:text="Date: "
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/dateNTimeStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/editTextPercurso1"
-                    android:layout_marginLeft="70dp"
-                    android:text="placeholder"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

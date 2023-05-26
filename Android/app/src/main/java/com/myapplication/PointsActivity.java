@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.myapplication.downloadtasks.DownloadTask;
 import com.myapplication.downloadtasks.JSONObjToArray;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,11 +38,14 @@ public class PointsActivity extends AppCompatActivity {
         textDescricao = findViewById(R.id.textViewPointsOfertaDescricao);
 
         //Método GET para ir buscar os pontos do user
-       /* iduser = getIntent().getStringExtra("key");
-        JSONObjToArray task = new JSONObjToArray();
+        iduser = getIntent().getStringExtra("key");
+        DownloadTask task = new DownloadTask();
 
         try{
-            JSONObject pointsjson = task.execute("http://13.40.214.190:5000/users/" + iduser).get();
+            JSONArray pointsjson = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
+
+            JSONObject jsonPart = challengesArray.getJSONObject(i);
+
             textPoints.setText(pointsjson.getString("user_points"));
 
         } catch (Exception e) {
@@ -53,7 +58,7 @@ public class PointsActivity extends AppCompatActivity {
         try {
             GridLayout ll = findViewById(R.id.pointsGridLayout);
 
-            JSONObject challengesjson = task.execute("http://13.40.214.190:5000/challenges").get();
+            JSONObject challengesjson = task1.execute("http://35.176.222.11:5000/challenges").get();
 
             ArrayList challenges = new ArrayList();
 
