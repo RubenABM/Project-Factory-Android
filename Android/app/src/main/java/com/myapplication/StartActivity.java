@@ -45,10 +45,18 @@ public class StartActivity extends AppCompatActivity {
     Button endbtn;
     BottomSheetDialog dialog;
     DrawerLayout drawer;
+
+    public static boolean startingflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        if (startingflag){
+            firstMap = true;
+        } else if (!startingflag) {
+            firstMap = false;
+        }
 
         Fragment fragment = new MapFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
@@ -191,28 +199,6 @@ public class StartActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawer);
-    }
-
-    public void criaIndex(File filesDir, String ip) {
-        try {
-            File f = new File(filesDir + "/index.html");
-
-            if (f.exists()) {
-                Log.d(TAG, "Ficheiro index.html existe");
-                f.delete();
-                Log.d(TAG, "Vou abrir ficheiro para escrita");
-                FileWriter out = new FileWriter(f, true);
-                Log.d(TAG, "Abri ficheiro para escrita");
-                out.append("<html><head><meta charset='utf-8'></head><body><h2>Android</h2><p>O meu IP é: " + ip + "</p></body></html>");
-                Log.d(TAG, "Escrevi no ficheiro");
-                out.flush();
-                out.close();
-            }
-
-        } catch(Exception e){
-            e.printStackTrace();
-            Log.d(TAG, "Erro a criar o ficheiro: " + e.toString());
-        }
     }
 
     public void StopTripFunction(View view) {

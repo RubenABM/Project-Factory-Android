@@ -3,7 +3,7 @@ package com.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
+import static com.myapplication.StartActivity.startingflag;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -139,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
             loginjson = task.execute("http://35.176.222.11:5000/users/login2/" + editTextTextEmailAddress.getText().toString() + "/" + editTextTextPassword2.getText().toString()).get();
 
             if (loginjson != null) {
+                startingflag = true;
                 Toast.makeText(this, "Bem vindo " + loginjson.getString("user_name") + " !!!", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(this, StartActivity.class);
                 myIntent.putExtra("key", loginjson.getString("user_id"));

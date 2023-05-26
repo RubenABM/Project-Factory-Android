@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import static com.myapplication.MapFragment.firstMap;
+import static com.myapplication.StartActivity.startingflag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,8 +48,8 @@ public class ActivityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity);
         iduser = getIntent().getStringExtra("key");
-        //String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
-        String firstURL = "http://35.176.222.11:5000/routes/user/2";
+        String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
+        //String firstURL = "http://35.176.222.11:5000/routes/user/2";
         percurso = findViewById(R.id.editTextPercurso);
         data = findViewById(R.id.editTextPercurso1);
         drawer = findViewById(R.id.drawer_layout);
@@ -102,7 +103,6 @@ public class ActivityActivity extends AppCompatActivity {
 
         try {
             String routeId = "";
-            String iduser = getIntent().getStringExtra("key");
             Map<String, String> postData = new HashMap<>();
             postData.put("route_name", percurso.getText().toString());
             PostMethod task = new PostMethod(postData);
@@ -147,7 +147,7 @@ public class ActivityActivity extends AppCompatActivity {
 
 
     public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class, iduser);}
     public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
     public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
     public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
@@ -173,7 +173,8 @@ public class ActivityActivity extends AppCompatActivity {
 
     public void GoToTrip(View view) {
         firstMap = false;
-        linestr = routes.get(idrout);
+        startingflag = false;
+        linestr = routes.get(idroute);
         StartActivity.goToActivity(this, StartActivity.class);
     }
 

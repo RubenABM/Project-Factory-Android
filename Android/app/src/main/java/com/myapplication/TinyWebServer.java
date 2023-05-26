@@ -296,6 +296,28 @@ public class TinyWebServer extends Thread {
                     constructHeader(out, data.length() + "", data);
                 }
 
+            case "/fall":
+
+                System.out.println("url location -> " + location);
+                geturl = getDecodedUrl("http://localhost" + location);
+                dirPath = geturl.getPath().split("/");
+                fullFilePath=geturl.getPath();
+
+                if (dirPath.length > 1) {
+                    String fileName = dirPath[dirPath.length - 1];
+                    if(REQUEST_TYPE.equals("POST")){
+                        System.out.println("User has fallen!");
+                        if (qparms==null){ qparms=new HashMap<String,String>();}
+                        HashMap qparms = (HashMap) splitQuery(postData);
+
+
+
+                    }
+                    CONTENT_TYPE = getContentType(fileName);
+                    data = getResultByName(fileName, qparms);
+                    constructHeader(out, data.length() + "", data);
+                }
+
         }
 
     }
