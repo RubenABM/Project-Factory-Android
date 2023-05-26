@@ -21,30 +21,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true" >
+
         <activity
             android:name=".HelmetsActivity"
             android:exported="true" />
+
         <activity
             android:name=".ActivityActivity"
             android:exported="true" />
+
+
         <activity
             android:name=".SubscriptionActivity"
             android:exported="true" />
+
+
         <activity
             android:name=".ChallengesActivity"
             android:exported="true" />
+
         <activity
             android:name=".CreateAccountActivity"
             android:exported="true" />
+
         <activity
             android:name=".StartActivity"
             android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBEBktWgSWoD0nFz-lhNxeaLx4uEg8kQ1M"></meta-data>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true" >
