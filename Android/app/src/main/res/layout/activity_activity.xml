@@ -37,9 +37,9 @@
                 <Button
                     android:id="@+id/editButton"
                     android:layout_width="75dp"
-                    android:layout_height="38dp"
-                    android:backgroundTint="#003B3F"
+                    android:layout_height="48dp"
                     android:layout_below="@id/imageView10"
+                    android:backgroundTint="#003B3F"
                     android:text="Edit" />
             </RelativeLayout>
             <RelativeLayout

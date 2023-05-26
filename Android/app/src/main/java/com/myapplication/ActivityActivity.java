@@ -55,6 +55,7 @@ public class ActivityActivity extends AppCompatActivity {
         String firstURL = "http://35.176.222.11:5000/routes/user/" + iduser;
         drawer = findViewById(R.id.drawer_layout);
         atualizar = findViewById(R.id.editButton);
+        iconTrip = findViewById(R.id.imageView10);
 
         JSONArray getjson = null;
         JSONArr taskget = new JSONArr();
@@ -62,7 +63,7 @@ public class ActivityActivity extends AppCompatActivity {
         try {
             getjson = taskget.execute(firstURL).get();
             Log.d(TAG, getjson.toString());
-            for (int i = 0; i < getjson.length(); i++){
+            for (int i = 0; i < getjson.length(); i++) {
                 test = getjson.getJSONObject(i);
                 routeCards = findViewById(R.id.routeCard);
                 idroute = test.getString("route_id");
@@ -77,7 +78,7 @@ public class ActivityActivity extends AppCompatActivity {
                 idrout.setText(idroute);
                 routeName = findViewById(R.id.editTextPercurso1);
                 routeName.setText(test.getString("route_name"));
-                iconTrip = findViewById(R.id.imageView10);
+
             }
 
         } catch (ExecutionException | InterruptedException | JSONException e) {
@@ -94,12 +95,12 @@ public class ActivityActivity extends AppCompatActivity {
         atualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateText(v,idrout.toString());
+                UpdateText(v, idrout.toString());
             }
         });
     }
 
-    public void UpdateText(View v, String routeId){
+    public void UpdateText(View v, String routeId) {
 
         try {
             Map<String, String> postData = new HashMap<>();
@@ -108,21 +109,35 @@ public class ActivityActivity extends AppCompatActivity {
             String url = "http://35.176.222.11:5000/routes/updateroutename/" + iduser + "/" + routeId;
             task.execute(url);
 
-            Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
-        } catch (Exception e){
-            Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "ERRO!", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     //menus
-    public void OpenLeftSideMenu(View view){openDrawer(drawer);}
-    public void OpenRightSideMenu(View view){openDrawer2(drawer);}
+    public void OpenLeftSideMenu(View view) {
+        openDrawer(drawer);
+    }
 
-    public void CloseLeftMenu(View view){closeDrawer(drawer);}
-    public void CloseRightMenu(View view){closeDrawer2(drawer);}
-    public void OpenTripDetailsDrawer(View view){openDrawer3(drawer);}
+    public void OpenRightSideMenu(View view) {
+        openDrawer2(drawer);
+    }
+
+    public void CloseLeftMenu(View view) {
+        closeDrawer(drawer);
+    }
+
+    public void CloseRightMenu(View view) {
+        closeDrawer2(drawer);
+    }
+
+    public void OpenTripDetailsDrawer(View view) {
+        openDrawer3(drawer);
+    }
+
     public static void openDrawer(DrawerLayout drawer) {
         drawer.openDrawer(GravityCompat.START);
     }
@@ -130,14 +145,17 @@ public class ActivityActivity extends AppCompatActivity {
     public static void openDrawer2(DrawerLayout drawer) {
         drawer.openDrawer(GravityCompat.END);
     }
+
     public static void openDrawer3(DrawerLayout drawer) {
         drawer.openDrawer(GravityCompat.END);
     }
+
     public static void closeDrawer(DrawerLayout drawer) {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
     }
+
     public static void closeDrawer2(DrawerLayout drawer) {
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
@@ -145,15 +163,39 @@ public class ActivityActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class, iduser);}
-    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
-    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
-    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
-    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
-    public void ClickLogout(View view){
+    public void ClickHelmets(View view) {
+        StartActivity.goToActivity(this, HelmetsActivity.class);
+    }
+
+    public void ClickActivity(View view) {
+        StartActivity.goToActivity2(this, ActivityActivity.class, iduser);
+    }
+
+    public void ClickChallenges(View view) {
+        StartActivity.goToActivity(this, ChallengesActivity.class);
+    }
+
+    public void ClickHealth(View view) {
+        StartActivity.goToActivity(this, HealthActivity.class);
+    }
+
+    public void ClickPoints(View view) {
+        StartActivity.goToActivity(this, PointsActivity.class);
+    }
+
+    public void ClickProfile(View view) {
+        StartActivity.goToActivity(this, ProfileActivity.class);
+    }
+
+    public void ClickSubscription(View view) {
+        StartActivity.goToActivity(this, SubscriptionActivity.class);
+    }
+
+    public void ClickSettings(View view) {
+        StartActivity.goToActivity(this, SettingsActivity.class);
+    }
+
+    public void ClickLogout(View view) {
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
     }
