@@ -1,23 +1,22 @@
 package com.myapplication;
 
+import static com.myapplication.StartActivity.Logout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.myapplication.downloadtasks.JSONObjToArray;
-import com.myapplication.downloadtasks.PostMethod;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
@@ -26,106 +25,125 @@ import org.json.JSONObject;
 public class SubscriptionActivity extends AppCompatActivity {
 
 
-    TextView Subscricao, Paga1, Gratis1;
-    Button Alteracao, Confirmar;
-    ImageView Atual, Paga, Gratis;
+    TextView Subscricao, paga, gratis;
+    Button alterar, back;
+
+    ImageView paga1, gratis1, atual1;
     static String iduser;
     DrawerLayout drawer;
+
+    String sub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
-        JSONObject loginjson = null;
+        JSONObject json = null;
 
         Subscricao = findViewById(R.id.textViewAtual);
-        Alteracao = findViewById(R.id.buttonChange);
-        Atual  = findViewById(R.id.imageViewAtual);
-        Paga = findViewById(R.id.imageViewGratis);
-        Gratis = findViewById(R.id.imageViewPaga);
-        Paga1 = findViewById(R.id.textViewGratis);
-        Gratis1 = findViewById(R.id.textViewPaga);
-        Confirmar = findViewById(R.id.buttonChange2);
-        drawer = findViewById(R.id.drawer_layout);
+        atual1 = findViewById(R.id.imageViewAtual);
+        alterar = findViewById(R.id.buttonChange);
+        back = findViewById(R.id.buttonBack);
+        paga = findViewById(R.id.textViewPaga);
+        gratis = findViewById(R.id.textViewGratis);
+        paga1 = findViewById(R.id.imageViewPaga);
+        gratis1 = findViewById(R.id.imageViewGratis);
 
         // Metodo Get para ir buscar a subscrição do utilizador
 
         iduser = getIntent().getStringExtra("key");
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
+        String tier;
+
         try {
-            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
-            Subscricao.setText(loginjson.getString("user_subscription"));
-            Log.d("AQUIIII::::", loginjson.toString());
+            json = task.execute("http://35.176.222.11:5000/users/1").get();
+
+            tier = json.getString("user_subscription");
+            if(tier == "Gratis") {
+                Subscricao.setText("CU");
+            } else if(tier == "Pago") {
+                Subscricao.setText("CU 2");
+            }
+
+            //Subscricao.setText(json.getString("user_subscription"));
+            Log.d("AQUIIII::::", json.toString());
 
         } catch (ExecutionException e) {
             e.printStackTrace();
-            loginjson = null;
+            json = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            loginjson = null;
+            json = null;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public void Alterar(View view){
-
-        Alteracao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Subscricao.setVisibility(View.INVISIBLE);
-                Alteracao.setVisibility(View.INVISIBLE);
-                Atual.setVisibility(View.INVISIBLE);
-
-                Paga.setVisibility(View.VISIBLE);
-                Paga1.setVisibility(View.VISIBLE);
-                Gratis.setVisibility(View.VISIBLE);
-                Gratis1.setVisibility(View.VISIBLE);
-
-            }
-
-
-        });
 
     }
 
 
 
-    /*public void Gratis2(View view){
 
-        Gratis.setOnClickListener(new View.OnClickListener() {
+
+
+    //Ir para a pagina das subscrições pagas
+    public void Onclick1(View view){
+
+        paga.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                Alteracao.setVisibility(View.VISIBLE);
-                Atual.setVisibility(View.INVISIBLE);
-                Subscricao.setVisibility(View.INVISIBLE);
-
-                Gratis.setVisibility(View.VISIBLE);
-                Gratis1.setVisibility(View.VISIBLE);
-
-
+            public void onClick(View view) {
+                Intent intent = new Intent(SubscriptionActivity.this, PagaActivity.class);
+                startActivity(intent);
             }
         });
 
-    }*/
+    }
 
-    /*public void Pagar2(View view){
-        Paga.setOnClickListener(new View.OnClickListener() {
+    //Botão para fazer return para a pagina principal das subscrições
+    public void Onclick3(View view){
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Alteracao.setVisibility(View.VISIBLE);
-                Atual.setVisibility(View.INVISIBLE);
-                Subscricao.setVisibility(View.INVISIBLE);
-
-                Paga.setVisibility(View.VISIBLE);
-                Paga.setVisibility(View.VISIBLE);
+            public void onClick(View view) {
+                Intent intent = new Intent(SubscriptionActivity.this, SubscriptionActivity.class);
+                startActivity(intent);
             }
         });
-    }*/
 
-    public void UpdateProfile(View v){
+    }
+
+    public void OnClickAlterar(View view){
+
+        alterar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Subscricao.setVisibility(View.INVISIBLE);
+                atual1.setVisibility(View.INVISIBLE);
+                paga.setVisibility(View.VISIBLE);
+                paga1.setVisibility(View.VISIBLE);
+                gratis.setVisibility(View.VISIBLE);
+                gratis1.setVisibility(View.VISIBLE);
+                back.setVisibility(View.VISIBLE);
+                alterar.setVisibility(View.INVISIBLE);
+
+
+
+            }
+
+
+        });
+    }
+
+
+
+
+
+
+
+
+
+    /*public void UpdateProfile(View v){
 
         //Metodo Post para mostrar a nova subscrição
         String subscricao = Paga.toString();
@@ -148,9 +166,7 @@ public class SubscriptionActivity extends AppCompatActivity {
 
         } catch (Exception e){
            Toast.makeText(this,"ERRO!", Toast.LENGTH_SHORT).show();
-        }
-
-     }
+        }*/
 
     //menus
     public void OpenLeftSideMenu(View view){openDrawer(drawer);}
@@ -189,10 +205,8 @@ public class SubscriptionActivity extends AppCompatActivity {
     public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
     public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
     public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
-    public void ClickLogout(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickLogout(View view){Logout(this);}
+
 
     @Override
     public void onBackPressed() {
@@ -204,5 +218,4 @@ public class SubscriptionActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawer);
     }
-
 }

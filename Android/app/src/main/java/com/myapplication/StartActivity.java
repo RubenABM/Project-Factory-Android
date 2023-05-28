@@ -10,6 +10,8 @@ import static com.myapplication.MapFragment.latLngList;
 import static com.myapplication.MapFragment.firstMap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -81,6 +83,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
     }
     private void createDialod() {
         View view = getLayoutInflater().inflate(R.layout.fragment_trip_details, null, false);
@@ -165,19 +168,48 @@ public class StartActivity extends AppCompatActivity {
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Points' is not available yet", Toast.LENGTH_SHORT).show();
     }
-    public void ClickProfile(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Profile' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickProfile(View view){goToActivity(this, ProfileActivity.class);}
     public void ClickSubscription(View view){goToActivity(this, SubscriptionActivity.class);}
     public void ClickSettings(View view){
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Settings' is not available yet", Toast.LENGTH_SHORT).show();
     }
-    public void ClickLogout(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
+   public void ClickLogout(View view){Logout(this);}
+
+    //Logout
+   public static void Logout(Activity activity) {
+       //Initialize alert dialog
+       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+       //Set title
+       builder.setTitle("Logout");
+       //Set message
+       builder.setMessage("Are you sure you want to logout?");
+       //Positive yes button
+       builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+               //Finish activity
+               activity.finishAffinity();
+               //Exit app
+               System.exit(0);
+
+           }
+       });
+
+
+        //Negative no button
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                //Dismiss dialog
+                dialog.dismiss();
+            }
+        });
+        //Show dialog
+        builder.show();
     }
+
+
     public static void goToActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -189,6 +221,8 @@ public class StartActivity extends AppCompatActivity {
         intent.putExtra("key", iduser);
         activity.startActivity(intent);
     }
+
+
 
     @Override
     public void onBackPressed() {

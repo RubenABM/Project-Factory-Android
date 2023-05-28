@@ -1,5 +1,7 @@
 package com.myapplication;
 
+import static com.myapplication.StartActivity.Logout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -187,10 +189,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
     public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
     public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
-    public void ClickLogout(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Logout' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickLogout(View view){Logout(this);}
+
 
     @Override
     public void onBackPressed() {

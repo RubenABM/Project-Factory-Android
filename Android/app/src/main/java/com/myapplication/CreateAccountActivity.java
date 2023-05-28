@@ -33,6 +33,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         emailBox = findViewById(R.id.editTextTextEmailAddress2);
         passwordBox = findViewById(R.id.editTextTextPassword);
         usernameBox = findViewById(R.id.editTextUsername);
+
     }
 
     public void createAccount(View view) {

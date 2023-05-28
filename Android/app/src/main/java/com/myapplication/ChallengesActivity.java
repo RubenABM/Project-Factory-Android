@@ -25,5 +25,6 @@ public class ChallengesActivity extends AppCompatActivity {
         //código challenge bar
         //progressBar.setProgress(progress);
 
+
     }
 }
