@@ -25,7 +25,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".PagaActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SubscriptionActivity"
             android:exported="true" />
@@ -33,10 +33,16 @@
             android:name=".HelmetsActivity"
             android:exported="true" />
         <activity
+            android:name=".HealthActivity"
+            android:exported="true" />
+        <activity
             android:name=".ActivityActivity"
             android:exported="true" />
         <activity
             android:name=".ChallengesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PointsActivity"
             android:exported="true" />
         <activity
             android:name=".CreateAccountActivity"
@@ -49,6 +55,9 @@
             android:exported="true" />
         <activity
             android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsActivity"
             android:exported="true" />
 
         <meta-data

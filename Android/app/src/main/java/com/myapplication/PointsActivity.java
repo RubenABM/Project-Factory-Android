@@ -44,7 +44,7 @@ public class PointsActivity extends AppCompatActivity {
         textPoints = findViewById(R.id.textViewPoints);
         textOferta = findViewById(R.id.textViewPointsOferta);
         textDescricao = findViewById(R.id.textViewPointsOfertaDescricao);
-        //drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
         //Método GET para ir buscar os pontos do user
         iduser = getIntent().getStringExtra("key");
