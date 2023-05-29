@@ -176,7 +176,9 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkPermissions() {
         Log.d(TAG, "checkPermissions");
         boolean perm = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
-                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) &&
+                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                 ;
         return  perm;
     }
@@ -186,7 +188,9 @@ public class LoginActivity extends AppCompatActivity {
                 this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.CALL_PHONE,
                 },
                 1);
     }
