@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -77,7 +78,7 @@ public class ActivityActivity extends AppCompatActivity {
                 int startTime = Integer.parseInt(dataStartTime);
                 int endTime = Integer.parseInt(dataEndTime);
 
-                int duration = endTime - startTime;
+                int duration = (endTime - startTime) / 1000;
 
                 RelativeLayout rl = new RelativeLayout(getBaseContext());
                 rl.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));

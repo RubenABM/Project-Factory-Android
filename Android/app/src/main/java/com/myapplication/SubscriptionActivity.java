@@ -60,7 +60,7 @@ public class SubscriptionActivity extends AppCompatActivity {
             json = task.execute("http://35.176.222.11:5000/users/1").get();
 
             tier = json.getString("user_subscription");
-            if(tier == "Gratis") {
+            if(tier == "Free") {
                 Subscricao.setText("CU");
             } else if(tier == "Pago") {
                 Subscricao.setText("CU 2");
