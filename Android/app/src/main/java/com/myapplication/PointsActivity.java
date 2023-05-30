@@ -50,7 +50,7 @@ public class PointsActivity extends AppCompatActivity {
         iduser = getIntent().getStringExtra("key");
         DownloadTask task = new DownloadTask();
 
-        try{
+        /*try{
             JSONArray pointsjson = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
 
             //JSONObject jsonPart = pointsjson.getJSONObject(i);
@@ -62,17 +62,19 @@ public class PointsActivity extends AppCompatActivity {
         }
 
         //Método GET para ir buscar as challenges
-        JSONObjToArray task1 = new JSONObjToArray();
+            DownloadTask task1 = new DownloadTask();
 
-        /*try {
+        try {
             GridLayout ll = findViewById(R.id.pointsGridLayout);
 
-            JSONObject challengesjson = task1.execute("http://35.176.222.11:5000/challenges").get();
+            JSONArray challengesjson = task1.execute("http://35.176.222.11:5000/challenges").get();
 
-            ArrayList challenges = new ArrayList();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                challenges.forEach(item -> {
+                for(int i = 0; i < challengesjson.length(); i++)
+                {
+                    JSONObject jsonPart = challengesjson.getJSONObject(i);
+
                     RelativeLayout rl = new RelativeLayout(getBaseContext());
                     rl.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -85,7 +87,7 @@ public class PointsActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                     params.addRule(RelativeLayout.CENTER_IN_PARENT);
                     text.setLayoutParams(params);
-                    text.setText(item.chall_points);
+                    text.setText(jsonPart.getString("chall_points"));
                     rl.addView(text);
 
                     TextView text2 = new TextView(getBaseContext());
@@ -93,16 +95,14 @@ public class PointsActivity extends AppCompatActivity {
                     params2.addRule(RelativeLayout.CENTER_HORIZONTAL);
                     params2.setMargins(0,convertDpToPixel(125, getBaseContext()),0,0);
                     text2.setLayoutParams(params2);
-                    text2.setText(item.chall_award);
+                    text2.setText(jsonPart.getString("chall_award"));
                     text2.setTextColor(Color.parseColor("#000000"));
                     rl.addView(text2);
 
                     ll.addView(rl);
-                });
+                }
             }
 
-            textOferta.setText(challengesjson.getString("chall_points"));
-            textDescricao.setText(challengesjson.getString("chall_provider"));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {

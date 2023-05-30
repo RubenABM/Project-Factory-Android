@@ -78,7 +78,8 @@ public class ActivityActivity extends AppCompatActivity {
                 int startTime = Integer.parseInt(dataStartTime);
                 int endTime = Integer.parseInt(dataEndTime);
 
-                int duration = (endTime - startTime) / 1000;
+                //int duration = (endTime - startTime) / 1000;
+                int duration = (endTime - startTime) / 3600000;
 
                 RelativeLayout rl = new RelativeLayout(getBaseContext());
                 rl.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -129,7 +130,7 @@ public class ActivityActivity extends AppCompatActivity {
 
                 TextView textRouteIdPlaceHolder = new TextView(getBaseContext());
                 RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                params3.setMargins(convertDpToPixel(85, getBaseContext()), 0, 0, 0);
+                params3.setMargins(convertDpToPixel(95, getBaseContext()), 0, 0, 0);
                 params3.addRule(RelativeLayout.END_OF, textRouteId.getId());
                 textRouteIdPlaceHolder.setLayoutParams(params3);
                 textRouteIdPlaceHolder.setText(test.getString("route_id"));
@@ -149,7 +150,7 @@ public class ActivityActivity extends AppCompatActivity {
 
                 EditText editTextPercursoName = new EditText(getBaseContext());
                 RelativeLayout.LayoutParams params5 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                params5.setMargins(convertDpToPixel(65, getBaseContext()), convertDpToPixel(20, getBaseContext()), 0, 0);
+                params5.setMargins(convertDpToPixel(90, getBaseContext()), convertDpToPixel(20, getBaseContext()), 0, 0);
                 params5.addRule(RelativeLayout.BELOW, textRouteIdPlaceHolder.getId());
                 editTextPercursoName.setLayoutParams(params5);
                 editTextPercursoName.setText(test.getString("route_name"));
@@ -162,17 +163,17 @@ public class ActivityActivity extends AppCompatActivity {
                 params6.addRule(RelativeLayout.BELOW, textPercursoName.getId());
                 params6.setMargins(0, convertDpToPixel(60, getBaseContext()), 0, 0);
                 textDate.setLayoutParams(params6);
-                textDate.setText("Date: ");
+                textDate.setText("Duração: ");
                 textDate.setTextColor(Color.parseColor("#000000"));
                 textDate.setTextSize(20);
                 rl3.addView(textDate);
 
                 TextView textDatePlaceHolder = new TextView(getBaseContext());
                 RelativeLayout.LayoutParams params7 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                params7.setMargins(convertDpToPixel(70, getBaseContext()), convertDpToPixel(60, getBaseContext()), 0, 0);
+                params7.setMargins(convertDpToPixel(95, getBaseContext()), convertDpToPixel(60, getBaseContext()), 0, 0);
                 params7.addRule(RelativeLayout.BELOW, editTextPercursoName.getId());
                 textDatePlaceHolder.setLayoutParams(params7);
-                textDatePlaceHolder.setText(String.valueOf(duration));
+                textDatePlaceHolder.setText(String.valueOf(duration) + "h");
                 textDatePlaceHolder.setTextColor(Color.parseColor("#000000"));
                 textDatePlaceHolder.setTextSize(20);
                 rl3.addView(textDatePlaceHolder);
