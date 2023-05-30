@@ -186,8 +186,7 @@ public class SubscriptionActivity extends AppCompatActivity {
 
                 //Post call
                 try {
-
-                    task.execute("http://35.176.222.11:5000/users/updatesubscription/1");
+                    task.execute("http://35.176.222.11:5000/users/updatesubscription/" + iduser);
                     //Log.d("AQUIII", task.execute("http://35.176.222.11:5000/users/updatesubscription/1").toString());
 
                     Toast.makeText(SubscriptionActivity.this,"Subscrição atualizada!", Toast.LENGTH_SHORT).show();
