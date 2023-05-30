@@ -1,11 +1,16 @@
 package com.myapplication;
 
+import static com.myapplication.StartActivity.Logout;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,6 +32,7 @@ public class ChallengesActivity extends AppCompatActivity {
     TextView textChalDesc, textPoints;
     ProgressBar progressBar;
     static String iduser;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class ChallengesActivity extends AppCompatActivity {
 
         textChalDesc = findViewById(R.id.textViewChallengeDescription);
         textPoints = findViewById(R.id.textViewChallengePoints);
+        drawer = findViewById(R.id.drawer_layout);
 
         iduser = getIntent().getStringExtra("key");
         DownloadTask task = new DownloadTask();
@@ -99,5 +106,56 @@ public class ChallengesActivity extends AppCompatActivity {
 
     public static int convertDpToPixel(int dp, Context context){
         return dp * ((int) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    //menus
+    public void OpenLeftSideMenu(View view){openDrawer(drawer);}
+    public void OpenRightSideMenu(View view){openDrawer2(drawer);}
+
+    public void CloseLeftMenu(View view){closeDrawer(drawer);}
+    public void CloseRightMenu(View view){closeDrawer2(drawer);}
+    public void OpenTripDetailsDrawer(View view){openDrawer3(drawer);}
+    public static void openDrawer(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    public static void openDrawer2(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void openDrawer3(DrawerLayout drawer) {
+        drawer.openDrawer(GravityCompat.END);
+    }
+    public static void closeDrawer(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+    public static void closeDrawer2(DrawerLayout drawer) {
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        }
+    }
+
+
+    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
+    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
+    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
+    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
+    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
+    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
+    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
+    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
+    public void ClickLogout(View view){Logout(this);}
+
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        closeDrawer(drawer);
     }
 }

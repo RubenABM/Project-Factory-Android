@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -70,6 +71,14 @@ public class ActivityActivity extends AppCompatActivity {
             Log.d(TAG, getjson.toString());
             for (int i = 0; i < getjson.length(); i++) {
                 JSONObject test = getjson.getJSONObject(i);
+
+                String dataStartTime = test.getString("data_starttime");
+                String dataEndTime = test.getString("data_endtime");
+
+                int startTime = Integer.parseInt(dataStartTime);
+                int endTime = Integer.parseInt(dataEndTime);
+
+                int duration = (endTime - startTime) / 1000;
 
                 RelativeLayout rl = new RelativeLayout(getBaseContext());
                 rl.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -163,7 +172,7 @@ public class ActivityActivity extends AppCompatActivity {
                 params7.setMargins(convertDpToPixel(70, getBaseContext()), convertDpToPixel(60, getBaseContext()), 0, 0);
                 params7.addRule(RelativeLayout.BELOW, editTextPercursoName.getId());
                 textDatePlaceHolder.setLayoutParams(params7);
-                textDatePlaceHolder.setText(test.getString("route_id"));
+                textDatePlaceHolder.setText(String.valueOf(duration));
                 textDatePlaceHolder.setTextColor(Color.parseColor("#000000"));
                 textDatePlaceHolder.setTextSize(20);
                 rl3.addView(textDatePlaceHolder);
