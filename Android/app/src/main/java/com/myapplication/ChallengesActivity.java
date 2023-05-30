@@ -41,7 +41,7 @@ public class ChallengesActivity extends AppCompatActivity {
 
         textChalDesc = findViewById(R.id.textViewChallengeDescription);
         textPoints = findViewById(R.id.textViewChallengePoints);
-        //drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
         iduser = getIntent().getStringExtra("key");
         DownloadTask task = new DownloadTask();

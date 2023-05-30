@@ -48,6 +48,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         gratis = findViewById(R.id.textViewGratis);
         paga1 = findViewById(R.id.imageViewPaga);
         gratis1 = findViewById(R.id.imageViewGratis);
+        drawer = findViewById(R.id.drawer_layout);
 
         // Metodo Get para ir buscar a subscrição do utilizador
 
