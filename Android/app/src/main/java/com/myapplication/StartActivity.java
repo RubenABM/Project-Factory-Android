@@ -221,42 +221,39 @@ public class StartActivity extends AppCompatActivity {
 
     public void ClickHelmets(View view){goToActivity(this, HelmetsActivity.class);}
     public void ClickActivity(View view){goToActivity2(this, ActivityActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickChallenges(View view){goToActivity(this, ChallengesActivity.class);}
+    public void ClickChallenges(View view){goToActivity2(this, ChallengesActivity.class, getIntent().getStringExtra("key"));}
     public void ClickHealth(View view){
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Health' is not available yet", Toast.LENGTH_SHORT).show();
     }
-    public void ClickPoints(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Points' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickPoints(View view){goToActivity2(this, PointsActivity.class, getIntent().getStringExtra("key"));}
     public void ClickProfile(View view){goToActivity(this, ProfileActivity.class);}
     public void ClickSubscription(View view){goToActivity(this, SubscriptionActivity.class);}
     public void ClickSettings(View view){
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Settings' is not available yet", Toast.LENGTH_SHORT).show();
     }
-   public void ClickLogout(View view){Logout(this);}
+    public void ClickLogout(View view){Logout(this);}
 
     //Logout
-   public static void Logout(Activity activity) {
-       //Initialize alert dialog
-       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-       //Set title
-       builder.setTitle("Logout");
-       //Set message
-       builder.setMessage("Are you sure you want to logout?");
-       //Positive yes button
-       builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialogInterface, int i) {
-               //Finish activity
-               activity.finishAffinity();
-               //Exit app
-               System.exit(0);
+    public static void Logout(Activity activity) {
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        //Set title
+        builder.setTitle("Logout");
+        //Set message
+        builder.setMessage("Are you sure you want to logout?");
+        //Positive yes button
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Finish activity
+                activity.finishAffinity();
+                //Exit app
+                System.exit(0);
 
-           }
-       });
+            }
+        });
 
 
         //Negative no button
@@ -327,7 +324,7 @@ public class StartActivity extends AppCompatActivity {
         String url = "http://35.176.222.11:5000/routes/user/" + iduser + "/" + rname;
         try {
             getjson = taskget.execute(url).get();
-                    idroute = getjson.getString("route_id");
+            idroute = getjson.getString("route_id");
             Log.d("Teste:", getjson.toString());
 
         } catch (ExecutionException | InterruptedException | JSONException e) {

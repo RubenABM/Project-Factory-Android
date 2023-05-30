@@ -6,25 +6,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myapplication.downloadtasks.DownloadTask;
+import com.myapplication.downloadtasks.JSONArr;
 import com.myapplication.downloadtasks.JSONObjToArray;
+import com.myapplication.downloadtasks.PostMethod;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class ChallengesActivity extends AppCompatActivity {
@@ -33,66 +42,132 @@ public class ChallengesActivity extends AppCompatActivity {
     ProgressBar progressBar;
     static String iduser;
     DrawerLayout drawer;
+    Integer points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
 
-        textChalDesc = findViewById(R.id.textViewChallengeDescription);
-        textPoints = findViewById(R.id.textViewChallengePoints);
         drawer = findViewById(R.id.drawer_layout);
+        LinearLayout ll = findViewById(R.id.linearChallengesActivity);
 
         iduser = getIntent().getStringExtra("key");
-        DownloadTask task = new DownloadTask();
+        String url = "http://35.176.222.11:5000/challenges/";
 
-        /*try {
-
-            JSONArray challengesArray = task.execute("http://35.176.222.11:5000/challenges/").get();
+        JSONArray getjson = null;
+        JSONArr taskget = new JSONArr();
+        try {
+            getjson = taskget.execute(url).get();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                for(int i = 0; i < challengesArray.length(); i++)
+                for(int i = 0; i < getjson.length(); i++)
                 {
-                    JSONObject jsonPart = challengesArray.getJSONObject(i);
+                    JSONObject jsonPart = getjson.getJSONObject(i);
 
                     RelativeLayout rl = new RelativeLayout(getBaseContext());
                     rl.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
+                    RelativeLayout rl2 = new RelativeLayout(getBaseContext());
+                    RelativeLayout.LayoutParams rl2Params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    rl2Params.setMargins(convertDpToPixel(10, getBaseContext()), convertDpToPixel(10, getBaseContext()),0,0);
+                    rl2.setLayoutParams(rl2Params);
+                    rl.addView(rl2);
+
                     ImageView imgTrophy = new ImageView(getBaseContext());
                     imgTrophy.setImageDrawable(getDrawable(R.drawable.trophy));
-                    imgTrophy.setLayoutParams(new RelativeLayout.LayoutParams(convertDpToPixel(100, getBaseContext()), convertDpToPixel(100, getBaseContext())));
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.addRule(RelativeLayout.ALIGN_RIGHT);
-                    rl.addView(imgTrophy);
+                    imgTrophy.setLayoutParams(new RelativeLayout.LayoutParams(convertDpToPixel(65, getBaseContext()), convertDpToPixel(65, getBaseContext())));
+                    rl2.addView(imgTrophy);
 
-                    TextView textLocation = new TextView(getBaseContext());
+                    RelativeLayout rl3 = new RelativeLayout(getBaseContext());
+                    RelativeLayout.LayoutParams rl3params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    rl3params.setMargins(convertDpToPixel(100, getBaseContext()), convertDpToPixel(10, getBaseContext()), 0, 0);
+                    rl3.setLayoutParams(rl3params);
+                    rl.addView(rl3);
+
+                    /*TextView textLocation = new TextView(getBaseContext());
                     RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params2.addRule(RelativeLayout.CENTER_IN_PARENT);
+                    params2.setMargins(0, 0, 0, 0);
                     textLocation.setLayoutParams(params2);
-                    textLocation.setText(jsonPart.getString("chall_coord"));
-                    rl.addView(textLocation);
+                    textLocation.setText(jsonPart.getString("chall_award"));
+                    textLocation.setTextSize(20);
+                    rl3.addView(textLocation);*/
 
                     TextView textKm = new TextView(getBaseContext());
                     RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params3.addRule(RelativeLayout.CENTER_IN_PARENT);
+                    //params3.addRule(RelativeLayout.BELOW, textLocation.getId());
+                    //params3.setMargins(0, convertDpToPixel(30, getBaseContext()), 0, 0);
                     textKm.setLayoutParams(params3);
-                    textKm.setText(jsonPart.getString("chall_totalKm"));
-                    rl.addView(textKm);
+                    textKm.setText(jsonPart.getString("chall_totalkm") + "km");
+                    textKm.setTextSize(20);
+                    rl3.addView(textKm);
 
                     TextView textPoints = new TextView(getBaseContext());
                     RelativeLayout.LayoutParams params4 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params4.addRule(RelativeLayout.CENTER_IN_PARENT);
+                    params4.addRule(RelativeLayout.BELOW, textKm.getId());
+                    //params4.setMargins(0, convertDpToPixel(60, getBaseContext()), 0, 0);
+                    params4.setMargins(0, convertDpToPixel(30, getBaseContext()), 0, 0);
                     textPoints.setLayoutParams(params4);
-                    textPoints.setText(jsonPart.getString("chall_points"));
-                    rl.addView(textPoints);
+                    textPoints.setText(jsonPart.getString("chall_points") + " points");
+                    textPoints.setTextSize(20);
+                    rl3.addView(textPoints);
+
+                    RelativeLayout rl4 = new RelativeLayout(getBaseContext());
+                    RelativeLayout.LayoutParams rl4params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    rl4params.setMargins(convertDpToPixel(250, getBaseContext()), convertDpToPixel(10, getBaseContext()), 0, 0);
+                    rl4.setLayoutParams(rl4params);
+                    rl.addView(rl4);
 
                     ImageView imgDone = new ImageView(getBaseContext());
                     imgDone.setImageDrawable(getDrawable(R.drawable.done));
-                    imgDone.setLayoutParams(new RelativeLayout.LayoutParams(convertDpToPixel(100, getBaseContext()), convertDpToPixel(100, getBaseContext())));
+                    imgDone.setLayoutParams(new RelativeLayout.LayoutParams(convertDpToPixel(40, getBaseContext()), convertDpToPixel(40, getBaseContext())));
                     RelativeLayout.LayoutParams params5 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params5.addRule(RelativeLayout.ALIGN_RIGHT);
-                    rl.addView(imgDone);
+                    params5.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                    //params5.setMargins(convertDpToPixel(60, getBaseContext()), 0, 0, 0);
+                    imgDone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //update points
+                            JSONArr taskGetPoints = new JSONArr();
+
+                            int challengePoints = 0;
+
+                            try{
+                                JSONArray pointsJson = taskGetPoints.execute("http://35.176.222.11:5000/users/" + iduser).get();
+                                JSONObject jsonPart2 = pointsJson.getJSONObject(0);
+                                String userPoints = jsonPart2.getString("user_points");
+                                points = Integer.parseInt(userPoints);
+
+                                String chalPoints = jsonPart.getString("chall_points");
+                                challengePoints = Integer.parseInt(chalPoints);
+
+                            } catch (Exception e) {
+                                String test = e.getMessage();
+                                throw new RuntimeException(e);
+                            }
+                            Map<String, String> postData = new HashMap<>();
+
+                            String sumPoints = String.valueOf(points + challengePoints);
+
+                            postData.put("user_points", sumPoints);
+
+                            PostMethod task1 = new PostMethod(postData);
+
+                            try {
+
+                                task1.execute("http://35.176.222.11:5000/users/updatepoints/" + iduser);
+
+                                Toast.makeText(getBaseContext(), "Ganhou novos pontos", Toast.LENGTH_SHORT).show();
+
+                            } catch (Exception e){
+                                Toast.makeText(getBaseContext(), "Ora bolas! Parece que não vai ter mais pontos", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    rl4.addView(imgDone);
+
+                    ll.addView(rl);
                 }
             }
         } catch (ExecutionException e) {
@@ -101,7 +176,7 @@ public class ChallengesActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
     public static int convertDpToPixel(int dp, Context context){
@@ -139,13 +214,20 @@ public class ChallengesActivity extends AppCompatActivity {
 
     public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
     public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
-    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class, getIntent().getStringExtra("key"));;}
     public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class, getIntent().getStringExtra("key"));}
     public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
     public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
     public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
     public void ClickLogout(View view){Logout(this);}
+
+    public static void goToActivity2(Activity activity, Class aClass, String iduser) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("key", iduser);
+        activity.startActivity(intent);
+    }
 
 
     @Override
