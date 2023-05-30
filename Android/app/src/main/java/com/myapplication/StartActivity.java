@@ -334,24 +334,29 @@ public class StartActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /* Codigo temperatura e humidade, ver variaveis globais
+        //Codigo temperatura e humidade, ver variaveis globais
         JSONObject taskResult = null;
+        double temperature;
+        int humidity;
+
         try {
+            String lat = DataHolder.getInstance().getDataMap().get("gpslat");
+            String lon = DataHolder.getInstance().getDataMap().get("gpslong");
             taskResult = new JSONObj().execute("https://api.openweathermap.org/data/2.5/weather?lat=" + lat +  "&lon=" + lon + "&appid=5602c937232287bb6c643d7790297bb6").get();
-            double temperature = taskResult.getJSONObject("main").getDouble("temp");
-            int humidity = taskResult.getJSONObject("main").getInt("humidity");
+            temperature = taskResult.getJSONObject("main").getDouble("temp");
+            humidity = taskResult.getJSONObject("main").getInt("humidity");
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
 
         String bpm = "";
-        String temp = "";
-        String hum = "";
+        String temp = String.valueOf(temperature);
+        String hum = String.valueOf(humidity);
         String endDnT = String.valueOf(endDateNtime);
 
         Map<String, String> postData2 = new HashMap<>();
@@ -426,8 +431,10 @@ public class StartActivity extends AppCompatActivity {
         callIntent.setData(Uri.parse("tel:" + phone)); // Replace PHONE_NUMBER with the desired phone number
         //sendMessage(phone, "A pessoa caiu! - Localização: (" + lat + "," + lon + ")");
         //https://www.google.com/maps/dir/[latitude1],[longitude1]
-        sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/36,-9");
-        //sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/"+ lat + "," + lat);
+        //sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/36,-9");
+        String lat = DataHolder.getInstance().getDataMap().get("gpslat");
+        String lon = DataHolder.getInstance().getDataMap().get("gpslong");
+        sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/"+ lat + "," + lon);
         startActivity(callIntent);
     }
 
