@@ -13,10 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myapplication.downloadtasks.JSONObjToArray;
+import com.myapplication.downloadtasks.PostMethod;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
@@ -60,7 +64,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         //Subscricao.setText("teste");
 
         try {
-            json = task.execute("http://35.176.222.11:5000/users/1").get();
+            json = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
 
             tier = json.getString("user_subscription");
 
@@ -95,8 +99,9 @@ public class SubscriptionActivity extends AppCompatActivity {
         paga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SubscriptionActivity.this, PagaActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SubscriptionActivity.this, PagaActivity.class);
+                //startActivity(intent);
+                StartActivity.goToActivity2(SubscriptionActivity.this, PagaActivity.class, getIntent().getStringExtra("key"));
             }
         });
 
@@ -126,7 +131,7 @@ public class SubscriptionActivity extends AppCompatActivity {
                 String tier = "";
 
                 try {
-                    json = task.execute("http://35.176.222.11:5000/users/1").get();
+                    json = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
 
                     tier = json.getString("user_subscription");
 
@@ -167,6 +172,32 @@ public class SubscriptionActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    public void OnclickG(View view){
+        //Só funciona a clicar na estrela e não no texto!
+        gratis1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Map<String, String> postData = new HashMap<>();
+                postData.put("user_subscription", "Free");
+                PostMethod task = new PostMethod(postData);
+
+                //Post call
+                try {
+                    task.execute("http://35.176.222.11:5000/users/updatesubscription/" + iduser);
+                    //Log.d("AQUIII", task.execute("http://35.176.222.11:5000/users/updatesubscription/1").toString());
+
+                    Toast.makeText(SubscriptionActivity.this,"Subscrição atualizada!", Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e){
+                    Toast.makeText(SubscriptionActivity.this,"ERRO!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     /*public void UpdateProfile(View v){

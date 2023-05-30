@@ -227,8 +227,8 @@ public class StartActivity extends AppCompatActivity {
         Toast.makeText(this, "Function 'Health' is not available yet", Toast.LENGTH_SHORT).show();
     }
     public void ClickPoints(View view){goToActivity2(this, PointsActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickProfile(View view){goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){goToActivity(this, SubscriptionActivity.class);}
+    public void ClickProfile(View view){goToActivity2(this, ProfileActivity.class, getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
     public void ClickSettings(View view){
         //goToActivity(this,**);
         Toast.makeText(this, "Function 'Settings' is not available yet", Toast.LENGTH_SHORT).show();
