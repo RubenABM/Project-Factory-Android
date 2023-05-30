@@ -22,6 +22,7 @@ public class PagaActivity extends AppCompatActivity {
     Button continuar;
 
     ImageView anual1, mensal1;
+    static String iduser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class PagaActivity extends AppCompatActivity {
         mensal = findViewById(R.id.textViewMensal);
         continuar = findViewById(R.id.buttonChange);
         anual = findViewById(R.id.textViewAnual);
+
+        iduser = getIntent().getStringExtra("key");
     }
 
 
@@ -52,7 +55,7 @@ public class PagaActivity extends AppCompatActivity {
                 //Post call
                 try {
 
-                    task.execute("http://35.176.222.11:5000/users/updatesubscription/1");
+                    task.execute("http://35.176.222.11:5000/users/updatesubscription/"+iduser);
                     //Log.d("AQUIII", task.execute("http://35.176.222.11:5000/users/updatesubscription/1").toString());
 
                     Toast.makeText(PagaActivity.this,"Subscrição atualizada!", Toast.LENGTH_SHORT).show();
@@ -81,7 +84,7 @@ public class PagaActivity extends AppCompatActivity {
                 //Post call
                 try {
 
-                    task.execute("http://35.176.222.11:5000/users/updatesubscription/1");
+                    task.execute("http://35.176.222.11:5000/users/updatesubscription/" + iduser);
                     //Log.d("AQUIII", task.execute("http://35.176.222.11:5000/users/updatesubscription/1").toString());
 
                     Toast.makeText(PagaActivity.this,"Subscrição atualizada!", Toast.LENGTH_SHORT).show();

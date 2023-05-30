@@ -60,7 +60,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         //Subscricao.setText("teste");
 
         try {
-            json = task.execute("http://35.176.222.11:5000/users/1").get();
+            json = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
 
             tier = json.getString("user_subscription");
 
@@ -95,8 +95,9 @@ public class SubscriptionActivity extends AppCompatActivity {
         paga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SubscriptionActivity.this, PagaActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SubscriptionActivity.this, PagaActivity.class);
+                //startActivity(intent);
+                StartActivity.goToActivity2(SubscriptionActivity.this, PagaActivity.class, getIntent().getStringExtra("key"));
             }
         });
 
@@ -126,7 +127,7 @@ public class SubscriptionActivity extends AppCompatActivity {
                 String tier = "";
 
                 try {
-                    json = task.execute("http://35.176.222.11:5000/users/1").get();
+                    json = task.execute("http://35.176.222.11:5000/users/" + iduser).get();
 
                     tier = json.getString("user_subscription");
 
