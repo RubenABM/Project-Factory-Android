@@ -360,13 +360,13 @@ public class StartActivity extends AppCompatActivity {
         String endDnT = String.valueOf(endDateNtime);
 
         Map<String, String> postData2 = new HashMap<>();
-        postData.put("data_bpm", bpm);
-        postData.put("data_temp", temp);
-        postData.put("data_hum", hum);
-        postData.put("data_startTime", rname);
-        postData.put("data_endTime", endDnT);
-        postData.put("data_user_id", iduser);
-        postData.put("data_route_id", idroute);
+        postData2.put("data_bpm", bpm);
+        postData2.put("data_temp", temp);
+        postData2.put("data_hum", hum);
+        postData2.put("data_startTime", rname);
+        postData2.put("data_endTime", endDnT);
+        postData2.put("data_user_id", iduser);
+        postData2.put("data_route_id", idroute);
         PostMethod task2 = new PostMethod(postData2);
         task2.execute("http://35.176.222.11:5000/users/insertnewdata");
         Toast.makeText(this, "Trip was saved!", Toast.LENGTH_SHORT).show();

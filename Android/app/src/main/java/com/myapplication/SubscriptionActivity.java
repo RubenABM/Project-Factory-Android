@@ -55,20 +55,22 @@ public class SubscriptionActivity extends AppCompatActivity {
         iduser = getIntent().getStringExtra("key");
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
-        String tier;
+        String tier = "";
+
+        //Subscricao.setText("teste");
 
         try {
             json = task.execute("http://35.176.222.11:5000/users/1").get();
 
             tier = json.getString("user_subscription");
-            if(tier == "Free") {
-                Subscricao.setText("CU");
-            } else if(tier == "Pago") {
-                Subscricao.setText("CU 2");
+
+            if(tier.equals("Free")) {
+                Subscricao.setText("Subscrição grátis");
+            } else if(tier.equals("Premium")) {
+                Subscricao.setText("Subscrição paga");
             }
 
             //Subscricao.setText(json.getString("user_subscription"));
-            Log.d("AQUIIII::::", json.toString());
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -119,15 +121,46 @@ public class SubscriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Subscricao.setVisibility(View.INVISIBLE);
-                atual1.setVisibility(View.INVISIBLE);
-                paga.setVisibility(View.VISIBLE);
-                paga1.setVisibility(View.VISIBLE);
-                gratis.setVisibility(View.VISIBLE);
-                gratis1.setVisibility(View.VISIBLE);
-                back.setVisibility(View.VISIBLE);
-                alterar.setVisibility(View.INVISIBLE);
+                JSONObjToArray task = new JSONObjToArray();
+                JSONObject json = null;
+                String tier = "";
 
+                try {
+                    json = task.execute("http://35.176.222.11:5000/users/1").get();
+
+                    tier = json.getString("user_subscription");
+
+                    if(tier.equals("Free")) {
+                        Subscricao.setVisibility(View.INVISIBLE);
+                        atual1.setVisibility(View.INVISIBLE);
+                        paga.setVisibility(View.VISIBLE);
+                        paga1.setVisibility(View.VISIBLE);
+                        gratis.setVisibility(View.INVISIBLE);
+                        gratis1.setVisibility(View.INVISIBLE);
+                        back.setVisibility(View.VISIBLE);
+                        alterar.setVisibility(View.INVISIBLE);
+                    } else if(tier.equals("Premium")) {
+                        Subscricao.setVisibility(View.INVISIBLE);
+                        atual1.setVisibility(View.INVISIBLE);
+                        paga.setVisibility(View.INVISIBLE);
+                        paga1.setVisibility(View.INVISIBLE);
+                        gratis.setVisibility(View.VISIBLE);
+                        gratis1.setVisibility(View.VISIBLE);
+                        back.setVisibility(View.VISIBLE);
+                        alterar.setVisibility(View.INVISIBLE);
+                    }
+
+                    //Subscricao.setText(json.getString("user_subscription"));
+
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    json = null;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    json = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -135,14 +168,6 @@ public class SubscriptionActivity extends AppCompatActivity {
 
         });
     }
-
-
-
-
-
-
-
-
 
     /*public void UpdateProfile(View v){
 
