@@ -13,10 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myapplication.downloadtasks.JSONObjToArray;
+import com.myapplication.downloadtasks.PostMethod;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
@@ -167,6 +171,33 @@ public class SubscriptionActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    public void OnclickG(View view){
+        //Só funciona a clicar na estrela e não no texto!
+        gratis1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Map<String, String> postData = new HashMap<>();
+                postData.put("user_subscription", "Free");
+                PostMethod task = new PostMethod(postData);
+
+                //Post call
+                try {
+
+                    task.execute("http://35.176.222.11:5000/users/updatesubscription/1");
+                    //Log.d("AQUIII", task.execute("http://35.176.222.11:5000/users/updatesubscription/1").toString());
+
+                    Toast.makeText(SubscriptionActivity.this,"Subscrição atualizada!", Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e){
+                    Toast.makeText(SubscriptionActivity.this,"ERRO!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     /*public void UpdateProfile(View v){
