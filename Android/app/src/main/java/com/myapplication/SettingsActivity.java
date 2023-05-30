@@ -4,27 +4,38 @@ import static com.myapplication.StartActivity.Logout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-
-
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
-import androidx.drawerlayout.widget.DrawerLayout;
+public class SettingsActivity extends AppCompatActivity {
 
-public class HelmetsActivity extends AppCompatActivity {
+    Switch darkModeSwitch;
 
     DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_helmets);
+        setContentView(R.layout.activity_settings);
 
+        darkModeSwitch = findViewById(R.id.switchMode);
         drawer = findViewById(R.id.drawer_layout);
 
 
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Do something when the switch is on
+                } else {
+                    // Do something when the switch is off
+                }
+            }
+        });
 
     }
 
@@ -78,6 +89,4 @@ public class HelmetsActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawer);
     }
-
-
 }

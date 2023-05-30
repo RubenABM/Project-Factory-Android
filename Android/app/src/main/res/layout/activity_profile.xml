@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D9D9D9"
+    tools:context=".ProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/main_toolbar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffff">
+
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textViewTitleActivity"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="10dp"
+                android:text="Profile"
+                android:textColor="#000"
+                android:textSize="34sp"
+                android:textStyle="bold"/>
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="156dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="120dp"
+                app:srcCompat="@drawable/avataaars" />
+
+
+
+            <TextView
+                android:id="@+id/pointBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="470dp"
+                android:layout_marginLeft="250dp"
+                android:text="Points"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/pointBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="470dp"
+                android:layout_marginLeft="80dp"
+                android:backgroundTint="#000000"
+                android:text="Points 2.0"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/userName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="330dp"
+                android:layout_marginLeft="80dp"
+                android:text="UserName"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="330dp"
+                android:layout_marginLeft="250dp"
+                android:text="UserName"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/userEmail3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="380dp"
+                android:layout_marginLeft="80dp"
+                android:text="Email"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="380dp"
+                android:layout_marginLeft="250dp"
+                android:text="Email"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/userPass3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420dp"
+                android:layout_marginLeft="80dp"
+                android:text="Password"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/userPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420dp"
+                android:layout_marginLeft="250dp"
+                android:text="Password"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="290dp"
+                android:layout_marginLeft="160dp"
+                android:onClick="EditProfile"
+                android:text="EditProfile"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="550dp"
+                android:layout_marginLeft="140dp"
+                android:backgroundTint="#003B3F"
+                android:onClick="UpdateProfile"
+                android:text="Update Profile"
+                android:visibility="invisible"/>
+
+            <EditText
+                android:id="@+id/Editmail"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#60000000"
+                android:layout_marginTop="370dp"
+                android:layout_marginLeft="150dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textColorHint="#41000000"
+                android:textSize="14sp"
+                android:visibility="invisible"/>
+
+            <EditText
+                android:id="@+id/Editname"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#60000000"
+                android:layout_marginTop="300dp"
+                android:layout_marginLeft="150dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textColorHint="#41000000"
+                android:textSize="14sp"
+                android:visibility="invisible"/>
+
+            <EditText
+                android:id="@+id/EditPass"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#60000000"
+                android:layout_marginTop="440dp"
+                android:layout_marginLeft="150dp"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColorHint="#41000000"
+                android:textSize="14sp"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+
+        <include layout="@layout/left_side_drawer"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/right_side_drawer_layout"
+        android:layout_gravity="end">
+
+        <include layout="@layout/right_side_drawer"/>
+
+    </RelativeLayout>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

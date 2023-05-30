@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#FFFF"
-    android:id="@+id/main_toolbar_layout">
+    android:background="#000000"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-    <ImageView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:onClick="OpenLeftSideMenu"
-        android:src="@drawable/baseline_menu_24_colour"/>
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:gravity="left"
+            android:onClick="OpenLeftSideMenu"
+            android:src="@drawable/baseline_menu_24_colour" />
 
     </LinearLayout>
-
 
 
     <ImageView
@@ -26,5 +26,6 @@
         android:layout_height="65dp"
         android:gravity="right"
         android:onClick="OpenRightSideMenu"
-        android:src="@drawable/baseline_person_outline_24_colour"/>
+        android:src="@drawable/baseline_person_outline_24_colour" />
+
 </LinearLayout>

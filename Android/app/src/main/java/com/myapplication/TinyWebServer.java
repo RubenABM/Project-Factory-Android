@@ -2,8 +2,16 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Handler;
 import android.util.Log;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import static com.myapplication.StartActivity.fallFlag;
 
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -127,8 +135,6 @@ public class TinyWebServer extends Thread {
     private static final String BOUNDARY_REGEX = "[ |\t]*(boundary)[ |\t]*=[ |\t]*['|\"]?([^\"^'^;^,]*)['|\"]?";
 
     private static final Pattern BOUNDARY_PATTERN = Pattern.compile(BOUNDARY_REGEX, Pattern.CASE_INSENSITIVE);
-
-
     public static String WEB_DIR_PATH="/";
     public static String SERVER_IP="localhost";
     public static int SERVER_PORT=9000;
@@ -271,6 +277,25 @@ public class TinyWebServer extends Thread {
                 data=readFile(WEB_DIR_PATH+"/"+INDEX_FILE_NAME);
                 constructHeader(out, data.length() + "", data);
                 break;
+
+            case "/fall":
+
+                System.out.println("url location -> " + location);
+                URL geturl1 = getDecodedUrl("http://localhost" + location);
+                String[] dirPath1 = geturl1.getPath().split("/");
+                String fullFilePath1 = geturl1.getPath();
+
+                if (dirPath1.length > 1) {
+                    String fileName = dirPath1[dirPath1.length - 1];
+                    if(REQUEST_TYPE.equals("POST")){
+                        System.out.println("User has fallen!");
+                        fallFlag = true;
+
+                    }
+                    CONTENT_TYPE = getContentType(fileName);
+                    data = getResultByName(fileName, qparms);
+                    constructHeader(out, data.length() + "", data);
+                }
 
 
             case "/test":

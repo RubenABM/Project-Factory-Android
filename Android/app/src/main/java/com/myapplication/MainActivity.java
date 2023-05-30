@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         PostMethod task = new PostMethod(postData);
         task.execute("http://35.176.222.11:5000/updateip");
 
+
     }
 
     /*

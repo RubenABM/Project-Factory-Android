@@ -3,12 +3,9 @@ package com.myapplication;
 import static android.content.ContentValues.TAG;
 
 import static com.myapplication.TinyWebServer.endTripFlag;
-//import static com.myapplication.ActivityActivity.linestr;
+import static com.myapplication.ActivityActivity.linestr;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -39,7 +36,7 @@ public class MapFragment extends Fragment {
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable cameraUpdateRunnable;
     private boolean coordflag = false;
-    private  float zoomLevel = 25.0f;
+    private final float zoomLevel = 25.0f;
 
     public static List<LatLng> latLngList = new ArrayList<>();
     private Polyline polyline;
@@ -49,7 +46,7 @@ public class MapFragment extends Fragment {
     public static int startDateNtime;
 
     public static int endDateNtime;
-    public static boolean firstMap = true;
+    public static boolean firstMap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,8 +152,7 @@ public class MapFragment extends Fragment {
                     handler.post(cameraUpdateRunnable);
                 } else if (!firstMap) {
                     Log.d(TAG, "Going for linestring!");
-                    //String hexString = linestr;
-                    String hexString = "01020000000600000057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C057790261A75C4340C0232A54374F22C015562AA8A85C4340514CDE00334F22C015562AA8A85C4340514CDE00334F22C00E65A88AA95C4340C9B08A37324F22C0";
+                    String hexString = linestr;
                     // Create a WKBReader to parse the hex string
                     WKBReader reader = new WKBReader();
                     try {
@@ -167,15 +163,36 @@ public class MapFragment extends Fragment {
                         if (geometry instanceof LineString) {
                             LineString lineString = (LineString) geometry;
                             Coordinate[] coordinates = lineString.getCoordinates();
+                            int count = 0;
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            LatLng firstCoord = null;
                             for (Coordinate coordinate : coordinates) {
-                                LatLng latLng = new LatLng(coordinate.y, coordinate.x);
+                                LatLng latLng = new LatLng(coordinate.x, coordinate.y);
                                 latLngList.add(latLng);
+                                if (count == 0){
+                                    markerOptions.position(latLng);
+                                    markerOptions.title("Origin!");
+                                    googleMap.addMarker(markerOptions);
+                                    firstCoord = latLng;
+                                    count ++;
+                                } else if (count == coordinates.length-1) {
+                                    markerOptions.position(latLng);
+                                    markerOptions.title("Destination!");
+                                    googleMap.addMarker(markerOptions);
+                                } else if (count > 0 &&  count < coordinates.length) {
+                                    markerOptions.position(latLng);
+                                    count ++;
+                                }
                             }
+                            System.out.println(latLngList);
                             PolylineOptions polylineOptions = new PolylineOptions()
                                     .addAll(latLngList)
                                     .width(5) // Set the line width
                                     .color(Color.RED); // Set the line color
                             polyline = googleMap.addPolyline(polylineOptions);
+                            polyline.setPoints(latLngList);
+                            float zoomLevel2 = 17.0f;;
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstCoord,zoomLevel2));
 
                         } else {
                             System.out.println("The input geometry is not a LineString.");

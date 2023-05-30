@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D9D9D9"
-    tools:context=".SubscriptionActivity">
+    tools:context=".PagaActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:background="#ffff">
 
+
             </FrameLayout>
 
             <TextView
@@ -36,70 +37,66 @@
                 android:text="Subscriptions"
                 android:textColor="#000"
                 android:textSize="34sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageViewAtual"
+                android:id="@+id/imageViewMensal"
                 android:layout_width="119dp"
                 android:layout_height="87dp"
-                android:visibility="visible"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="100dp"
+                android:onClick="Onclick1"
                 app:srcCompat="@drawable/star" />
 
             <TextView
-                android:id="@+id/textViewAtual"
+                android:id="@+id/textViewMensal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="200dp"
                 android:layout_marginTop="135dp"
-                android:text="Subscrição atual"
+                android:text="Subscrição Mensal"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:visibility="visible"/>
-
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textViewGratis"
+                android:id="@+id/textViewpreco1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="235dp"
-                android:text="Subscrição grátis"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="165dp"
+                android:text="3.99$/mes"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:visibility="invisible"/>
+                android:textSize="14sp" />
 
             <ImageView
-                android:id="@+id/imageViewGratis"
-                android:layout_width="119dp"
-                android:layout_height="87dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="200dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/star" />
-
-
-            <TextView
-                android:id="@+id/textViewPaga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="335dp"
-                android:text="Subscrição paga"
-                android:onClick="Onclick1"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:visibility="invisible"/>
-
-            <ImageView
-                android:id="@+id/imageViewPaga"
+                android:id="@+id/imageViewAnual"
                 android:layout_width="119dp"
                 android:layout_height="87dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="300dp"
-                android:visibility="invisible"
+                android:onClick="Onclick"
                 app:srcCompat="@drawable/star" />
+
+            <TextView
+                android:id="@+id/textViewAnual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="335dp"
+                android:text="Subscrição Anual"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewpreco2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="365dp"
+                android:text="55.99$/ano"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+
 
 
 
@@ -108,31 +105,16 @@
                 android:id="@+id/buttonChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="500dp"
-                android:backgroundTint="#003B3F"
-                android:onClick="OnClickAlterar"
-                android:text="Alterar"
-                android:textColor="#FFFFFF"/>
-
-            <Button
-                android:id="@+id/buttonBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:backgroundTint="#003B3F"
                 android:layout_marginLeft="150dp"
                 android:layout_marginTop="500dp"
-                android:text="Return"
-                android:onClick="Onclick3"
+                android:text="Confirmar"
                 android:textColor="#FFFFFF"
-                android:visibility="invisible"/>
-
-
+                android:onClick="Onclick4" />
 
 
 
         </RelativeLayout>
-
 
     </LinearLayout>
 

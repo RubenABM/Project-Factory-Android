@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D9D9D9"
+    tools:context=".PointsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/main_toolbar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffff">
+
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textViewTitlePoints"
+                android:layout_width="172dp"
+                android:layout_height="42dp"
+                android:text="Points"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="@+id/viewBlack" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/viewBlack">
+
+                <ImageView
+                    android:id="@+id/imageViewPoints"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="100dp"
+                    app:srcCompat="@drawable/circulo" />
+
+                <TextView
+                    android:id="@+id/textViewPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="POINTS"
+                    android:layout_marginLeft="195dp"
+                    android:layout_marginTop="185dp"/>
+            </RelativeLayout>
+
+            <GridLayout
+                android:id="@+id/pointsGridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+                app:layout_constraintVertical_bias="0.103"
+                tools:layout_editor_absoluteX="0dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageViewOferta"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="350dp"
+                        app:srcCompat="@drawable/circulo" />
+
+
+                    <TextView
+                        android:id="@+id/textViewPointsOferta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="65dp"
+                        android:layout_marginTop="400dp"
+                        android:text="POINTS" />
+
+                    <TextView
+                        android:id="@+id/textViewPointsOfertaDescricao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="65dp"
+                        android:layout_marginTop="475dp"
+                        android:text="TextView"
+                        android:textColor="#000000" />
+                </RelativeLayout>
+            </GridLayout>
+
+            <Button
+                android:id="@+id/buttonRevertPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REVERT POINTS"
+                tools:layout_editor_absoluteX="142dp"
+                tools:layout_editor_absoluteY="643dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="550dp"
+                tools:ignore="MissingConstraints" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+
+        <include layout="@layout/left_side_drawer"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/right_side_drawer_layout"
+        android:layout_gravity="end">
+
+        <include layout="@layout/right_side_drawer"/>
+
+    </RelativeLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
