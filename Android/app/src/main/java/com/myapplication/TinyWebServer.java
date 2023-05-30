@@ -277,6 +277,7 @@ public class TinyWebServer extends Thread {
                 data=readFile(WEB_DIR_PATH+"/"+INDEX_FILE_NAME);
                 constructHeader(out, data.length() + "", data);
                 break;
+
             case "/fall":
 
                 System.out.println("url location -> " + location);

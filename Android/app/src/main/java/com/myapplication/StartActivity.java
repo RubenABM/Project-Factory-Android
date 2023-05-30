@@ -42,6 +42,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.myapplication.downloadtasks.JSONObj;
 import com.myapplication.downloadtasks.JSONObjToArray;
 import com.myapplication.downloadtasks.PostMethod;
 import org.json.JSONException;
@@ -56,20 +57,20 @@ public class StartActivity extends AppCompatActivity {
 
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable databaseUpdateRunnable;
-    private Runnable checkFallRunnable;
     private DatabaseHelper dbHandler;
     Button startbtn;
     Button endbtn;
     BottomSheetDialog dialog;
     DrawerLayout drawer;
 
+    private Runnable checkFallRunnable;
     public static boolean fallFlag = false;
 
     //call--------------------------
     private static final int NOTIFICATION_ID = 1;
-    private static final long CALL_DELAY_MS = 10000; // 20 seconds
+    private static final long CALL_DELAY_MS = 10000; // 10 seconds
 
-    public String phone = "915396414";
+    public String phone = "x";
 
     public Handler handler2 = new Handler();
     public Runnable callRunnable = new Runnable() {
@@ -82,7 +83,7 @@ public class StartActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Cancel the scheduled phone call
-            handler.removeCallbacks(callRunnable);
+            handler2.removeCallbacks(callRunnable);
         }
     };
     //___________________________________________
@@ -93,15 +94,18 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        IntentFilter filter = new IntentFilter("CANCEL_PHONE_CALL_ACTION");
-        LocalBroadcastManager.getInstance(this).registerReceiver(cancelCallReceiver, filter);
+        //IntentFilter filter = new IntentFilter("CANCEL_PHONE_CALL_ACTION");
+        //LocalBroadcastManager.getInstance(this).registerReceiver(cancelCallReceiver, filter);
+        //showNotification();
+        //schedulePhoneCall();
 
         checkFallRunnable = new Runnable() {
             @Override
             public void run() {
 
-
                 if (fallFlag) {
+                    IntentFilter filter = new IntentFilter("CANCEL_PHONE_CALL_ACTION");
+                    LocalBroadcastManager.getInstance(StartActivity.this).registerReceiver(cancelCallReceiver, filter);
                     showNotification();
                     schedulePhoneCall();
                     fallFlag = false;
@@ -329,6 +333,22 @@ public class StartActivity extends AppCompatActivity {
         } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
+
+        /* Codigo temperatura e humidade, ver variaveis globais
+        JSONObject taskResult = null;
+        try {
+            taskResult = new JSONObj().execute("https://api.openweathermap.org/data/2.5/weather?lat=" + lat +  "&lon=" + lon + "&appid=5602c937232287bb6c643d7790297bb6").get();
+            double temperature = taskResult.getJSONObject("main").getDouble("temp");
+            int humidity = taskResult.getJSONObject("main").getInt("humidity");
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }*/
+
+
         String bpm = "";
         String temp = "";
         String hum = "";
@@ -404,7 +424,10 @@ public class StartActivity extends AppCompatActivity {
         // Make the phone call
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + phone)); // Replace PHONE_NUMBER with the desired phone number
-        sendMessage(phone, "A pessoa caiu! - Localização: (x, y)");
+        //sendMessage(phone, "A pessoa caiu! - Localização: (" + lat + "," + lon + ")");
+        //https://www.google.com/maps/dir/[latitude1],[longitude1]
+        sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/36,-9");
+        //sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/"+ lat + "," + lat);
         startActivity(callIntent);
     }
 
