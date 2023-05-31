@@ -26,8 +26,39 @@
                 android:background="#ffff">
 
 
+                <Switch
+                    android:id="@+id/switchMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="220dp"
+                    android:text="Modo Escuro"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
             </FrameLayout>
 
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="#000"
+                android:inputType="textPersonName"
+                android:text="PlaceHolderNumber"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="280dp" />
+
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Atualizar"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="340dp"
+                android:backgroundTint="#003B3F"/>
 
             <TextView
                 android:id="@+id/textViewTitleSettings"
@@ -48,17 +79,6 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="100dp"
                 app:srcCompat="@drawable/settings" />
-
-            <Switch
-                android:id="@+id/switchMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modo Escuro"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="220dp" />
 
         </RelativeLayout>
 

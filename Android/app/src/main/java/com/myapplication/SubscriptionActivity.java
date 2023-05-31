@@ -254,14 +254,16 @@ public class SubscriptionActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
-    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
-    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
-    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
-    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
+    public void ClickHelmets(View view){StartActivity.goToActivity2(this, HelmetsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickHealth(View view){StartActivity.goToActivity2(this, HealthActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickProfile(View view){StartActivity.goToActivity2(this, ProfileActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){StartActivity.goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSettings(View view){StartActivity.goToActivity2(this, SettingsActivity.class,getIntent().getStringExtra("key"));}
+
+    public void ClickMap(View view){StartActivity.goToActivity2(this, StartActivity.class,getIntent().getStringExtra("key"));}
     public void ClickLogout(View view){Logout(this);}
 
 

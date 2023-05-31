@@ -8,14 +8,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
     Switch darkModeSwitch;
+    public static String phone = "x";
 
     DrawerLayout drawer;
+    EditText editNumber;
+
+    Button buttonUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +31,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         darkModeSwitch = findViewById(R.id.switchMode);
         drawer = findViewById(R.id.drawer_layout);
-
+        editNumber = findViewById(R.id.editTextNumber);
+        buttonUpdate = findViewById(R.id.buttonUpdate);
+        editNumber.setText(phone);
 
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -34,6 +43,14 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     // Do something when the switch is off
                 }
+            }
+        });
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                phone = editNumber.getText().toString();
+                Toast.makeText(SettingsActivity.this, "Numero atualizado!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,14 +85,16 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
-    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
-    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
-    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
-    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
+    public void ClickHelmets(View view){StartActivity.goToActivity2(this, HelmetsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickHealth(View view){StartActivity.goToActivity2(this, HealthActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickProfile(View view){StartActivity.goToActivity2(this, ProfileActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){StartActivity.goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSettings(View view){StartActivity.goToActivity2(this, SettingsActivity.class,getIntent().getStringExtra("key"));}
+
+    public void ClickMap(View view){StartActivity.goToActivity2(this, StartActivity.class,getIntent().getStringExtra("key"));}
     public void ClickLogout(View view){Logout(this);}
 
 

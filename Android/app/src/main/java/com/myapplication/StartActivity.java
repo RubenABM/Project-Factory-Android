@@ -2,6 +2,7 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.myapplication.SettingsActivity.phone;
 import static com.myapplication.MapFragment.endDateNtime;
 import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
@@ -70,7 +71,7 @@ public class StartActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
     private static final long CALL_DELAY_MS = 10000; // 10 seconds
 
-    public String phone = "961342683";
+    //public String phone = "x";
 
     public Handler handler2 = new Handler();
     public Runnable callRunnable = new Runnable() {
@@ -219,20 +220,16 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){goToActivity2(this, ActivityActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickChallenges(View view){goToActivity2(this, ChallengesActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickHealth(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Health' is not available yet", Toast.LENGTH_SHORT).show();
-    }
-    public void ClickPoints(View view){goToActivity2(this, PointsActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickProfile(View view){goToActivity2(this, ProfileActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickSubscription(View view){goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
-    public void ClickSettings(View view){
-        //goToActivity(this,**);
-        Toast.makeText(this, "Function 'Settings' is not available yet", Toast.LENGTH_SHORT).show();
-    }
+    public void ClickHelmets(View view){StartActivity.goToActivity2(this, HelmetsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickHealth(View view){StartActivity.goToActivity2(this, HealthActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickProfile(View view){StartActivity.goToActivity2(this, ProfileActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){StartActivity.goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSettings(View view){StartActivity.goToActivity2(this, SettingsActivity.class,getIntent().getStringExtra("key"));}
+
+    public void ClickMap(View view){StartActivity.goToActivity2(this, StartActivity.class,getIntent().getStringExtra("key"));}
     public void ClickLogout(View view){Logout(this);}
 
     //Logout
