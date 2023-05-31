@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         //JSONObj task = new JSONObj();
         JSONObjToArray task = new JSONObjToArray();
         try {
-            loginjson = task.execute("http://35.176.222.11:5000/users/1").get();
+            loginjson = task.execute("http://35.176.222.11:5000/users/"+iduser).get();
             points.setText(loginjson.getString("user_points"));
             username.setText(loginjson.getString("user_name"));
             useremail.setText(loginjson.getString("user_email"));
@@ -141,8 +141,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Post call
         try {
 
-        task1.execute("http://35.176.222.11:5000/users/updateuser");
-        Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/users/updateuser/1" + iduser).toString());
+        task1.execute("http://35.176.222.11:5000/users/updateuser/"+iduser);
+        //Log.d("AQUIII", task1.execute("http://35.176.222.11:5000/users/updateuser/" + iduser).toString());
 
         Toast.makeText(this,"Dados alterados com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -181,15 +181,16 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
-    public void ClickChallenges(View view){StartActivity.goToActivity(this, ChallengesActivity.class);}
-    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity(this, PointsActivity.class);}
-    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
-    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
-    public void ClickLogout(View view){Logout(this);}
+    public void ClickHelmets(View view){StartActivity.goToActivity2(this, HelmetsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickHealth(View view){StartActivity.goToActivity2(this, HealthActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickProfile(View view){StartActivity.goToActivity2(this, ProfileActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){StartActivity.goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSettings(View view){StartActivity.goToActivity2(this, SettingsActivity.class,getIntent().getStringExtra("key"));}
+
+    public void ClickMap(View view){StartActivity.goToActivity2(this, StartActivity.class,getIntent().getStringExtra("key"));}
 
 
     @Override

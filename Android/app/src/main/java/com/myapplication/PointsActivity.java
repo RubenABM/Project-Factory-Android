@@ -2,6 +2,7 @@
 package com.myapplication;
 
 import static com.myapplication.StartActivity.Logout;
+import static com.myapplication.SettingsActivity.phone;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +129,7 @@ public class PointsActivity extends AppCompatActivity {
                                 task1.execute("http://35.176.222.11:5000/users/updatepoints/" + iduser);
 
                                 Toast.makeText(getBaseContext(), "Vai receber uma mensagem com o código!", Toast.LENGTH_SHORT).show();
+                                sendMessage(phone, "XPTO");
 
                             } catch (Exception e){
                                 Toast.makeText(getBaseContext(), "Ora bolas! Parece que não vai receber nenhum prémio", Toast.LENGTH_SHORT).show();
@@ -211,15 +214,16 @@ public class PointsActivity extends AppCompatActivity {
     }
 
 
-    public void ClickHelmets(View view){StartActivity.goToActivity(this, HelmetsActivity.class);}
-    public void ClickActivity(View view){StartActivity.goToActivity(this, ActivityActivity.class);}
-    public void ClickChallenges(View view){goToActivity2(this, ChallengesActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickHealth(View view){StartActivity.goToActivity(this, HealthActivity.class);}
-    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class, getIntent().getStringExtra("key"));}
-    public void ClickProfile(View view){StartActivity.goToActivity(this, ProfileActivity.class);}
-    public void ClickSubscription(View view){StartActivity.goToActivity(this, SubscriptionActivity.class);}
-    public void ClickSettings(View view){StartActivity.goToActivity(this, SettingsActivity.class);}
-    public void ClickLogout(View view){Logout(this);}
+    public void ClickHelmets(View view){StartActivity.goToActivity2(this, HelmetsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickActivity(View view){StartActivity.goToActivity2(this, ActivityActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickChallenges(View view){StartActivity.goToActivity2(this, ChallengesActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickHealth(View view){StartActivity.goToActivity2(this, HealthActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickPoints(View view){StartActivity.goToActivity2(this, PointsActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickProfile(View view){StartActivity.goToActivity2(this, ProfileActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSubscription(View view){StartActivity.goToActivity2(this, SubscriptionActivity.class,getIntent().getStringExtra("key"));}
+    public void ClickSettings(View view){StartActivity.goToActivity2(this, SettingsActivity.class,getIntent().getStringExtra("key"));}
+
+    public void ClickMap(View view){StartActivity.goToActivity2(this, StartActivity.class,getIntent().getStringExtra("key"));}
 
     public static void goToActivity2(Activity activity, Class aClass, String iduser) {
         Intent intent = new Intent(activity, aClass);
@@ -238,5 +242,18 @@ public class PointsActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawer);
     }
+    public void sendMessage(String phoneNumber, String message) {
+        /*
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "SMS permission not granted", Toast.LENGTH_SHORT).show();
+            return;
+        }*/
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+
+        Toast.makeText(this, "Mensagem de ajuda enviada!", Toast.LENGTH_SHORT).show();
+    }
+
 
 }

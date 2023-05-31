@@ -121,5 +121,19 @@
         android:layout_height="5dp"
         android:background="#40e0d0"
         android:layout_gravity="right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:onClick="ClickMap">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Map"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 </LinearLayout>
