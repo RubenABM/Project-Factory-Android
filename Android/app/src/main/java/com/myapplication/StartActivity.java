@@ -2,7 +2,7 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
-import static com.myapplication.SettingsActivity.phone;
+//import static com.myapplication.SettingsActivity.phone;
 
 import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
@@ -72,7 +72,7 @@ public class StartActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
     private static final long CALL_DELAY_MS = 10000; // 10 seconds
 
-    //public String phone = "x";
+    public String phone = "x";
 
     public Handler handler2 = new Handler();
     public Runnable callRunnable = new Runnable() {
