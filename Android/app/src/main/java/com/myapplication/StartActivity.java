@@ -3,7 +3,7 @@ package com.myapplication;
 import static android.content.ContentValues.TAG;
 
 import static com.myapplication.SettingsActivity.phone;
-import static com.myapplication.MapFragment.endDateNtime;
+
 import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
 import static com.myapplication.MapFragment.startDateNtime;
