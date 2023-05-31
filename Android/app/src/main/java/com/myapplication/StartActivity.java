@@ -66,6 +66,7 @@ public class StartActivity extends AppCompatActivity {
 
     private Runnable checkFallRunnable;
     public static boolean fallFlag = false;
+    public static int endDateNtime;
 
     //call--------------------------
     private static final int NOTIFICATION_ID = 1;
@@ -298,6 +299,9 @@ public class StartActivity extends AppCompatActivity {
         endTripFlag = true; //stops the tinywebserver from accepting POST requests on /test url
         //take the polyline and send it to the aws database
         String rname = String.valueOf(startDateNtime);
+        String endDnT = String.valueOf((int) (System.currentTimeMillis() / 1000));
+        Log.d(TAG, "endDnT");
+        Log.d(TAG, endDnT);
         Map<String, String> postData = new HashMap<>();
         for (LatLng latLng : latLngList) {
             // Access each LatLng object
@@ -352,7 +356,6 @@ public class StartActivity extends AppCompatActivity {
         String bpm = "";
         String temp = String.valueOf(temperature);
         String hum = String.valueOf(humidity);
-        String endDnT = String.valueOf(endDateNtime);
 
         Map<String, String> postData2 = new HashMap<>();
         postData2.put("data_bpm", bpm);
