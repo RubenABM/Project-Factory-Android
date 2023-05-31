@@ -2,6 +2,7 @@ package com.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.myapplication.MapFragment.endDateNtime;
 import static com.myapplication.TinyWebServer.endTripFlag;
 import static com.myapplication.TinyWebServer.startTripFlag;
 import static com.myapplication.MapFragment.startDateNtime;
@@ -64,7 +65,6 @@ public class StartActivity extends AppCompatActivity {
 
     private Runnable checkFallRunnable;
     public static boolean fallFlag = false;
-    public static int endDateNtime;
 
     //call--------------------------
     private static final int NOTIFICATION_ID = 1;
@@ -93,6 +93,11 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        //IntentFilter filter = new IntentFilter("CANCEL_PHONE_CALL_ACTION");
+        //LocalBroadcastManager.getInstance(this).registerReceiver(cancelCallReceiver, filter);
+        //showNotification();
+        //schedulePhoneCall();
 
         checkFallRunnable = new Runnable() {
             @Override
@@ -153,7 +158,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //initiate mysqlite
-                //dbHandler = new DatabaseHelper(StartActivity.this);
+                dbHandler = new DatabaseHelper(StartActivity.this);
                 //start writing the coordenates from esp32 to dataholder
                 startTripFlag = true;
                 endTripFlag = false;
@@ -296,9 +301,6 @@ public class StartActivity extends AppCompatActivity {
         endTripFlag = true; //stops the tinywebserver from accepting POST requests on /test url
         //take the polyline and send it to the aws database
         String rname = String.valueOf(startDateNtime);
-        String endDnT = String.valueOf((int) (System.currentTimeMillis() / 1000));
-        Log.d(TAG, "endDnT");
-        Log.d(TAG, endDnT);
         Map<String, String> postData = new HashMap<>();
         for (LatLng latLng : latLngList) {
             // Access each LatLng object
@@ -353,19 +355,19 @@ public class StartActivity extends AppCompatActivity {
         String bpm = "";
         String temp = String.valueOf(temperature);
         String hum = String.valueOf(humidity);
+        String endDnT = String.valueOf(endDateNtime);
 
         Map<String, String> postData2 = new HashMap<>();
         postData2.put("data_bpm", bpm);
         postData2.put("data_temp", temp+"°C");
         postData2.put("data_hum", hum+"%");
-        postData2.put("data_starttime", rname);
-        postData2.put("data_endtime", endDnT);
+        postData2.put("data_startTime", rname);
+        postData2.put("data_endTime", endDnT);
         postData2.put("data_user_id", iduser);
         postData2.put("data_route_id", idroute);
         PostMethod task2 = new PostMethod(postData2);
         task2.execute("http://35.176.222.11:5000/users/insertnewdata");
         Toast.makeText(this, "Trip was saved!", Toast.LENGTH_SHORT).show();
-        startTripFlag = false;
     }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
