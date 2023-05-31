@@ -72,7 +72,7 @@ public class StartActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
     private static final long CALL_DELAY_MS = 10000; // 10 seconds
 
-    public String phone = "915396414";
+    public String phone = "x";
 
     public Handler handler2 = new Handler();
     public Runnable callRunnable = new Runnable() {
@@ -430,13 +430,13 @@ public class StartActivity extends AppCompatActivity {
         callIntent.setData(Uri.parse("tel:" + phone)); // Replace PHONE_NUMBER with the desired phone number
         //sendMessage(phone, "A pessoa caiu! - Localização: (" + lat + "," + lon + ")");
         //https://www.google.com/maps/dir/[latitude1],[longitude1]
-        sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/38.7074335,-9.1528907");
-        //String lat = DataHolder.getInstance().getDataMap().get("gpslat");
-        //String lon = DataHolder.getInstance().getDataMap().get("gpslong");
-        //String urlNot = "Pessoa caiu! - Localização: https://www.google.com/maps/dir/"+ lat + "," + lon;
-        //System.out.print("urlNot:");
-        //System.out.println(urlNot);
-        //sendMessage(phone, urlNot);
+        //sendMessage(phone, "Pessoa caiu! - Localização: https://www.google.com/maps/dir/38.7074335,-9.1528907");
+        String lat = DataHolder.getInstance().getDataMap().get("gpslat");
+        String lon = DataHolder.getInstance().getDataMap().get("gpslong");
+        String urlNot = "Pessoa caiu! - https://www.google.com/maps/dir/"+ lat + "," + lon;
+        System.out.print("urlNot:");
+        System.out.println(urlNot);
+        sendMessage(phone, urlNot);
         startActivity(callIntent);
     }
 
